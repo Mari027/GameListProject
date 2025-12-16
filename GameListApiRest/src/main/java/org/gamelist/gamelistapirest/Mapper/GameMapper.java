@@ -1,0 +1,58 @@
+package org.gamelist.gamelistapirest.Mapper;
+
+import org.gamelist.gamelistapirest.DTO.GamesDTOs.CustomGameCreationDTO;
+import org.gamelist.gamelistapirest.DTO.GamesDTOs.GameResponseDTO;
+import org.gamelist.gamelistapirest.DTO.GamesDTOs.GameSummaryDTO;
+import org.gamelist.gamelistapirest.Entities.Game;
+import org.gamelist.gamelistapirest.Entities.User;
+import org.springframework.stereotype.Component;
+
+@Component
+public class GameMapper {
+    public Game toEntity(CustomGameCreationDTO dto, User user){
+        Game game = new Game();
+        game.setTitle(dto.getTitle());
+        game.setDescription(dto.getDescription());
+        game.setReleaseDate(dto.getReleaseDate());
+        game.setDeveloper(dto.getDeveloper());
+        game.setImageUrl(dto.getImageUrl());
+
+        game.setCustom(true);
+        game.setCreatedBy(user);
+        return game;
+    }
+
+    public Game toEntityFromApi(CustomGameCreationDTO dto, User user){
+        Game game = new Game();
+        game.setTitle(dto.getTitle());
+        game.setDescription(dto.getDescription());
+        game.setReleaseDate(dto.getReleaseDate());
+        game.setDeveloper(dto.getDeveloper());
+        game.setImageUrl(dto.getImageUrl());
+
+        game.setCustom(false);
+        game.setCreatedBy(null);
+        return game;
+    }
+
+    public GameResponseDTO toResponseDTO(Game game){
+        return new GameResponseDTO(
+                game.getId(),
+                game.getTitle(),
+                game.getDescription(),
+                game.getReleaseDate(),
+                game.getDeveloper(),
+                game.getImageUrl(),
+                game.isCustom()
+        );
+    }
+
+    public GameSummaryDTO toSummaryDTO(Game game){
+        return new GameSummaryDTO(
+                game.getId(),
+                game.getTitle(),
+                game.getImageUrl()
+        );
+    }
+
+}

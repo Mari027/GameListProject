@@ -32,7 +32,7 @@ public class UserGames {
 
     @ManyToOne
     @JoinColumn(name = "game_id")
-    private Games game;
+    private Game game;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable=false)

@@ -4,13 +4,23 @@ import org.gamelist.gamelistapirest.DTO.UserDTOs.UserCreationDTO;
 import org.gamelist.gamelistapirest.DTO.UserDTOs.UserResponseDTO;
 import org.gamelist.gamelistapirest.DTO.UserDTOs.UserUpdateDTO;
 
+import java.util.List;
+
 public interface UserService {
 
-    UserResponseDTO createUser(UserCreationDTO user);
-    UserResponseDTO updateUser(UserUpdateDTO user);
-    void deleteUser(Long userId);
+    // CREATE
+    UserResponseDTO createUser(UserCreationDTO request);
 
-    UserResponseDTO getUser(Long userId);
+    // READ
+    UserResponseDTO getUserById(Long id);
+    List<UserResponseDTO> getAllUsers();
+    UserResponseDTO getUserByUsername(String username);
+
+    // UPDATE
+    UserResponseDTO updateUser(Long id, UserUpdateDTO request);
+
+    // DELETE
+    void deleteUser(Long id);
 
 
 }

@@ -1,6 +1,6 @@
 package org.gamelist.gamelistapirest.Repository;
 
-import org.gamelist.gamelistapirest.Entities.Games;
+import org.gamelist.gamelistapirest.Entities.Game;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface GamesRepository extends JpaRepository<Games, Long> {
-    Optional<Games> findByTitle(String title);
+public interface GamesRepository extends JpaRepository<Game, Long> {
+    Optional<Game> findByTitle(String title);
 
-    List<Games> findByDeveloper(String developer);
+    List<Game> findByDeveloper(String developer);
 
-    List<Games> findByReleaseDate(LocalDate releaseDate);
+    List<Game> findByReleaseDate(LocalDate releaseDate);
 
     boolean existsByTitle(String title);
     boolean existsByDeveloper(String developer);

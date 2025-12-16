@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 //Nos genera setters,getters,equals...
 @Data
-public class GameCreationDTO {
+public class CustomGameUpdateDTO {
     private String title;
     private String description;
     private LocalDate releaseDate;

@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Getter
 @Entity
 @Table(name="games")
-public class Games {
+public class Game {
     @Id
     //Esto equivale a tener en la BD AutoIncrement
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,5 +36,11 @@ public class Games {
     private String imageUrl;
 
     //Es por si el juego lo ha añadido el usuario manualmente
-    private Long customGameId;
+    @Column(name = "is_custom", nullable = false)
+    private boolean custom;
+
+    @ManyToOne
+    @JoinColumn(name = "created_by_user_id",nullable = true)
+    private User createdBy;
+
 }
