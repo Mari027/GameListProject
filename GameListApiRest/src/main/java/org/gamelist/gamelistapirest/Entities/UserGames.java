@@ -1,10 +1,7 @@
 package org.gamelist.gamelistapirest.Entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.gamelist.gamelistapirest.Enums.GameStatus;
 
 import java.time.LocalDate;
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(
         name = "user_games",

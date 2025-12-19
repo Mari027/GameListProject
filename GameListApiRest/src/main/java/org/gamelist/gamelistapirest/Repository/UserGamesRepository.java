@@ -20,9 +20,14 @@ public interface UserGamesRepository extends JpaRepository<UserGames, Long> {
      * 2 - Juego de usuario según su ID
      * 3 - Juegos según el rating
      * */
+
     List<UserGames> findByUserIdAndStatus(Long userId, GameStatus status);
+
+    //Metodo para validar que el usuario no tiene ese juego en la lista
     Optional<UserGames> findByUserIdAndGameId(Long userId, Long gameId);
     List<UserGames> findByUserIdAndRating(Long userId, Integer rating);
+
+    void deleteByUserIdAndGameId(Long userId, Long gameId);
 
     boolean existsByUserIdAndGameId(Long userId, Long gameId);
 

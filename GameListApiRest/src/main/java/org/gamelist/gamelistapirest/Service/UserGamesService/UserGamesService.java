@@ -1,13 +1,12 @@
 package org.gamelist.gamelistapirest.Service.UserGamesService;
 
-import org.gamelist.gamelistapirest.DTO.GamesDTOs.CustomGameUpdateDTO;
 import org.gamelist.gamelistapirest.DTO.UserGamesDTOs.UserGamesRequestDTO;
 import org.gamelist.gamelistapirest.DTO.UserGamesDTOs.UserGamesResponseDTO;
 import org.gamelist.gamelistapirest.DTO.UserGamesDTOs.UserGamesUpdateRequestDTO;
 import org.gamelist.gamelistapirest.Enums.GameStatus;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface UserGamesService {
 
@@ -15,12 +14,12 @@ public interface UserGamesService {
     UserGamesResponseDTO addGameToUserList(Long userId, UserGamesRequestDTO requestDTO);
 
     //READ
-    UserGamesResponseDTO getUserGamesByUserId(Long userId);
-    UserGamesResponseDTO getUserGamesByReleaseDate(Long userId, LocalDate releaseDate);
-    UserGamesResponseDTO getUserGamesByStatus(Long userId, GameStatus status);
+    List<UserGamesResponseDTO> getUserGamesByUserId(Long userId);
+    List<UserGamesResponseDTO> getUserGamesByReleaseDate(Long userId, LocalDate releaseDate);
+    List<UserGamesResponseDTO> getUserGamesByStatus(Long userId, GameStatus status);
 
     //UPDATE
-    UserGamesResponseDTO updateUserGame(Long userGameId, UserGamesUpdateRequestDTO requestDTO);
+    UserGamesResponseDTO updateUserGame(Long userId,Long gameId, UserGamesUpdateRequestDTO requestDTO);
 
     //DELETE
     void removeGameFromUserList(Long userId, Long gameId);

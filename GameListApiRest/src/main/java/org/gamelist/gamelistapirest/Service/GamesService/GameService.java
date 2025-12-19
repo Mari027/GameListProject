@@ -3,6 +3,7 @@ package org.gamelist.gamelistapirest.Service.GamesService;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.CustomGameCreationDTO;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.CustomGameUpdateDTO;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.GameResponseDTO;
+import org.gamelist.gamelistapirest.DTO.UserDTOs.UserResponseDTO;
 import org.gamelist.gamelistapirest.Entities.User;
 
 import java.time.LocalDate;
@@ -11,7 +12,7 @@ import java.util.List;
 public interface GameService {
 
     //CREATE
-    GameResponseDTO createCustomGame(CustomGameCreationDTO gameCreationDTO, User user);
+    GameResponseDTO createCustomGame(CustomGameCreationDTO gameCreationDTO, Long user);
 
     //READ
     GameResponseDTO getGameById(Long id);
@@ -25,7 +26,7 @@ public interface GameService {
     //UPDATE
     GameResponseDTO updateGame(Long id, CustomGameUpdateDTO gameUpdateDTO);
     //DELETE
-    void deleteCustomGame(Long gameId, Long userId);
+    void deleteCustomGame(Long gameId);
 
 
 }

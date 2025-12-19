@@ -1,6 +1,7 @@
 package org.gamelist.gamelistapirest.Mapper;
 
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.CustomGameCreationDTO;
+import org.gamelist.gamelistapirest.DTO.GamesDTOs.CustomGameUpdateDTO;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.GameResponseDTO;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.GameSummaryDTO;
 import org.gamelist.gamelistapirest.Entities.Game;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class GameMapper {
-    public Game toEntity(CustomGameCreationDTO dto, User user){
+    public Game toEntity(CustomGameCreationDTO dto, Long user){
         Game game = new Game();
         game.setTitle(dto.getTitle());
         game.setDescription(dto.getDescription());
@@ -45,6 +46,14 @@ public class GameMapper {
                 game.getImageUrl(),
                 game.isCustom()
         );
+    }
+    public Game updateEntity(CustomGameUpdateDTO dto, Game game){
+        game.setTitle(dto.getTitle());
+        game.setDescription(dto.getDescription());
+        game.setReleaseDate(dto.getReleaseDate());
+        game.setDeveloper(dto.getDeveloper());
+        game.setImageUrl(dto.getImageUrl());
+        return game;
     }
 
     public GameSummaryDTO toSummaryDTO(Game game){
