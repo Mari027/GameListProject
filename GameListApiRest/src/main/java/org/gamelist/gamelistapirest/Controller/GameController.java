@@ -6,9 +6,9 @@ import org.gamelist.gamelistapirest.DTO.GamesDTOs.CustomGameCreationDTO;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.CustomGameUpdateDTO;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.GameResponseDTO;
 import org.gamelist.gamelistapirest.DTO.UserDTOs.UserResponseDTO;
-import org.gamelist.gamelistapirest.Entities.User;
-import org.gamelist.gamelistapirest.Service.GamesService.GameServiceImpl;
-import org.gamelist.gamelistapirest.Service.UserService.UserServiceImpl;
+import org.gamelist.gamelistapirest.Service.GamesService.GameService;
+import org.gamelist.gamelistapirest.Service.UserService.UserService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +18,9 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/game")
+@RequestMapping("/api/games")
 public class GameController {
-    private final GameServiceImpl gameService;
-    private final UserServiceImpl userService;
+    private final GameService gameService;
 
     //ENDPOINTS DE LECTURA
     @GetMapping("/{gameId}")
@@ -30,29 +29,19 @@ public class GameController {
         return ResponseEntity.ok(game);
     }
 
-    @GetMapping("/allGames")
-    public ResponseEntity<List<GameResponseDTO>> getAllGames() {
-        List<GameResponseDTO> game = gameService.getAllGames();
+    @GetMapping()
+    public ResponseEntity<List<GameResponseDTO>> getAllGames(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate releaseDate,
+            @RequestParam(required = false) String developer
+    ) {
+        List<GameResponseDTO> game = gameService.getAllGames(title, releaseDate, developer);
         return ResponseEntity.ok(game);
     }
 
-    @GetMapping("/{developer}")
-    public ResponseEntity<List<GameResponseDTO>> getAllGamesByDeveloper(@PathVariable String developer) {
-        List<GameResponseDTO> gamesByDeveloper = gameService.getGamesByDeveloper(developer);
-        return ResponseEntity.ok(gamesByDeveloper);
-    }
-
-    @GetMapping("/{releaseDate}")
-    public ResponseEntity<List<GameResponseDTO>> getAllGamesByReleaseDate(@PathVariable LocalDate releaseDate) {
-        List<GameResponseDTO> gamesByReleaseDate = gameService.getGamesByReleaseDate(releaseDate);
-        return  ResponseEntity.ok(gamesByReleaseDate);
-    }
-
     //ENDPOINTS DE CREACIÓN
-
-    @PostMapping("/{userId}/games")
+    @PostMapping("/custom/{userId}")
     public ResponseEntity<GameResponseDTO> createCustomGame(@RequestBody CustomGameCreationDTO  customGameCreationDTO,@PathVariable Long userId) {
-        UserResponseDTO user = userService.getUserById(userId);
         GameResponseDTO createdGame = gameService.createCustomGame(customGameCreationDTO, userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdGame);
     }
@@ -61,7 +50,7 @@ public class GameController {
     @PutMapping("/{gameId}")
     public ResponseEntity<GameResponseDTO> updateGame(@PathVariable Long gameId, @RequestBody CustomGameUpdateDTO customGameUpdateDTO) {
         GameResponseDTO game = gameService.updateGame(gameId,customGameUpdateDTO);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(game);
+        return ResponseEntity.ok(game);
     }
 
     //ENDPOINT DE DELETE

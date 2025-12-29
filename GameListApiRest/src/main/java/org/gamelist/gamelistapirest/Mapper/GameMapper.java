@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class GameMapper {
-    public Game toEntity(CustomGameCreationDTO dto, Long user){
+    public Game toEntity(CustomGameCreationDTO dto, User user){
         Game game = new Game();
         game.setTitle(dto.getTitle());
         game.setDescription(dto.getDescription());

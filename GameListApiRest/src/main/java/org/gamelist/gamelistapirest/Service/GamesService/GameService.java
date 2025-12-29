@@ -12,16 +12,12 @@ import java.util.List;
 public interface GameService {
 
     //CREATE
-    GameResponseDTO createCustomGame(CustomGameCreationDTO gameCreationDTO, Long user);
+    GameResponseDTO createCustomGame(CustomGameCreationDTO gameCreationDTO, Long userId);
 
     //READ
     GameResponseDTO getGameById(Long id);
 
-    List<GameResponseDTO> getAllGames();
-
-    List<GameResponseDTO> getGamesByDeveloper(String developer);
-
-    List<GameResponseDTO> getGamesByReleaseDate(LocalDate releaseDate);
+    List<GameResponseDTO> getAllGames(String title,LocalDate releaseDate, String developer);
 
     //UPDATE
     GameResponseDTO updateGame(Long id, CustomGameUpdateDTO gameUpdateDTO);

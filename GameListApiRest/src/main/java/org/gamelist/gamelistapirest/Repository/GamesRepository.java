@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface GamesRepository extends JpaRepository<Game, Long> {
+
     Optional<Game> findByTitle(String title);
 
     List<Game> findByDeveloper(String developer);

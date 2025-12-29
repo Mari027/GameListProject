@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.gamelist.gamelistapirest.DTO.UserDTOs.UserCreationDTO;
 import org.gamelist.gamelistapirest.DTO.UserDTOs.UserResponseDTO;
 import org.gamelist.gamelistapirest.DTO.UserDTOs.UserUpdateDTO;
-import org.gamelist.gamelistapirest.Service.UserService.UserServiceImpl;
+import org.gamelist.gamelistapirest.Service.UserService.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,24 +14,24 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class UserController {
 
-    private final UserServiceImpl userService;
+    private final UserService userService;
 
     //ENDPOINTS PARA METODOS DE SOLO LECTURA
-    @GetMapping("/{userId}")
+    @GetMapping("/id/{userId}")
     public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long userId) {
         UserResponseDTO user = userService.getUserById(userId);
         return ResponseEntity.ok(user);
     }
-    @GetMapping("/usuarios")
+    @GetMapping()
     public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @GetMapping("/{username}")
-    public ResponseEntity<UserResponseDTO> getUserByUsername(@RequestParam String username) {
+    @GetMapping("/username/{username}")
+    public ResponseEntity<UserResponseDTO> getUserByUsername(@PathVariable String username) {
         UserResponseDTO user = userService.getUserByUsername(username);
         return ResponseEntity.ok(user);
     }
@@ -47,7 +47,7 @@ public class UserController {
     @PutMapping("/{userId}")
     public ResponseEntity<UserResponseDTO> updateUser(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable Long userId) {
         UserResponseDTO user = userService.updateUser(userId, userUpdateDTO);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(user);
+        return ResponseEntity.ok(user);
     }
 
     //ENDPOINT DE DELETE

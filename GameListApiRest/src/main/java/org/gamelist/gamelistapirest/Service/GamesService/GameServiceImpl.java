@@ -12,6 +12,7 @@ import org.gamelist.gamelistapirest.Exceptions.JuegoNoEncontradoException;
 import org.gamelist.gamelistapirest.Exceptions.UsuarioNoEncontradoException;
 import org.gamelist.gamelistapirest.Mapper.GameMapper;
 import org.gamelist.gamelistapirest.Repository.GamesRepository;
+import org.gamelist.gamelistapirest.Repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,13 +23,17 @@ import java.util.List;
 public class GameServiceImpl implements GameService{
 
     private final GamesRepository gamesRepository;
+    private final UserRepository userRepository;
     private final GameMapper gameMapper;
 
     @Override
-    public GameResponseDTO createCustomGame(CustomGameCreationDTO gameCreationDTO, Long user) {
+    public GameResponseDTO createCustomGame(CustomGameCreationDTO gameCreationDTO, Long userId) {
         if(gameCreationDTO.getTitle() == null){
             throw new DatosNoCorrectosException("Campo Obligatorio");
         }
+
+        User user = userRepository.findById(userId).orElseThrow(() -> new UsuarioNoEncontradoException("Usuario no encontrado"));
+
         Game game = gameMapper.toEntity(gameCreationDTO, user);
 
         Game saved = gamesRepository.save(game);
@@ -43,30 +48,32 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
-    public List<GameResponseDTO> getAllGames() {
-        return gamesRepository.findAll()
+    public List<GameResponseDTO> getAllGames(String title, LocalDate releaseDate, String developer) {
+
+        List<Game> games = gamesRepository.findAll();
+
+        if(title != null){
+            games = games.stream()
+                    .filter(game->game.getTitle() != null && game.getTitle().equals(title))
+                    .toList();
+        }
+        if(releaseDate != null){
+            games = games.stream()
+                    .filter(game->game.getReleaseDate() != null && game.getReleaseDate().equals(releaseDate))
+                    .toList();
+        }
+        if(developer != null){
+            games = games.stream()
+                    .filter(game->game.getDeveloper() != null && game.getDeveloper().equals(developer))
+                    .toList();
+        }
+
+        return games
                 .stream()
                 .map(gameMapper::toResponseDTO)
                 .toList();
     }
 
-    @Override
-    public List<GameResponseDTO> getGamesByDeveloper(String developer) {
-        return gamesRepository.findAll()
-                .stream()
-                .map(gameMapper::toResponseDTO)
-                .filter(gameDTO -> gameDTO.getDeveloper().equals(developer))
-                .toList();
-    }
-
-    @Override
-    public List<GameResponseDTO> getGamesByReleaseDate(LocalDate releaseDate) {
-        return gamesRepository.findAll()
-                .stream()
-                .map(gameMapper::toResponseDTO)
-                .filter(gameDTO -> gameDTO.getReleaseDate().equals(releaseDate))
-                .toList();
-    }
 
     @Override
     public GameResponseDTO updateGame(Long id, CustomGameUpdateDTO gameUpdateDTO) {

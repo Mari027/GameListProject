@@ -4,6 +4,7 @@ import org.gamelist.gamelistapirest.DTO.UserGamesDTOs.UserGamesRequestDTO;
 import org.gamelist.gamelistapirest.DTO.UserGamesDTOs.UserGamesResponseDTO;
 import org.gamelist.gamelistapirest.DTO.UserGamesDTOs.UserGamesUpdateRequestDTO;
 import org.gamelist.gamelistapirest.Enums.GameStatus;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,9 +15,7 @@ public interface UserGamesService {
     UserGamesResponseDTO addGameToUserList(Long userId, UserGamesRequestDTO requestDTO);
 
     //READ
-    List<UserGamesResponseDTO> getUserGamesByUserId(Long userId);
-    List<UserGamesResponseDTO> getUserGamesByReleaseDate(Long userId, LocalDate releaseDate);
-    List<UserGamesResponseDTO> getUserGamesByStatus(Long userId, GameStatus status);
+    List<UserGamesResponseDTO> getUserGames(Long userId, LocalDate releaseDate, GameStatus gameStatus);
 
     //UPDATE
     UserGamesResponseDTO updateUserGame(Long userId,Long gameId, UserGamesUpdateRequestDTO requestDTO);

@@ -57,38 +57,37 @@ public class UserGamesServiceImpl implements UserGamesService {
         return userGamesMapper.toUserGamesResponseDTO(userGames);
     }
 
-    @Override
-    public List<UserGamesResponseDTO> getUserGamesByUserId(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(()-> new UsuarioNoEncontradoException("Usuario no encontrado"));
 
-        return userGamesRepository.findByUserId(userId)
+    @Override
+    public List<UserGamesResponseDTO> getUserGames(Long userId, LocalDate releaseDate, GameStatus status) {
+
+        userRepository.findById(userId)
+                .orElseThrow(() -> new UsuarioNoEncontradoException("Usuario no encontrado"));
+
+
+        List<UserGames> userGamesList = userGamesRepository.findByUserId(userId);
+
+
+        if (releaseDate != null) {
+            userGamesList = userGamesList.stream()
+                    .filter(ug -> ug.getGame().getReleaseDate() != null &&
+                            ug.getGame().getReleaseDate().equals(releaseDate))
+                    .toList();
+        }
+
+        if (status != null) {
+            userGamesList = userGamesList.stream()
+                    .filter(ug -> ug.getStatus().equals(status))
+                    .toList();
+        }
+
+
+        return userGamesList
                 .stream()
                 .map(userGamesMapper::toUserGamesResponseDTO)
                 .toList();
     }
 
-    @Override
-    public List<UserGamesResponseDTO> getUserGamesByReleaseDate(Long userId, LocalDate releaseDate) {
-        User user = userRepository.findById(userId).orElseThrow(()-> new UsuarioNoEncontradoException("Usuario no encontrado"));
-
-        return userGamesRepository.findByUserId(userId)
-                .stream()
-                .filter(userGame -> userGame.getGame().getReleaseDate() != null
-                        && userGame.getGame().getReleaseDate().equals(releaseDate))
-                .map(userGamesMapper::toUserGamesResponseDTO)
-                .toList();
-    }
-
-    @Override
-    public List<UserGamesResponseDTO> getUserGamesByStatus(Long userId, GameStatus status) {
-        User user = userRepository.findById(userId).orElseThrow(()-> new UsuarioNoEncontradoException("Usuario no encontrado"));
-
-        return userGamesRepository.findByUserId(userId)
-                .stream()
-                .filter(userGame -> userGame.getStatus().equals(status))
-                .map(userGamesMapper::toUserGamesResponseDTO)
-                .toList();
-    }
 
     @Transactional
     @Override
