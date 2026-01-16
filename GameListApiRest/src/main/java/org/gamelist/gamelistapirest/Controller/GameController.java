@@ -40,7 +40,7 @@ public class GameController {
     }
 
     //ENDPOINTS DE CREACIÓN
-    @PostMapping("/custom/{userId}")
+    @PostMapping("/user-create/{userId}")
     public ResponseEntity<GameResponseDTO> createCustomGame(@RequestBody CustomGameCreationDTO  customGameCreationDTO,@PathVariable Long userId) {
         GameResponseDTO createdGame = gameService.createCustomGame(customGameCreationDTO, userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdGame);

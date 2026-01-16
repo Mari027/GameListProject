@@ -54,7 +54,7 @@ public class GameServiceImpl implements GameService{
 
         if(title != null){
             games = games.stream()
-                    .filter(game->game.getTitle() != null && game.getTitle().equals(title))
+                    .filter(game->game.getTitle() != null && game.getTitle().contains(title))
                     .toList();
         }
         if(releaseDate != null){
@@ -64,7 +64,7 @@ public class GameServiceImpl implements GameService{
         }
         if(developer != null){
             games = games.stream()
-                    .filter(game->game.getDeveloper() != null && game.getDeveloper().equals(developer))
+                    .filter(game->game.getDeveloper() != null && game.getDeveloper().contains(developer))
                     .toList();
         }
 

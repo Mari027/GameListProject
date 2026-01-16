@@ -18,23 +18,23 @@ public class GameMapper {
         game.setDeveloper(dto.getDeveloper());
         game.setImageUrl(dto.getImageUrl());
 
-        game.setCustom(true);
+        game.setUserCreated(true);
         game.setCreatedBy(user);
         return game;
     }
 
-    public Game toEntityFromApi(CustomGameCreationDTO dto, User user){
-        Game game = new Game();
-        game.setTitle(dto.getTitle());
-        game.setDescription(dto.getDescription());
-        game.setReleaseDate(dto.getReleaseDate());
-        game.setDeveloper(dto.getDeveloper());
-        game.setImageUrl(dto.getImageUrl());
-
-        game.setCustom(false);
-        game.setCreatedBy(null);
-        return game;
-    }
+//    public Game toEntityFromApi(CustomGameCreationDTO dto, User user){
+//        Game game = new Game();
+//        game.setTitle(dto.getTitle());
+//        game.setDescription(dto.getDescription());
+//        game.setReleaseDate(dto.getReleaseDate());
+//        game.setDeveloper(dto.getDeveloper());
+//        game.setImageUrl(dto.getImageUrl());
+//
+//        game.setCustom(false);
+//        game.setCreatedBy(null);
+//        return game;
+//    }
 
     public GameResponseDTO toResponseDTO(Game game){
         return new GameResponseDTO(
@@ -44,7 +44,7 @@ public class GameMapper {
                 game.getReleaseDate(),
                 game.getDeveloper(),
                 game.getImageUrl(),
-                game.isCustom()
+                game.isUserCreated()
         );
     }
     public Game updateEntity(CustomGameUpdateDTO dto, Game game){
