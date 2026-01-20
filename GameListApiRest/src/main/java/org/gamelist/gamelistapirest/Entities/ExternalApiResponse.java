@@ -17,7 +17,9 @@ public class ExternalApiResponse {
     private String released;
     private String background_image;
     private List<Developer> developers;
-
+    @Setter
+    @Getter
+    @Builder
     public static class Developer {
         private Long id;
         private String name;
