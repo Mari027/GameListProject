@@ -1,6 +1,7 @@
 package org.gamelist.gamelistapirest.Service.ExternalGamesService;
 
 import org.gamelist.gamelistapirest.DTO.ExternalGameDTOs.ExternalGameResponseDTO;
+import org.gamelist.gamelistapirest.DTO.ExternalGameDTOs.ExternalGameSummaryDTO;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.CustomGameCreationDTO;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.CustomGameUpdateDTO;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.GameResponseDTO;
@@ -12,6 +13,7 @@ public interface IExternalGamesService {
 
     //READ
     ExternalGameResponseDTO getGameById(Long id);
-    List<ExternalGameResponseDTO> getAllGames(String name, LocalDate released, String developer);
+    List<ExternalGameSummaryDTO> getAllGames(int page, int size);
+    List<ExternalGameSummaryDTO> getCarouselGames();
 
 }

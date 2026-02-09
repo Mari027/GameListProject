@@ -1,12 +1,15 @@
 package org.gamelist.gamelistapirest.Mapper;
 
 import org.gamelist.gamelistapirest.DTO.ExternalGameDTOs.ExternalGameResponseDTO;
+import org.gamelist.gamelistapirest.DTO.ExternalGameDTOs.ExternalGameSummaryDTO;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.GameResponseDTO;
 import org.gamelist.gamelistapirest.Entities.ExternalApiResponse;
 import org.gamelist.gamelistapirest.Entities.Game;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
+@Component
 public class ExternalGameMapper {
     public ExternalGameResponseDTO toResponseDTO(ExternalApiResponse response) {
 
@@ -28,5 +31,14 @@ public class ExternalGameMapper {
 
         externalGameResponseDTO.setReleased(releaseDate);
         return externalGameResponseDTO;
+    }
+    public ExternalGameSummaryDTO toSummaryResponseDTO(ExternalApiResponse response) {
+
+        ExternalGameSummaryDTO externalGameSummaryDTO = new ExternalGameSummaryDTO();
+        externalGameSummaryDTO.setName(response.getName());
+        externalGameSummaryDTO.setBackgroundImage(response.getBackground_image());
+        externalGameSummaryDTO.setDescription_raw(response.getDescription_raw());
+
+        return externalGameSummaryDTO;
     }
 }

@@ -5,5 +5,6 @@ import lombok.Data;
 @Data
 public class ExternalGameSummaryDTO {
     private String name;
+    private String description_raw;
     private String backgroundImage;
 }

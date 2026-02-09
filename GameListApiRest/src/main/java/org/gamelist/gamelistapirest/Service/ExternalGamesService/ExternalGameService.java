@@ -1,19 +1,26 @@
 package org.gamelist.gamelistapirest.Service.ExternalGamesService;
 
+import lombok.RequiredArgsConstructor;
 import org.gamelist.gamelistapirest.DTO.ExternalGameDTOs.ExternalGameResponseDTO;
+import org.gamelist.gamelistapirest.DTO.ExternalGameDTOs.ExternalGameSummaryDTO;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.GameResponseDTO;
+import org.gamelist.gamelistapirest.Entities.ExternalApiListResponse;
 import org.gamelist.gamelistapirest.Entities.ExternalApiResponse;
+import org.gamelist.gamelistapirest.Exceptions.CatalogoNoDisponible;
 import org.gamelist.gamelistapirest.Exceptions.JuegoNoEncontradoException;
 import org.gamelist.gamelistapirest.Mapper.ExternalGameMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class ExternalGameService implements IExternalGamesService {
 
-    private ExternalGameMapper externalGameMapper;
+    private final ExternalGameMapper externalGameMapper;
     private final RestTemplate restTemplate = new RestTemplate();
 
     @Value("${external.api.key}")
@@ -25,7 +32,10 @@ public class ExternalGameService implements IExternalGamesService {
 
     @Override
     public ExternalGameResponseDTO getGameById(Long id) {
-        String url = apiUrl + "/" + id + "?key=" + apiKey;
+        String url =
+                apiUrl
+                + "/" + id
+                + "?key=" + apiKey;
 
         ExternalApiResponse response = restTemplate.getForObject(url, ExternalApiResponse.class);
 
@@ -39,17 +49,32 @@ public class ExternalGameService implements IExternalGamesService {
 
     //Para mostrar todos lo juegos se debe hacer páginación
     @Override
-    public List<ExternalGameResponseDTO> getAllGames(String name, LocalDate released, String developer) {
-//        String url = apiUrl + "?key=" + apiKey;
-//
-//        List<ExternalApiResponse> response = restTemplate.getForObject(url, ExternalApiResponse.class);
-//
-//        if(response == null){
-//            throw new JuegoNoEncontradoException("La lista de juegos no esta disponible");
-//        }
-//
-//
-//        return externalGameMapper.toResponseDTO(response);
-        return null;
+    public List<ExternalGameSummaryDTO> getAllGames(int page, int size) {
+        String url = apiUrl
+                + "?key=" + apiKey
+                + "&page=" + page
+                + "&page_size=" + size;
+        ExternalApiListResponse response = restTemplate.getForObject(url, ExternalApiListResponse.class);
+        if (response == null || response.getResults() == null) {
+            throw new CatalogoNoDisponible("Catálogo no disponible");
+        }
+        return response.getResults().stream().map(externalGameMapper::toSummaryResponseDTO).toList();
     }
+    //Para el carousel de juegos (LOGIN)
+    @Override
+    public List<ExternalGameSummaryDTO> getCarouselGames() {
+        String url = apiUrl
+                + "?key=" + apiKey
+                + "&page=1&page_size=5";
+
+        ExternalApiListResponse response =
+                restTemplate.getForObject(url, ExternalApiListResponse.class);
+
+        return response.getResults()
+                .stream()
+                .map(externalGameMapper::toSummaryResponseDTO)
+                .toList();
+    }
+
+
 }
