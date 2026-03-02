@@ -27,19 +27,13 @@ public class UserGamesMapper {
         return userGames;
     }
 
-    public UserGames updateEntity(UserGamesUpdateRequestDTO dto, User user, Game game) {
-        UserGames userGames = new UserGames();
-
-        userGames.setUser(user);
-        userGames.setGame(game);
+    public void updateEntity(UserGamesUpdateRequestDTO dto, UserGames userGames) {
         userGames.setStatus(dto.getGameStatus());
         userGames.setRating(dto.getRating());
         userGames.setHoursPlayed(dto.getHoursPlayed());
         userGames.setStartedAt(dto.getStartedAt());
         userGames.setCompletedAt(dto.getCompletedAt());
         userGames.setReview(dto.getReview());
-
-        return userGames;
     }
 
     public UserGamesResponseDTO toUserGamesResponseDTO(UserGames userGames) {

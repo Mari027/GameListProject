@@ -93,12 +93,24 @@ public class UserGamesServiceImpl implements UserGamesService {
     @Override
     public UserGamesResponseDTO updateUserGame(Long userId,Long gameId, UserGamesUpdateRequestDTO requestDTO) {
 
-        User user = userRepository.findById(userId).orElseThrow(()->new UsuarioNoEncontradoException("Usuario no encontrado"));
-        Game game = gameRepository.findById(gameId).orElseThrow(()-> new JuegoNoEncontradoException("Juego no encontrado"));
+        // Verificamos que el usuario existe
+        userRepository.findById(userId)
+                .orElseThrow(() -> new UsuarioNoEncontradoException("Usuario no encontrado"));
 
-        UserGames userGames = userGamesMapper.updateEntity(requestDTO,user,game);
+        // Verificamos que el juego existe
+        gameRepository.findById(gameId)
+                .orElseThrow(() -> new JuegoNoEncontradoException("Juego no encontrado"));
+
+        // Buscamos el juego en la lista personal del usuario
+        UserGames userGames = userGamesRepository
+                .findByUserIdAndGameId(userId, gameId)
+                .orElseThrow(() -> new JuegoNoEncontradoException("El juego no está en la lista del usuario"));
+
+        // Modificamos la entidad existente
+        userGamesMapper.updateEntity(requestDTO, userGames);
+
         UserGames updatedUserGames = userGamesRepository.save(userGames);
-        return  userGamesMapper.toUserGamesResponseDTO(updatedUserGames);
+        return userGamesMapper.toUserGamesResponseDTO(updatedUserGames);
     }
 
     @Transactional
