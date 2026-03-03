@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IExternalGameSummary } from '../interface/IExternalGameSummary';
+import { IExternalGameSummary } from '../interfaces/IExternalGameSummary';
 
 @Injectable({
   providedIn: 'root',
@@ -16,4 +16,8 @@ export class ApiService {
   getCarouselGames(): Observable<IExternalGameSummary[]> {
     return this.http.get<IExternalGameSummary[]>(`${this.apiUrl}/carousel`);
   }
+
+  login(){
+    //LLamada a la api en POST
+  } 
 }
