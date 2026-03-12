@@ -41,7 +41,7 @@ public class SecurityConfig {
                         // Endpoints públicos: no necesitan token
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/external_games/**").permitAll()
-//                        .requestMatchers("/api/users/**").permitAll()
+                        .requestMatchers("/api/users/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/v3/api-docs/**").permitAll()
                         //Lo demás, requiere de autenticación
@@ -57,7 +57,9 @@ public class SecurityConfig {
     // Se encarga de verificar las credenciales en el login
     @Bean
     public AuthenticationProvider authenticationProvider() {
-        return new DaoAuthenticationProvider(userDetailsService);
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
     }
 
     // BCrypt es el algoritmo elegido para el hash de las contraseñas

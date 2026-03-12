@@ -36,12 +36,13 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    /*
     //ENDPOINT DE CREACIÓN
     @PostMapping
     public ResponseEntity<UserResponseDTO> createUser(@RequestBody UserCreationDTO userCreationDTO) {
         UserResponseDTO user = userService.createUser(userCreationDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
-    }
+    }*/
 
     //ENDPOINT DE UPDATE
     @PutMapping("/{userId}")

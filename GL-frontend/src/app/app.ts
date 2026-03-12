@@ -1,10 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Carousel } from "./pages/login/components/carousel/carousel";
+import { Login } from "./pages/auth/login/login/login";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Carousel],
+  imports: [RouterOutlet, Login],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
