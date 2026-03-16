@@ -20,6 +20,9 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name="external_id", unique = true)
+    private Long externalId;
+
     private String title;
 
     //Define esa columna con el tipo TEXT

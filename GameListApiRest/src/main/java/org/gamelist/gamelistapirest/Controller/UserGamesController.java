@@ -5,6 +5,7 @@ import org.gamelist.gamelistapirest.DTO.UserGamesDTOs.UserGamesRequestDTO;
 import org.gamelist.gamelistapirest.DTO.UserGamesDTOs.UserGamesResponseDTO;
 import org.gamelist.gamelistapirest.DTO.UserGamesDTOs.UserGamesUpdateRequestDTO;
 import org.gamelist.gamelistapirest.Enums.GameStatus;
+import org.gamelist.gamelistapirest.Security.AuthUtils;
 import org.gamelist.gamelistapirest.Service.UserGamesService.UserGamesService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -20,34 +21,43 @@ import java.util.List;
 public class UserGamesController {
 
     private final UserGamesService userGamesService;
+    //Usamos authUtils para identificar el usuario autenticado
+    private final AuthUtils authUtils;
 
 
     //ENDPOINT ADD_GAME
-    @PostMapping("/{userId}")
-    public ResponseEntity<UserGamesResponseDTO> addGametoUserList(@PathVariable Long userId, @RequestBody UserGamesRequestDTO requestDTO) {
+    @PostMapping
+    public ResponseEntity<UserGamesResponseDTO> addGametoUserList( @RequestBody UserGamesRequestDTO requestDTO) {
+        //Recogemos el usuario autenticado y cogemos su id
+        Long userId = authUtils.getAuthenticatedUser().getId();
         UserGamesResponseDTO addedGame = userGamesService.addGameToUserList(userId,requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(addedGame);
     }
 
     //ENDPOINT DE LECTURA
-    @GetMapping("/{userId}/games")
-    public ResponseEntity<List<UserGamesResponseDTO>> getUserGames(@PathVariable Long userId,
-                                                                   @RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate releaseDate,
+    @GetMapping
+    public ResponseEntity<List<UserGamesResponseDTO>> getUserGames(@RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate releaseDate,
                                                                    @RequestParam(required = false) GameStatus gameStatus) {
+        //Recogemos el usuario autenticado y cogemos su id
+        Long userId = authUtils.getAuthenticatedUser().getId();
         List<UserGamesResponseDTO> userGames = userGamesService.getUserGames(userId, releaseDate, gameStatus);
         return ResponseEntity.ok(userGames);
     }
 
     //ENDPOINT UPDATE
-    @PutMapping("/{userId}/games/{gameId}")
-    public ResponseEntity<UserGamesResponseDTO> updateUserGames(@PathVariable Long userId, @PathVariable Long gameId, @RequestBody UserGamesUpdateRequestDTO requestDTO) {
+    @PutMapping("/games/{gameId}")
+    public ResponseEntity<UserGamesResponseDTO> updateUserGames(@PathVariable Long gameId, @RequestBody UserGamesUpdateRequestDTO requestDTO) {
+        //Recogemos el usuario autenticado y cogemos su id
+        Long userId = authUtils.getAuthenticatedUser().getId();
         UserGamesResponseDTO updatedUserGames = userGamesService.updateUserGame(userId, gameId, requestDTO);
         return ResponseEntity.ok(updatedUserGames);
     }
 
     //ENDPOINT DELETE
-    @DeleteMapping("/{userId}/games/{gameId}")
-    public ResponseEntity<Void> deleteUserGame(@PathVariable Long userId, @PathVariable Long gameId) {
+    @DeleteMapping("/games/{gameId}")
+    public ResponseEntity<Void> deleteUserGame(@PathVariable Long gameId) {
+        //Recogemos el usuario autenticado y cogemos su id
+        Long userId = authUtils.getAuthenticatedUser().getId();
         userGamesService.removeGameFromUserList(userId,gameId);
         return ResponseEntity.noContent().build();
     }

@@ -35,6 +35,7 @@ public class ExternalGameMapper {
     public ExternalGameSummaryDTO toSummaryResponseDTO(ExternalApiResponse response) {
 
         ExternalGameSummaryDTO externalGameSummaryDTO = new ExternalGameSummaryDTO();
+        externalGameSummaryDTO.setId(response.getId());
         externalGameSummaryDTO.setName(response.getName());
         externalGameSummaryDTO.setBackgroundImage(response.getBackground_image());
         externalGameSummaryDTO.setDescription_raw(response.getDescription_raw());

@@ -15,11 +15,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  //RECORDAR [] porque te devuelve lista
-  getCarouselGames(): Observable<IExternalGameSummary[]> {
-    return this.http.get<IExternalGameSummary[]>(`${this.apiUrl}external_games/carousel`);
-  }
-
+  //MÉTODOS AUTH
   login(loginRequest: ILogin): Observable<IAuthResponse>{
     //LLamada a la api en POST para login
     return this.http.post<IAuthResponse>(`${this.apiUrl}auth/login`,loginRequest);
@@ -27,5 +23,16 @@ export class ApiService {
 
   register(registerRequest: IRegister): Observable<IAuthResponse>{
     return this.http.post<IAuthResponse>(`${this.apiUrl}auth/register`,registerRequest);
+  }
+
+  //MÉTODOS API EXTERNA
+
+  getAllgames(): Observable<IExternalGameSummary[]>{
+    return this.http.get<IExternalGameSummary[]>(`${this.apiUrl}external_games`);
+  }
+  
+  getCarouselGames(): Observable<IExternalGameSummary[]> {
+    //[] porque te devuelve lista
+    return this.http.get<IExternalGameSummary[]>(`${this.apiUrl}external_games/carousel`);
   }
 }

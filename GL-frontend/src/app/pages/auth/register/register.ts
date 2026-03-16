@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { ApiService } from '../../../../core/services/api-service';
+import { ApiService } from '../../../core/services/api-service';
 import { Router } from '@angular/router';
-import { IRegister } from '../../../../core/interfaces/IRegister';
+import { IRegister } from '../../../core/interfaces/IRegister';
 
 @Component({
   selector: 'app-register',

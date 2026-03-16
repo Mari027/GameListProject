@@ -16,12 +16,14 @@ public class AuthController {
 
     private final AuthService authService;
 
+    //Endpoint Registro
     @PostMapping("/register")
     public ResponseEntity<AuthResponseDTO> register(@RequestBody RegisterRequestDTO request) {
         AuthResponseDTO response = authService.register(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    //Endpoint Login
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginRequestDTO request) {
         AuthResponseDTO response = authService.login(request);

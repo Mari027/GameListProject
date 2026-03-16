@@ -38,7 +38,7 @@ public class AuthService {
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role("ADMIN") //TODOS los usuarios creados desde la app serán usuarios normales
+                .role("USER") //TODOS los usuarios creados desde la app serán usuarios normales
                 .build();
 
         userRepository.save(user);
