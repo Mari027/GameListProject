@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface GamesRepository extends JpaRepository<Game, Long> {
 
     Optional<Game> findByTitle(String title);
+    Optional<Game> findByExternalId(Long externalId);
 
     List<Game> findByDeveloper(String developer);
 
@@ -20,4 +21,5 @@ public interface GamesRepository extends JpaRepository<Game, Long> {
     boolean existsByTitle(String title);
     boolean existsByDeveloper(String developer);
     boolean existsByReleaseDate(LocalDate releaseDate);
+
 }

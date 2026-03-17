@@ -1,5 +1,6 @@
 package org.gamelist.gamelistapirest.Mapper;
 
+import org.gamelist.gamelistapirest.DTO.ExternalGameDTOs.ExternalGameResponseDTO;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.CustomGameCreationDTO;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.CustomGameUpdateDTO;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.GameResponseDTO;
@@ -23,18 +24,19 @@ public class GameMapper {
         return game;
     }
 
-//    public Game toEntityFromApi(CustomGameCreationDTO dto, User user){
-//        Game game = new Game();
-//        game.setTitle(dto.getTitle());
-//        game.setDescription(dto.getDescription());
-//        game.setReleaseDate(dto.getReleaseDate());
-//        game.setDeveloper(dto.getDeveloper());
-//        game.setImageUrl(dto.getImageUrl());
-//
-//        game.setCustom(false);
-//        game.setCreatedBy(null);
-//        return game;
-//    }
+    public Game toEntityFromApi(ExternalGameResponseDTO dto, Long externalGameId){
+        Game game = new Game();
+        game.setExternalId(externalGameId);
+        game.setTitle(dto.getName());
+        game.setDescription(dto.getDescription_raw());
+        game.setReleaseDate(dto.getReleased());
+        game.setDeveloper(dto.getDevelopers());
+        game.setImageUrl(dto.getBackgroundImage());
+
+        game.setUserCreated(false);
+        game.setCreatedBy(null);
+        return game;
+    }
 
     public GameResponseDTO toResponseDTO(Game game){
         return new GameResponseDTO(

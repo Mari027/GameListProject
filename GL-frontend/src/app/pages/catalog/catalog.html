@@ -1,2 +1,28 @@
 <app-navbar></app-navbar>
-<p>catalog works!</p>
+<div class="catalogo">
+    @if(errorMsg){
+        <p>{{errorMsg}}</p>
+    }
+    @if(isLoading){
+        <p>Cargando...</p>
+    } @else {
+    <div class="juegos-catalogo">
+        @for(game of gameList; track game.name){
+            <div class="game-card">
+                <img [src]="game.backgroundImage" [alt]="game.name">
+                <h3>{{game.name}}</h3>
+                <button (click)="selectGameToAdd(game)">Añadir Juego</button>
+            </div>
+        }
+    </div>
+    }
+
+    @if(isModalVisible){
+        <app-add-game-modal></app-add-game-modal>
+    }
+    <div class="paginado">
+        <button (click)="previousPage()">Anterior</button>
+        <p>{{currentPage}}</p>
+        <button (click)="nextPage()">Siguiente</button>
+    </div>
+</div>

@@ -27,8 +27,8 @@ export class ApiService {
 
   //MÉTODOS API EXTERNA
 
-  getAllgames(): Observable<IExternalGameSummary[]>{
-    return this.http.get<IExternalGameSummary[]>(`${this.apiUrl}external_games`);
+  getAllgames(page: number, size: number): Observable<IExternalGameSummary[]>{
+    return this.http.get<IExternalGameSummary[]>(`${this.apiUrl}external_games?page=${page}&size=${size}`);
   }
   
   getCarouselGames(): Observable<IExternalGameSummary[]> {
