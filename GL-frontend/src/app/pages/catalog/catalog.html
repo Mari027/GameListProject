@@ -1,5 +1,8 @@
 <app-navbar></app-navbar>
 <div class="catalogo">
+
+    <h1>Juegos</h1>
+
     @if(errorMsg){
         <p>{{errorMsg}}</p>
     }
@@ -8,17 +11,22 @@
     } @else {
     <div class="juegos-catalogo">
         @for(game of gameList; track game.name){
-            <div class="game-card">
-                <img [src]="game.backgroundImage" [alt]="game.name">
-                <h3>{{game.name}}</h3>
-                <button (click)="selectGameToAdd(game)">Añadir Juego</button>
+            <div [style.background-image]="'url(' + game.backgroundImage + ')'" class="game-card">
+                <div class="texto">
+                    <h3>{{game.name}}</h3>
+                    <button (click)="selectGameToAdd(game)">Añadir Juego</button>
+                </div>
             </div>
         }
     </div>
     }
-
+    <!--Comprueba si el modal de añadir juego esta activo-->
     @if(isModalVisible){
-        <app-add-game-modal></app-add-game-modal>
+        <app-add-game-modal
+        [selectedGame]="selectedGame"
+        (onClose)="isModalVisible = false"
+        (onGameAdded)="isModalVisible = false">
+        </app-add-game-modal>
     }
     <div class="paginado">
         <button (click)="previousPage()">Anterior</button>

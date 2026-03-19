@@ -72,6 +72,7 @@ public class UserGamesServiceImpl implements UserGamesService {
                 .status(requestDTO.getGameStatus())
                 .rating(requestDTO.getRating())
                 .hoursPlayed(requestDTO.getHoursPlayed())
+                .startedAt(requestDTO.getStartedAt())
                 .completedAt(requestDTO.getCompletedAt())
                 .review(requestDTO.getReview())
                 .build();

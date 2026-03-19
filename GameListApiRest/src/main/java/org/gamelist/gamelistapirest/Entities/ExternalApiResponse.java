@@ -20,6 +20,8 @@ public class ExternalApiResponse {
     @Setter
     @Getter
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Developer {
         private Long id;
         private String name;

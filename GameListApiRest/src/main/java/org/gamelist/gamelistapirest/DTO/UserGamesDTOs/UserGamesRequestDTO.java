@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
  */
 @Data
 public class UserGamesRequestDTO {
-    @NotNull(message = "El id del juego es obligatorio")
     private Long gameId; //Juegos internos, creados por usuarios
     private Long externalGameId; //Juegos de la api externas añadidos por algún usuario
 

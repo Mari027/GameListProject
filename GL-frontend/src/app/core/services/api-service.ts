@@ -5,6 +5,8 @@ import { IExternalGameSummary } from '../interfaces/IExternalGameSummary';
 import { ILogin } from '../interfaces/ILogin';
 import { IAuthResponse } from '../interfaces/IAuthResponse';
 import { IRegister } from '../interfaces/IRegister';
+import { IGameRequest } from '../interfaces/IGameRequest';
+import { IUserGame } from '../interfaces/IUserGame';
 
 @Injectable({
   providedIn: 'root',
@@ -34,5 +36,13 @@ export class ApiService {
   getCarouselGames(): Observable<IExternalGameSummary[]> {
     //[] porque te devuelve lista
     return this.http.get<IExternalGameSummary[]>(`${this.apiUrl}external_games/carousel`);
+  }
+
+  //MÉTODOS CRUD JUEGOS
+  addGameToList(gameToAdd: IGameRequest){
+    return this.http.post<IGameRequest>(`${this.apiUrl}userGames`, gameToAdd);
+  }
+  getAllUserGames(): Observable<IUserGame[]>{
+    return this.http.get<IUserGame[]>(`${this.apiUrl}userGames`);
   }
 }
