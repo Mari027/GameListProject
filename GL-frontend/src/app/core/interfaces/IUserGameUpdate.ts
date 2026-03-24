@@ -1,11 +1,6 @@
-export interface IGameSummary {
-    id: number;
-    title: string;
-    coverImageUrl: string;
-}
+import { IGameSummary } from "./IUserGame";
 
-export interface IUserGame {
-    id: number;
+export interface IUserGameUpdate {
     game: IGameSummary;
     gameStatus: string;
     rating: number;

@@ -7,6 +7,7 @@ import { IAuthResponse } from '../interfaces/IAuthResponse';
 import { IRegister } from '../interfaces/IRegister';
 import { IGameRequest } from '../interfaces/IGameRequest';
 import { IUserGame } from '../interfaces/IUserGame';
+import { IUserGameUpdate } from '../interfaces/IUserGameUpdate';
 
 @Injectable({
   providedIn: 'root',
@@ -44,5 +45,13 @@ export class ApiService {
   }
   getAllUserGames(): Observable<IUserGame[]>{
     return this.http.get<IUserGame[]>(`${this.apiUrl}userGames`);
+  }
+
+  updateGameFromList(id: number, updatedGame: IUserGameUpdate){
+    return this.http.put<IUserGameUpdate>(`${this.apiUrl}userGames/games/${id}`, updatedGame);
+  }
+
+  deleteGameFromList(id: number){
+    return this.http.delete(`${this.apiUrl}userGames/games/${id}`);
   }
 }

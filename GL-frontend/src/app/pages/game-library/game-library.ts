@@ -2,16 +2,20 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Navbar } from "../../shared/navbar/navbar";
 import { ApiService } from '../../core/services/api-service';
 import { IUserGame } from '../../core/interfaces/IUserGame';
+import { UpdateGameModal } from "../../shared/update-game-modal/update-game-modal";
 
 @Component({
   selector: 'app-game-library',
-  imports: [Navbar],
+  imports: [Navbar, UpdateGameModal],
   templateUrl: './game-library.html',
   styleUrl: './game-library.scss',
 })
-export class GameLibrary implements OnInit{
+export class GameLibrary implements OnInit {
+  
   constructor(private apiService: ApiService, private cdr: ChangeDetectorRef) { }
 
+  @Input() selectedGame: IUserGame | null= null;
+  isModalVisible = false;
 
   gameList: IUserGame[] = [];
 
@@ -35,6 +39,7 @@ export class GameLibrary implements OnInit{
         this.isLoading = false;
         //Obligo a aplicar los cambios que ocurran en el componente
         this.cdr.detectChanges();
+        this.isLoading = false;
       },
       error: () => {
         this.errorMsg = 'Error al cargar la lista de juegos';
@@ -42,4 +47,21 @@ export class GameLibrary implements OnInit{
       }
     });
   }
+
+  selectGameToUpdate(game: IUserGame){
+    this.selectedGame = game;
+    this.isModalVisible = true;
+  }
+
+  deleteGameFromList(id: number) {
+    this.apiService.deleteGameFromList(id).subscribe({
+      next: () => {
+        confirm("¿Estas seguro de eliminar el juego?");
+        this.chargeGames();
+        
+      },
+      error: () => alert("No se ha podido eliminar el juego")
+    })
+  }
+
 }

@@ -60,11 +60,11 @@ export class AddGameModal {
     //llamada a metodo de api service usando subscribe (una promesa)
     this.apiService.addGameToList(gameToAdd).subscribe({
       //En el caso de que vaya bien
-      next: (response) => {
+      next: () => {
         this.onGameAdded.emit();
       },
       //En el caso de que vaya mal
-      error: (response) => this.errorMsg = 'Fallo al guardar el juego'
+      error: () => this.errorMsg = 'Fallo al guardar el juego'
     });
   }
 }

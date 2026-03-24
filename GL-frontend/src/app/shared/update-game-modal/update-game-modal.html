@@ -1,0 +1,77 @@
+<h1>{{selectedGame?.game?.title}}</h1>
+<form [formGroup]="updateForm" (ngSubmit)="updateGame()" class="game-form">
+
+  <!-- Game Status -->
+  <div class="form-group">
+    <label>Estado del juego</label>
+    <select formControlName="gameStatus">
+      <option value="PLAYING">Jugando</option>
+      <option value="COMPLETED">Completado</option>
+      <option value="PAUSED">Pausado</option>
+      <option value="DROPPED">Abandonado</option>
+      <option value="PLAN_TO_PLAY">Pendiente</option>
+    </select>
+  </div>
+
+  <!-- Rating -->
+  <div class="form-group">
+    <label >Valoración</label>
+    <input
+      type="number"
+      formControlName="rating"
+      min="0"
+      max="5"
+      step="1"
+      placeholder="0 - 5"
+
+    />
+  </div>
+
+  <!-- Hours Played -->
+  <div class="form-group">
+    <label >Horas jugadas</label>
+    <input
+      type="number"
+      formControlName="hoursPlayed"
+      min="0"
+      step="0.1"
+    />
+  </div>
+
+  <!-- Started At -->
+  <div class="form-group">
+    <label >Fecha de inicio</label>
+    <input
+      type="date"
+      formControlName="startedAt"
+    />
+  </div>
+
+  <!-- Completed At -->
+  <div class="form-group">
+    <label >Fecha de finalización</label>
+    <input
+      type="date"
+      formControlName="completedAt"
+    />
+  </div>
+
+  <!-- Review -->
+  <div class="form-group">
+    <label>Reseña</label>
+    <textarea
+      rows="4"
+      formControlName="review"
+      placeholder="Escribe tu opinión del juego"
+    ></textarea>
+  </div>
+
+  <!-- Submit -->
+  <button type="submit" [disabled]="updateForm.invalid">
+    Actualizar juego
+  </button>
+  <button (click)="close()">
+    Cancelar
+  </button>
+
+</form>

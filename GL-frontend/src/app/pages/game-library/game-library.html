@@ -13,8 +13,19 @@
             <div [style.background-image]="'url(' + game.game.coverImageUrl + ')'" class="game-card">
                 
                 <h3>{{game.game.title}}</h3>
+                <div>
+                    <button (click)="selectGameToUpdate(game)">Editar</button>
+                    <button (click)="deleteGameFromList(game.game.id)">Eliminar</button>
+                </div>
             </div>
         }
     </div>
+    }
+    @if(isModalVisible){
+        <app-update-game-modal
+        [selectedGame]="selectedGame"
+        (onClose)="isModalVisible = false"
+        (onGameUpdated)="isModalVisible = false">
+        </app-update-game-modal>
     }
 </div>
