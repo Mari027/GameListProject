@@ -14,14 +14,14 @@ export class Register {
 
   constructor(private apiService: ApiService, private router: Router) { }
 
-  username = new FormControl('', Validators.required);
+  nickname = new FormControl('', Validators.required);
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
   passwordConfirm = new FormControl('', [Validators.required]);
   errorMsg = '';
 
   registerForm = new FormGroup({
-    username: this.username,
+    username: this.nickname,
     email: this.email,
     password: this.password,
     passwordConfirm: this.passwordConfirm
@@ -38,7 +38,7 @@ export class Register {
     //Construimos el objeto Register para el método de apiService
     const registerRequest: IRegister = {
       //! --> Non nullable
-      username: this.username.value!,
+      nickname: this.nickname.value!,
       email: this.email.value!,
       password: this.password.value!
     };

@@ -9,8 +9,8 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    //Optional es por que es posible que no devuelva nulo
-    Optional<User> findByUsername(String username);
+    //Optional es por que es posible que devuelva nulo
+    Optional<User> findByNickname(String nickname);
 
     Optional<User> findByEmail(String email);
 
@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * Estos booleanos ayudan al lanzamiento de excepciones en la capa de servicio
      * */
 
-    boolean existsByUsername(String username);
+    boolean existsByNickname(String nickname);
 
     boolean existsByEmail(String email);
 }

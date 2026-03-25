@@ -3,7 +3,7 @@ import { Login } from './pages/auth/login/login';
 import { Register } from './pages/auth/register/register';
 import { Catalog } from './pages/catalog/catalog';
 import { authGuard } from './core/guards/auth-guard';
-import { Admin } from './pages/admin/admin/admin';
+import { Admin } from './pages/admin/admin';
 import { adminGuard } from './core/guards/admin-guard';
 import { GameLibrary } from './pages/game-library/game-library';
 

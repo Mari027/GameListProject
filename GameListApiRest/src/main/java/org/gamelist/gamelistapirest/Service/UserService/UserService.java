@@ -14,7 +14,7 @@ public interface UserService {
     // READ
     UserResponseDTO getUserById(Long id);
     List<UserResponseDTO> getAllUsers();
-    UserResponseDTO getUserByUsername(String username);
+    UserResponseDTO getUserByNickname(String nickname);
 
     // UPDATE
     UserResponseDTO updateUser(Long id, UserUpdateDTO request);

@@ -12,7 +12,7 @@ public class UserUpdateDTO {
     @NotBlank(
             message = "Este campo es obligatorio"
     )
-    private String username;
+    private String nickname;
     @NotBlank(
             message = "Este campo es obligatorio")
     @Email(

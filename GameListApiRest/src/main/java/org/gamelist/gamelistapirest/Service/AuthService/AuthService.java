@@ -29,13 +29,13 @@ public class AuthService {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new EmailExistenteException("Email ya registrado");
         }
-        if (userRepository.existsByUsername(request.getUsername())) {
+        if (userRepository.existsByNickname(request.getNickname())) {
             throw new UsuarioExistenteException("Username ya en uso");
         }
 
         // Construimos el usuario hasheando la contraseña
         User user = User.builder()
-                .username(request.getUsername())
+                .nickname(request.getNickname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role("USER") //TODOS los usuarios creados desde la app serán usuarios normales
@@ -45,7 +45,7 @@ public class AuthService {
 
         // Generamos el token y devolvemos el usuario con su token
         String token = jwtService.generateToken(user);
-        return new AuthResponseDTO(token, user.getEmail(), user.getUsername(), user.getRole());
+        return new AuthResponseDTO(token, user.getEmail(), user.getNickname(), user.getRole());
     }
 
     public AuthResponseDTO login(LoginRequestDTO request) {
@@ -64,6 +64,6 @@ public class AuthService {
                 .orElseThrow();
 
         String token = jwtService.generateToken(user);
-        return new AuthResponseDTO(token, user.getEmail(), user.getUsername(), user.getRole());
+        return new AuthResponseDTO(token, user.getEmail(), user.getNickname(), user.getRole());
     }
 }

@@ -1,7 +1,6 @@
 package org.gamelist.gamelistapirest.Entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,8 +25,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private String username;
+    @Column(name = "nickname" ,unique = true)
+    private String nickname;
 
 
     @Column(unique = true)
@@ -55,7 +54,6 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role));
     }
-    @Override
     //Obtiene el identificador que sea necesario para autenticar al usuario
     //En este caso, el email que debe ser único
     public String getUsername() {

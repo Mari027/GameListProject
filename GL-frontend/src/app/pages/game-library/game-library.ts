@@ -24,7 +24,6 @@ export class GameLibrary implements OnInit {
   errorMsg = '';
 
 
-
   ngOnInit(): void {
     this.chargeGames();
   }
@@ -33,6 +32,7 @@ export class GameLibrary implements OnInit {
   chargeGames() {
     //Para saber que esta cargando
     this.isLoading = true;
+    //Método que obtiene la lista de juegos
     this.apiService.getAllUserGames().subscribe({
       next: (games) => {
         this.gameList = games;
@@ -48,11 +48,19 @@ export class GameLibrary implements OnInit {
     });
   }
 
+  //Método que nos da el juego seleccionado para pasarselo a update-modal
   selectGameToUpdate(game: IUserGame){
     this.selectedGame = game;
     this.isModalVisible = true;
   }
 
+  //Método que se activa al actualizar un juego, desactiva el modal y recarga los juegos
+  onGameUpdated(){
+    this.isModalVisible = false;
+    this.chargeGames();
+  }
+
+  //Método de borrado de juegos de la lista
   deleteGameFromList(id: number) {
     this.apiService.deleteGameFromList(id).subscribe({
       next: () => {

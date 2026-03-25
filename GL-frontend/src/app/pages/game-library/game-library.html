@@ -21,11 +21,12 @@
         }
     </div>
     }
+    <!--Condicional para mostrar el modal y pasamos los datos entre hijo-padre y viceversa-->
     @if(isModalVisible){
         <app-update-game-modal
         [selectedGame]="selectedGame"
         (onClose)="isModalVisible = false"
-        (onGameUpdated)="isModalVisible = false">
+        (onGameUpdated)="onGameUpdated()">
         </app-update-game-modal>
     }
 </div>

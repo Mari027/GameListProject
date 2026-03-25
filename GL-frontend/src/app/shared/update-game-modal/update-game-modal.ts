@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormControl, Validators, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { IGameRequest } from '../../core/interfaces/IGameRequest';
 import { ApiService } from '../../core/services/api-service';
 import { IUserGame } from '../../core/interfaces/IUserGame';
 import { IUserGameUpdate } from '../../core/interfaces/IUserGameUpdate';
@@ -37,10 +36,13 @@ export class UpdateGameModal  implements OnChanges{
     review: this.review
   })
 
-
+  //Método para indicarle al padre game-library que se debe ocultar el modal
   close() {
     this.onClose.emit();
   }
+
+  //Detecta cambios
+  //Lo uso para asegurarme de que si el juego esta seleccionado, se rellenará el formulario
   ngOnChanges() {
     if (this.selectedGame) {
       this.updateForm.patchValue({
@@ -55,12 +57,13 @@ export class UpdateGameModal  implements OnChanges{
   }
 
 
+  //Método para alctualizar el juego seleccionado
   updateGame() {
 
     //Si formulario NO VÁLIDO, no hacemos nada
     if(!this.selectedGame) return;
     if (this.updateForm.invalid) return;
-    //Construimos el objeto Register para el método de apiService
+    //Construimos el objeto GameToUpdate para el método de apiService
     const gameToUpdate: IUserGameUpdate = {
       game: this.selectedGame!.game,
       gameStatus: this.gameStatus.value!,
@@ -72,7 +75,7 @@ export class UpdateGameModal  implements OnChanges{
     };
 
     //llamada a metodo de api service usando subscribe (una promesa)
-    this.apiService.updateGameFromList(this.selectedGame!.id, gameToUpdate).subscribe({
+    this.apiService.updateGameFromList(this.selectedGame.game!.id, gameToUpdate).subscribe({
       //En el caso de que vaya bien
       next: () => {
         alert("Juego Actualizado Correctamente")

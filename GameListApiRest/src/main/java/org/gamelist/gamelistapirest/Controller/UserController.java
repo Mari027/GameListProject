@@ -2,11 +2,9 @@ package org.gamelist.gamelistapirest.Controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.gamelist.gamelistapirest.DTO.UserDTOs.UserCreationDTO;
 import org.gamelist.gamelistapirest.DTO.UserDTOs.UserResponseDTO;
 import org.gamelist.gamelistapirest.DTO.UserDTOs.UserUpdateDTO;
 import org.gamelist.gamelistapirest.Service.UserService.UserService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +30,7 @@ public class UserController {
 
     @GetMapping("/username/{username}")
     public ResponseEntity<UserResponseDTO> getUserByUsername(@PathVariable String username) {
-        UserResponseDTO user = userService.getUserByUsername(username);
+        UserResponseDTO user = userService.getUserByNickname(username);
         return ResponseEntity.ok(user);
     }
 

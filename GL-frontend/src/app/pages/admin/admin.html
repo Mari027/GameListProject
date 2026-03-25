@@ -1,0 +1,16 @@
+<div>
+    <h1>Bienvenido Admin</h1>
+    <div>
+        @if (!isLoading) {
+            @for (user of users; track $index) {
+                <div>
+                    <p>{{user.nickname}}</p>
+                    <p>{{user.email}}</p>
+                    <button (click)="deleteUser(user.id)">Eliminar</button>
+                </div>
+            }
+        }@else {
+            <p>Cargando...</p>
+        }
+    </div>
+</div>

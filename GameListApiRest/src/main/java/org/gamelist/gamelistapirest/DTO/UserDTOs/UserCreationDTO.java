@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class UserCreationDTO {
     @NotBlank
-    private String username;
+    private String nickname;
     @NotBlank
     @Email
     private String email;

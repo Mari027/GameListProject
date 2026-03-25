@@ -25,13 +25,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDTO createUser(UserCreationDTO request) {
         //VALIDACIONES
-        if (request.getEmail() == null || request.getPassword() == null || request.getUsername() == null) {
+        if (request.getEmail() == null || request.getPassword() == null || request.getNickname() == null) {
             throw new DatosNoCorrectosException("Los campos son obligatorios");
         }
         if(userRepository.existsByEmail(request.getEmail())) {
             throw new EmailExistenteException("Email existente");
         }
-        if(userRepository.existsByUsername(request.getUsername())) {
+        if(userRepository.existsByNickname(request.getNickname())) {
             throw new UsuarioExistenteException("Usuario existente");
         }
 
@@ -60,8 +60,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDTO getUserByUsername(String username) {
-        User user = userRepository.findByUsername(username).orElseThrow(() ->
+    public UserResponseDTO getUserByNickname(String nickname) {
+        User user = userRepository.findByNickname(nickname).orElseThrow(() ->
                 new UsuarioNoEncontradoException("Usuario no encontrado"));
 
         return userMapper.toDTO(user);

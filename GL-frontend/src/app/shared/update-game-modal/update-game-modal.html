@@ -70,7 +70,8 @@
   <button type="submit" [disabled]="updateForm.invalid">
     Actualizar juego
   </button>
-  <button (click)="close()">
+  <!--Para evitar que lance el onSubmit type = button-->
+  <button type="button" (click)="close()">
     Cancelar
   </button>
 
