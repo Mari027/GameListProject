@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Navbar } from "../../shared/navbar/navbar";
 import { ApiService } from '../../core/services/api-service';
-import { IExternalGameSummary } from '../../core/interfaces/IExternalGameSummary';
+import { IExternalGameSummary } from '../../core/interfaces/ExternalGame/IExternalGameSummary';
 import { ChangeDetectorRef } from '@angular/core';
 import { AddGameModal } from '../../shared/add-game-modal/add-game-modal';
 

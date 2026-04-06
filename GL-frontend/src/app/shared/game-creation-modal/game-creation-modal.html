@@ -1,0 +1,76 @@
+<h1>Crea un juego</h1>
+<form [formGroup]="creationForm" (ngSubmit)="createNewGame()" class="game-form">
+
+
+    <div>
+        <label>Título</label>
+        <input type="text" formControlName="title">
+    </div>
+
+    <div>
+        <label>Descripción</label>
+        <input type="text" formControlName="description">
+    </div>
+
+    <div>
+        <label>Desarrolladora</label>
+        <input type="text" formControlName="developer">
+    </div>
+
+    <div>
+        <label>Fecha de Salida</label>
+        <input type="date" formControlName ="released">
+    </div>
+
+    <!-- Game Status -->
+    <div class="form-group">
+        <label>Estado del juego</label>
+        <select formControlName="gameStatus">
+            <option value="">Selecciona estado</option>
+            <option value="PLAYING">Jugando</option>
+            <option value="COMPLETED">Completado</option>
+            <option value="PAUSED">Pausado</option>
+            <option value="DROPPED">Abandonado</option>
+            <option value="PLAN_TO_PLAY">Pendiente</option>
+        </select>
+    </div>
+
+    <!-- Rating -->
+    <div class="form-group">
+        <label>Valoración</label>
+        <input type="number" formControlName="rating" min="0" max="5" step="1" placeholder="0 - 5" />
+    </div>
+
+    <!-- Hours Played -->
+    <div class="form-group">
+        <label>Horas jugadas</label>
+        <input type="number" formControlName="hoursPlayed" min="0" step="0.1" />
+    </div>
+
+    <!-- Started At -->
+    <div class="form-group">
+        <label>Fecha de inicio</label>
+        <input type="date" formControlName="startedAt" />
+    </div>
+
+    <!-- Completed At -->
+    <div class="form-group">
+        <label>Fecha de finalización</label>
+        <input type="date" formControlName="completedAt" />
+    </div>
+
+    <!-- Review -->
+    <div class="form-group">
+        <label>Reseña</label>
+        <textarea rows="4" formControlName="review" placeholder="Escribe tu opinión del juego"></textarea>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" [disabled]="creationForm.invalid">
+        Guardar juego
+    </button>
+    <button (click)="close()">
+        Cancelar
+    </button>
+
+</form>

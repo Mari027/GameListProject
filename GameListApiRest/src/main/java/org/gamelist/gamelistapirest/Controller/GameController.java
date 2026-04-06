@@ -6,6 +6,7 @@ import org.gamelist.gamelistapirest.DTO.GamesDTOs.CustomGameCreationDTO;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.CustomGameUpdateDTO;
 import org.gamelist.gamelistapirest.DTO.GamesDTOs.GameResponseDTO;
 import org.gamelist.gamelistapirest.DTO.UserDTOs.UserResponseDTO;
+import org.gamelist.gamelistapirest.Security.AuthUtils;
 import org.gamelist.gamelistapirest.Service.GamesService.GameService;
 import org.gamelist.gamelistapirest.Service.UserService.UserService;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,6 +22,7 @@ import java.util.List;
 @RequestMapping("/api/games")
 public class GameController {
     private final GameService gameService;
+    private final AuthUtils authUtils;
 
     //ENDPOINTS DE LECTURA
     @GetMapping("/{gameId}")
@@ -40,8 +42,9 @@ public class GameController {
     }
 
     //ENDPOINTS DE CREACIÓN
-    @PostMapping("/user-create/{userId}")
-    public ResponseEntity<GameResponseDTO> createCustomGame(@RequestBody CustomGameCreationDTO  customGameCreationDTO,@PathVariable Long userId) {
+    @PostMapping("/user-create")
+    public ResponseEntity<GameResponseDTO> createCustomGame(@RequestBody CustomGameCreationDTO  customGameCreationDTO) {
+        Long userId = authUtils.getAuthenticatedUser().getId(); //Obtenemos usuario desde el token
         GameResponseDTO createdGame = gameService.createCustomGame(customGameCreationDTO, userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdGame);
     }

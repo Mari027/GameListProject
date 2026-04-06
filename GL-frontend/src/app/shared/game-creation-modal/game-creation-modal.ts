@@ -1,23 +1,25 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from "@angular/forms";
 import { ApiService } from '../../core/services/api-service';
-import { IExternalGameSummary } from '../../core/interfaces/ExternalGame/IExternalGameSummary';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IGameRequest } from '../../core/interfaces/ExternalGame/IGameRequest';
+import { IGameCreation } from '../../core/interfaces/UserGames/IGameCreation';
 
 @Component({
-  selector: 'app-add-game-modal',
+  selector: 'app-game-creation-modal',
   imports: [ReactiveFormsModule],
-  templateUrl: './add-game-modal.html',
-  styleUrl: './add-game-modal.scss',
+  templateUrl: './game-creation-modal.html',
+  styleUrl: './game-creation-modal.scss',
 })
-export class AddGameModal {
+export class GameCreationModal {
+
   @Output() onClose = new EventEmitter<void>();
-  @Output() onGameAdded = new EventEmitter<void>();
-  @Input() selectedGame: IExternalGameSummary | null = null;
+  @Output() onGameCreated = new EventEmitter<void>();
 
   constructor(private apiService: ApiService) { }
 
-
+  title = new FormControl('', Validators.required);
+  description = new FormControl('');
+  developer = new FormControl('');
+  released = new FormControl('');
   gameStatus = new FormControl('', Validators.required);
   rating = new FormControl('', [Validators.max(5), Validators.min(1)]);
   hoursPlayed = new FormControl('', [Validators.min(0)]);
@@ -27,7 +29,11 @@ export class AddGameModal {
   review = new FormControl('', [Validators.maxLength(100)])
   errorMsg = '';
 
-  registerForm = new FormGroup({
+  creationForm = new FormGroup({
+    title: this.title,
+    description: this.description,
+    developer: this.developer,
+    released: this.released,
     gameStatus: this.gameStatus,
     rating: this.rating,
     hoursPlayed: this.hoursPlayed,
@@ -36,19 +42,21 @@ export class AddGameModal {
     review: this.review
   })
 
-
   close() {
     this.onClose.emit();
   }
 
-  addGame() {
-    
+  createNewGame() {
+
     //Si formulario NO VÁLIDO, no hacemos nada
-    if (this.registerForm.invalid) return;
+    if (this.creationForm.invalid) return;
     //Construimos el objeto Register para el método de apiService
-    const gameToAdd: IGameRequest = {
+    const gameToCreate: IGameCreation = {
       //! --> Non nullable
-      externalGameId: this.selectedGame!.id,
+      title: this.title.value!,
+      description: this.description.value,
+      developer: this.developer.value,
+      released: this.released.value,
       gameStatus: this.gameStatus.value!,
       rating: Number(this.rating.value),
       hoursPlayed: Number(this.hoursPlayed.value),
@@ -58,14 +66,14 @@ export class AddGameModal {
     };
 
     //llamada a metodo de api service usando subscribe (una promesa)
-    this.apiService.addGameToList(gameToAdd).subscribe({
+    this.apiService.createNewGame(gameToCreate).subscribe({
       //En el caso de que vaya bien
       next: () => {
-        this.onGameAdded.emit();
+        this.onGameCreated.emit();
       },
       //En el caso de que vaya mal
       error: () => this.errorMsg = 'Fallo al guardar el juego'
     });
   }
-}
 
+}

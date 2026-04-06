@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ApiService } from '../../core/services/api-service';
-import { IUserResponse } from '../../core/interfaces/IUserResponse';
+import { IUserResponse } from '../../core/interfaces/UserGames/IUserResponse';
 
 @Component({
   selector: 'app-admin',

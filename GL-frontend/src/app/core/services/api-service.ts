@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IExternalGameSummary } from '../interfaces/IExternalGameSummary';
-import { ILogin } from '../interfaces/ILogin';
-import { IAuthResponse } from '../interfaces/IAuthResponse';
-import { IRegister } from '../interfaces/IRegister';
-import { IGameRequest } from '../interfaces/IGameRequest';
-import { IUserGame } from '../interfaces/IUserGame';
-import { IUserGameUpdate } from '../interfaces/IUserGameUpdate';
-import { IUserResponse } from '../interfaces/IUserResponse';
+import { IExternalGameSummary } from '../interfaces/ExternalGame/IExternalGameSummary';
+import { ILogin } from '../interfaces/Auth/ILogin';
+import { IAuthResponse } from '../interfaces/Auth/IAuthResponse';
+import { IRegister } from '../interfaces/Auth/IRegister';
+import { IGameRequest } from '../interfaces/ExternalGame/IGameRequest';
+import { IUserGame } from '../interfaces/UserGames/IUserGame';
+import { IUserGameUpdate } from '../interfaces/UserGames/IUserGameUpdate';
+import { IUserResponse } from '../interfaces/UserGames/IUserResponse';
+import { IGameCreation } from '../interfaces/UserGames/IGameCreation';
 
 @Injectable({
   providedIn: 'root',
@@ -55,6 +56,10 @@ export class ApiService {
 
   deleteGameFromList(id: number) {
     return this.http.delete(`${this.apiUrl}userGames/games/${id}`);
+  }
+
+  createNewGame(game: IGameCreation){
+    return this.http.post<IGameCreation>(`${this.apiUrl}/games/user-created`, game);
   }
 
   //Métodos de Usuarios

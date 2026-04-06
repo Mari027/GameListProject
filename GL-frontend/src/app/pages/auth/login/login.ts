@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../../../core/services/api-service';
-import { ILogin } from '../../../core/interfaces/ILogin';
+import { ILogin } from '../../../core/interfaces/Auth/ILogin';
 import { Router } from '@angular/router';
 
 @Component({
