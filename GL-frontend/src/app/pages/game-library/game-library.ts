@@ -1,12 +1,13 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Navbar } from "../../shared/navbar/navbar";
 import { ApiService } from '../../core/services/api-service';
-import { IUserGame } from '../../core/interfaces/IUserGame';
+import { IUserGame } from '../../core/interfaces/UserGames/IUserGame';
 import { UpdateGameModal } from "../../shared/update-game-modal/update-game-modal";
+import { GameCreationModal } from "../../shared/game-creation-modal/game-creation-modal";
 
 @Component({
   selector: 'app-game-library',
-  imports: [Navbar, UpdateGameModal],
+  imports: [Navbar, UpdateGameModal, GameCreationModal],
   templateUrl: './game-library.html',
   styleUrl: './game-library.scss',
 })
@@ -15,7 +16,8 @@ export class GameLibrary implements OnInit {
   constructor(private apiService: ApiService, private cdr: ChangeDetectorRef) { }
 
   @Input() selectedGame: IUserGame | null= null;
-  isModalVisible = false;
+  isUpdateModalVisible = false;
+  isCreateModalVisible = false;
 
   gameList: IUserGame[] = [];
 
@@ -51,12 +53,21 @@ export class GameLibrary implements OnInit {
   //Método que nos da el juego seleccionado para pasarselo a update-modal
   selectGameToUpdate(game: IUserGame){
     this.selectedGame = game;
-    this.isModalVisible = true;
+    this.isUpdateModalVisible = true;
   }
 
-  //Método que se activa al actualizar un juego, desactiva el modal y recarga los juegos
+  //Gestión de la aparición del modal de creación de un juego
+  createGame(){
+    this.isCreateModalVisible = true;
+  }
+  onGameCreated(){
+    this.isCreateModalVisible = false;
+    this.chargeGames();
+  }
+
+  //Método que se activa al actualizar un juego, desactiva el modal de actualización de la info de un juego y recarga los juegos
   onGameUpdated(){
-    this.isModalVisible = false;
+    this.isUpdateModalVisible = false;
     this.chargeGames();
   }
 

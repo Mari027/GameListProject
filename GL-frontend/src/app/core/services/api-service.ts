@@ -62,7 +62,7 @@ export class ApiService {
     return this.http.post<IGameCreation>(`${this.apiUrl}/games/user-created`, game);
   }
 
-  //Métodos de Usuarios
+  //MÉTODOS DE USUARIO
 
   getAllUsers(): Observable<IUserResponse[]> {
     return this.http.get<IUserResponse[]>(`${this.apiUrl}users`);

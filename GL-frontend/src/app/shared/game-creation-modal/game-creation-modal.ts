@@ -46,6 +46,7 @@ export class GameCreationModal {
     this.onClose.emit();
   }
 
+  //Método para crear un juego desde 0
   createNewGame() {
 
     //Si formulario NO VÁLIDO, no hacemos nada

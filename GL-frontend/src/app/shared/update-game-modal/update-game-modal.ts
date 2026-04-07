@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormControl, Validators, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from '../../core/services/api-service';
-import { IUserGame } from '../../core/interfaces/IUserGame';
-import { IUserGameUpdate } from '../../core/interfaces/IUserGameUpdate';
+import { IUserGame } from '../../core/interfaces/UserGames/IUserGame';
+import { IUserGameUpdate } from '../../core/interfaces/UserGames/IUserGameUpdate';
 
 @Component({
   selector: 'app-update-game-modal',

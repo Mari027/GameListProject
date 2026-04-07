@@ -1,4 +1,4 @@
-import { IGameSummary } from "./IUserGame";
+import { IGameSummary } from "../ExternalGame/IGameSummary";
 
 export interface IUserGameUpdate {
     game: IGameSummary;

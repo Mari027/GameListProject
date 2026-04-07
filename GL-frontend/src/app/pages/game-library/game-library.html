@@ -21,12 +21,19 @@
         }
     </div>
     }
+    <button (click)="createGame()">Añadir Juego Desde 0</button>
     <!--Condicional para mostrar el modal y pasamos los datos entre hijo-padre y viceversa-->
-    @if(isModalVisible){
+    @if(isUpdateModalVisible){
         <app-update-game-modal
         [selectedGame]="selectedGame"
-        (onClose)="isModalVisible = false"
+        (onClose)="isUpdateModalVisible = false"
         (onGameUpdated)="onGameUpdated()">
         </app-update-game-modal>
+    }
+    @if(isCreateModalVisible){
+        <app-game-creation-modal
+        (onClose)="isCreateModalVisible = false"
+        (onGameCreated)="onGameCreated()">
+        </app-game-creation-modal>
     }
 </div>

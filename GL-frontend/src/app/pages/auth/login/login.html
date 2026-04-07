@@ -1,22 +1,27 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <label>Email:</label>
-    <input type="email" formControlName="email">
+<div id="auth">
+    <p></p>
+    <div id="login">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <label>Email:</label>
+            <input type="email" formControlName="email">
 
-    @if(email.invalid && email.touched){
-        <p>Email Obligatorio</p>
-    }
+            @if(email.invalid && email.touched){
+            <p>Email Obligatorio</p>
+            }
 
-    <label>Contraseña:</label>
-    <input formControlName="password" type="password">
+            <label>Contraseña:</label>
+            <input formControlName="password" type="password">
 
-    @if(password.invalid && password.touched){
-        <p>Contraseña Obligatorio</p>
-    }
+            @if(password.invalid && password.touched){
+            <p>Contraseña Obligatorio</p>
+            }
 
-    @if(errorMsg){
-        <p>{{errorMsg}}</p>
-    }
+            @if(errorMsg){
+            <p>{{errorMsg}}</p>
+            }
 
-    <button type="submit">Login</button>
-</form>
-<p>¿No te has registrado todavia?<a [href]="['/register']"> Registrate</a></p>
+            <button type="submit">Login</button>
+        </form>
+        <p>¿No te has registrado todavia?<a [href]="['/register']"> Registrate</a></p>
+    </div>
+</div>
