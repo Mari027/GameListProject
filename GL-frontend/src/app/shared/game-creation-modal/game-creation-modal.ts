@@ -2,6 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from "@angular/forms";
 import { ApiService } from '../../core/services/api-service';
 import { IGameCreation } from '../../core/interfaces/UserGames/IGameCreation';
+import { switchMap } from 'rxjs';
+import { IGameRequest } from '../../core/interfaces/ExternalGame/IGameRequest';
 
 @Component({
   selector: 'app-game-creation-modal',
@@ -66,15 +68,31 @@ export class GameCreationModal {
       review: this.review.value
     };
 
-    //llamada a metodo de api service usando subscribe (una promesa)
-    this.apiService.createNewGame(gameToCreate).subscribe({
-      //En el caso de que vaya bien
+    //llamada a metodo de api service usando pipe para encadenar operadores (SwitchMap)
+    this.apiService.createNewGame(gameToCreate).pipe(
+      //Permite hacer varias llamadas encadenadas a la api
+      switchMap((createdGame) => {
+        //Uso el resultado del primero
+        //Para hacer la 2ª llamda a la api
+
+        const game: IGameRequest = {
+          gameId: createdGame.id,
+          gameStatus: this.gameStatus.value!,
+          rating: Number(this.rating.value),
+          hoursPlayed: Number(this.hoursPlayed.value),
+          startedAt: this.startedAt.value,
+          completedAt: this.completedAt.value,
+          review: this.review.value
+        }
+
+        return this.apiService.addGameToList(game)
+      })
+    ).subscribe({
       next: () => {
         this.onGameCreated.emit();
       },
-      //En el caso de que vaya mal
-      error: () => this.errorMsg = 'Fallo al guardar el juego'
-    });
+      error: () => alert("Fallo al crear el juego")
+    })
   }
 
 }

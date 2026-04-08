@@ -13,7 +13,7 @@ public interface IExternalGamesService {
 
     //READ
     ExternalGameResponseDTO getGameById(Long id);
-    List<ExternalGameSummaryDTO> getAllGames(int page, int size);
+    List<ExternalGameSummaryDTO> getAllGames(int page, int size,String search);
     List<ExternalGameSummaryDTO> getCarouselGames();
 
 }

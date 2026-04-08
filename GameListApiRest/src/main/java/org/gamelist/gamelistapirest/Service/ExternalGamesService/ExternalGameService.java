@@ -49,11 +49,15 @@ public class ExternalGameService implements IExternalGamesService {
 
     //Para mostrar todos lo juegos se debe hacer páginación
     @Override
-    public List<ExternalGameSummaryDTO> getAllGames(int page, int size) {
+    public List<ExternalGameSummaryDTO> getAllGames(int page, int size,String search) {
         String url = apiUrl
                 + "?key=" + apiKey
                 + "&page=" + page
                 + "&page_size=" + size;
+
+        if(search != null && !search.isEmpty()){
+            url += "&search=" + search;
+        }
         ExternalApiListResponse response = restTemplate.getForObject(url, ExternalApiListResponse.class);
         if (response == null || response.getResults() == null) {
             throw new CatalogoNoDisponible("Catálogo no disponible");

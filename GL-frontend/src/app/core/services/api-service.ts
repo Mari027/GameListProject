@@ -10,6 +10,7 @@ import { IUserGame } from '../interfaces/UserGames/IUserGame';
 import { IUserGameUpdate } from '../interfaces/UserGames/IUserGameUpdate';
 import { IUserResponse } from '../interfaces/UserGames/IUserResponse';
 import { IGameCreation } from '../interfaces/UserGames/IGameCreation';
+import { IGameResponseDTO } from '../interfaces/Games/IGameResponseDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -58,8 +59,8 @@ export class ApiService {
     return this.http.delete(`${this.apiUrl}userGames/games/${id}`);
   }
 
-  createNewGame(game: IGameCreation){
-    return this.http.post<IGameCreation>(`${this.apiUrl}/games/user-created`, game);
+  createNewGame(game: IGameCreation):Observable<IGameResponseDTO>{
+    return this.http.post<IGameResponseDTO>(`${this.apiUrl}games/user-create`, game);
   }
 
   //MÉTODOS DE USUARIO

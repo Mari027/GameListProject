@@ -28,9 +28,10 @@ public class ExternalGameController {
     @GetMapping()
     public ResponseEntity<List<ExternalGameSummaryDTO>> getAllGames(
             @RequestParam(required = true) Integer page,
-            @RequestParam(required = true) Integer size
+            @RequestParam(required = true) Integer size,
+            @RequestParam(required = false) String search
     ) {
-        List<ExternalGameSummaryDTO> games = externalGameService.getAllGames(page, size);
+        List<ExternalGameSummaryDTO> games = externalGameService.getAllGames(page, size,search);
         return ResponseEntity.ok(games);
     }
     @GetMapping("/carousel")

@@ -73,11 +73,13 @@ export class GameLibrary implements OnInit {
 
   //Método de borrado de juegos de la lista
   deleteGameFromList(id: number) {
+
+    const confirmed = confirm("¿Estas seguro de eliminar el juego?");
+    if(!confirmed) return;
+
     this.apiService.deleteGameFromList(id).subscribe({
       next: () => {
-        confirm("¿Estas seguro de eliminar el juego?");
         this.chargeGames();
-        
       },
       error: () => alert("No se ha podido eliminar el juego")
     })

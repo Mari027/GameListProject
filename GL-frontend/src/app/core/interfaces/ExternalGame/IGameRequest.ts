@@ -1,5 +1,6 @@
 export interface IGameRequest{
-    externalGameId: number; //Juegos de la api externas añadidos por algún usuario
+    gameId?: number;        // opcional, para juegos internos
+    externalGameId?: number; //Juegos de la api externas añadidos por algún usuario
     gameStatus: string;
     rating: number;
     hoursPlayed: number;
