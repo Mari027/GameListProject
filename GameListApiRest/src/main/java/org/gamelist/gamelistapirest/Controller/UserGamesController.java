@@ -37,10 +37,11 @@ public class UserGamesController {
     //ENDPOINT DE LECTURA
     @GetMapping
     public ResponseEntity<List<UserGamesResponseDTO>> getUserGames(@RequestParam(required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate releaseDate,
-                                                                   @RequestParam(required = false) GameStatus gameStatus) {
+                                                                   @RequestParam(required = false) GameStatus gameStatus,
+                                                                   @RequestParam(required = false) String search) {
         //Recogemos el usuario autenticado y cogemos su id
         Long userId = authUtils.getAuthenticatedUser().getId();
-        List<UserGamesResponseDTO> userGames = userGamesService.getUserGames(userId, releaseDate, gameStatus);
+        List<UserGamesResponseDTO> userGames = userGamesService.getUserGames(userId, releaseDate, gameStatus, search);
         return ResponseEntity.ok(userGames);
     }
 

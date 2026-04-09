@@ -15,7 +15,7 @@ public interface UserGamesService {
     UserGamesResponseDTO addGameToUserList(Long userId, UserGamesRequestDTO requestDTO);
 
     //READ
-    List<UserGamesResponseDTO> getUserGames(Long userId, LocalDate releaseDate, GameStatus gameStatus);
+    List<UserGamesResponseDTO> getUserGames(Long userId, LocalDate releaseDate, GameStatus gameStatus, String title);
 
     //UPDATE
     UserGamesResponseDTO updateUserGame(Long userId,Long gameId, UserGamesUpdateRequestDTO requestDTO);

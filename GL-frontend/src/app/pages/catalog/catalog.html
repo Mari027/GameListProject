@@ -1,4 +1,6 @@
 <app-navbar></app-navbar>
+<!--Recogemos el valor de busque emitido por el componente hijo-->
+<app-search-bar (search)="onSearchChange($event)"></app-search-bar>
 <div class="catalogo">
 
     <h1>Juegos</h1>
@@ -20,7 +22,7 @@
         }
     </div>
     }
-    <!--Comprueba si el modal de añadir juego esta activo-->
+    <!--Comprueba si el modal de añadir juego esta activo y le pasa los valores necesarios para el componente hijo-->
     @if(isModalVisible){
         <app-add-game-modal
         [selectedGame]="selectedGame"

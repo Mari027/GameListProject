@@ -84,7 +84,7 @@ public class UserGamesServiceImpl implements UserGamesService {
 
 
     @Override
-    public List<UserGamesResponseDTO> getUserGames(Long userId, LocalDate releaseDate, GameStatus status) {
+    public List<UserGamesResponseDTO> getUserGames(Long userId, LocalDate releaseDate, GameStatus status, String title) {
 
         userRepository.findById(userId)
                 .orElseThrow(() -> new UsuarioNoEncontradoException("Usuario no encontrado"));
@@ -103,6 +103,15 @@ public class UserGamesServiceImpl implements UserGamesService {
         if (status != null) {
             userGamesList = userGamesList.stream()
                     .filter(ug -> ug.getStatus().equals(status))
+                    .toList();
+        }
+
+        if (title != null) {
+            userGamesList = userGamesList.stream()
+                    .filter(ug -> ug.getGame().getTitle()
+                            .toLowerCase()
+                            .trim()
+                            .contains(title.toLowerCase().trim()))
                     .toList();
         }
 

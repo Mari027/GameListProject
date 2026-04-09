@@ -33,8 +33,8 @@ export class ApiService {
 
   //MÉTODOS API EXTERNA
 
-  getAllgames(page: number, size: number): Observable<IExternalGameSummary[]> {
-    return this.http.get<IExternalGameSummary[]>(`${this.apiUrl}external_games?page=${page}&size=${size}`);
+  getAllgames(page: number, size: number, search: string = ''): Observable<IExternalGameSummary[]> {
+    return this.http.get<IExternalGameSummary[]>(`${this.apiUrl}external_games?page=${page}&size=${size}&search=${search}`);
   }
 
   getCarouselGames(): Observable<IExternalGameSummary[]> {
@@ -47,8 +47,8 @@ export class ApiService {
   addGameToList(gameToAdd: IGameRequest) {
     return this.http.post<IGameRequest>(`${this.apiUrl}userGames`, gameToAdd);
   }
-  getAllUserGames(): Observable<IUserGame[]> {
-    return this.http.get<IUserGame[]>(`${this.apiUrl}userGames`);
+  getAllUserGames(search: string = ''): Observable<IUserGame[]> {
+    return this.http.get<IUserGame[]>(`${this.apiUrl}userGames?search=${search}`);
   }
 
   updateGameFromList(id: number, updatedGame: IUserGameUpdate) {

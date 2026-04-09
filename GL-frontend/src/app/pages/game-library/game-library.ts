@@ -4,10 +4,11 @@ import { ApiService } from '../../core/services/api-service';
 import { IUserGame } from '../../core/interfaces/UserGames/IUserGame';
 import { UpdateGameModal } from "../../shared/update-game-modal/update-game-modal";
 import { GameCreationModal } from "../../shared/game-creation-modal/game-creation-modal";
+import { SearchBar } from "../../shared/search-bar/search-bar";
 
 @Component({
   selector: 'app-game-library',
-  imports: [Navbar, UpdateGameModal, GameCreationModal],
+  imports: [Navbar, UpdateGameModal, GameCreationModal, SearchBar],
   templateUrl: './game-library.html',
   styleUrl: './game-library.scss',
 })
@@ -18,6 +19,7 @@ export class GameLibrary implements OnInit {
   @Input() selectedGame: IUserGame | null= null;
   isUpdateModalVisible = false;
   isCreateModalVisible = false;
+  searchValue = '';
 
   gameList: IUserGame[] = [];
 
@@ -30,6 +32,17 @@ export class GameLibrary implements OnInit {
     this.chargeGames();
   }
 
+  //Inserta el valor de búsqueda en la variable de searchValue
+  //Y repite la recarga de los juegos
+  onSearchChange(value: string) {
+
+    this.searchValue = value.normalize("NFD")  // separa letras y tildes
+      .replace(/[\u0300-\u036f]/g, "")  // elimina las tildes
+      .trim()
+      .toLowerCase(); //lo pone todo en lowerCase
+    this.chargeGames();
+
+  }
 
   chargeGames() {
     //Para saber que esta cargando
