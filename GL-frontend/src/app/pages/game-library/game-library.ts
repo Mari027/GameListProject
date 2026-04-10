@@ -48,7 +48,7 @@ export class GameLibrary implements OnInit {
     //Para saber que esta cargando
     this.isLoading = true;
     //Método que obtiene la lista de juegos
-    this.apiService.getAllUserGames().subscribe({
+    this.apiService.getAllUserGames(this.searchValue).subscribe({
       next: (games) => {
         this.gameList = games;
         this.isLoading = false;
