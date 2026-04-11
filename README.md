@@ -2,7 +2,7 @@
 
 Aplicación web para la gestión personal de videojuegos. Permite a los usuarios 
 crear una cuenta, gestionar su biblioteca personal de juegos y explorar un 
-catálogo de títulos obtenido desde una API externa.
+catálogo de títulos obtenido desde una API externa en este caso Rawg.io.
 
 ---
 
