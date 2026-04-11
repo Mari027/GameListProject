@@ -9,7 +9,7 @@ catálogo de títulos obtenido desde una API externa en este caso Rawg.io.
 ## Tecnologías Utilizadas
 
 ### Backend
-- Java 17
+- Java 25
 - Spring Boot 4
 - Spring Security + JWT
 - Spring Data JPA
@@ -25,10 +25,10 @@ catálogo de títulos obtenido desde una API externa en este caso Rawg.io.
 
 ## Requisitos Previos
 
-- Java 17 o superior
-- Node.js 18 o superior
+- Java 25 o superior
+- Node.js 24 o superior
 - npm 10 o superior
-- MariaDB 10.6 o superior
+- MariaDB 12 o superior
 - Angular CLI 21
 
 ---
@@ -109,4 +109,4 @@ Este proyecto ha sido desarrollado con fines académicos.
 
 ## Autor
 
-Desarrollado por [Tu Nombre]
+Desarrollado por [María Del Carmen Farfán]
