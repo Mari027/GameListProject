@@ -41,9 +41,10 @@ public class SecurityConfig {
                         // Endpoints públicos: no necesitan token
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/external_games/**").permitAll()
-                        .requestMatchers("/api/users/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/v3/api-docs/**").permitAll()
+                        //Endpoint de usuarios: Necesitas ser admin
+                        .requestMatchers("/api/users/**").hasRole("ADMIN")
                         //Lo demás, requiere de autenticación
                         .anyRequest().authenticated()
                 )
