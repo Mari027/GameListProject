@@ -1,38 +1,46 @@
 <app-navbar></app-navbar>
-<!--Recogemos el valor de busque emitido por el componente hijo-->
-<app-search-bar (search)="onSearchChange($event)"></app-search-bar>
+
 <div class="catalogo">
 
-    <h1>Juegos</h1>
+    <div class="cabecera">
+        <h1>Juegos</h1>
+
+        <!--Recogemos el valor de busque emitido por el componente hijo-->
+        <app-search-bar (search)="onSearchChange($event)"></app-search-bar>
+    </div>
+
 
     @if(errorMsg){
-        <p>{{errorMsg}}</p>
+    <p>{{errorMsg}}</p>
     }
     @if(isLoading){
-        <p>Cargando...</p>
+    <p>Cargando...</p>
     } @else {
     <div class="juegos-catalogo">
         @for(game of gameList; track game.name){
-            <div [style.background-image]="'url(' + game.backgroundImage + ')'" class="game-card">
-                <div class="texto">
-                    <h3>{{game.name}}</h3>
-                    <button (click)="selectGameToAdd(game)">Añadir Juego</button>
-                </div>
+        <div [style.background-image]="'url(' + game.backgroundImage + ')'" class="game-card">
+
+
+            <div class="texto">
+                <h3>{{game.name}}</h3>
+                <button (click)="selectGameToAdd(game)">
+                    <img src="assets/icons/add_game.png" alt="add game">
+                </button>
             </div>
+        </div>
         }
     </div>
-    }
-    <!--Comprueba si el modal de añadir juego esta activo y le pasa los valores necesarios para el componente hijo-->
-    @if(isModalVisible){
-        <app-add-game-modal
-        [selectedGame]="selectedGame"
-        (onClose)="isModalVisible = false"
-        (onGameAdded)="isModalVisible = false">
-        </app-add-game-modal>
-    }
     <div class="paginado">
         <button (click)="previousPage()">Anterior</button>
         <p>{{currentPage}}</p>
         <button (click)="nextPage()">Siguiente</button>
     </div>
+    }
+    <!--Comprueba si el modal de añadir juego esta activo y le pasa los valores necesarios para el componente hijo-->
+    @if(isModalVisible){
+    <app-add-game-modal [selectedGame]="selectedGame" (onClose)="isModalVisible = false"
+        (onGameAdded)="isModalVisible = false">
+    </app-add-game-modal>
+    }
+
 </div>

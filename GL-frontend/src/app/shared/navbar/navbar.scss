@@ -11,24 +11,55 @@
     box-sizing: border-box;
     z-index: 100;
 
-    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2);
+
+    background-color: rgba(158, 141, 255, 0.2); //transparencia para imitar cristal
+    backdrop-filter: blur(4px); //desenfoque
+    padding: 40px;
+    border: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.9);
 
     .nav-enlaces {
         display: flex;
         flex-direction: column;
         gap: 50px;
 
+
         margin-left: 10%;
 
         a {
             text-decoration: none;
             font-weight: bold;
+            transition: transform 0.15s ease-in-out;
+        }
+
+        a:hover {
+            transform: scale(1.1);
         }
     }
 
     .nav-botones {
+        align-self: center;
+
         button {
-            width: 100%;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+
+            img {
+                width: 35px;
+                height: 35px;
+                display: block;
+                filter: brightness(0) invert(1);
+
+            }
+
+            &:hover {
+                transform: scale(1.1);
+            }
         }
+
     }
 }

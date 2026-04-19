@@ -1,28 +1,42 @@
 <app-navbar></app-navbar>
-<app-search-bar (search)="onSearchChange($event)"></app-search-bar>
-<div class="biblioteca">
-    <h1>Tus Juegos</h1>
+
+<div class="catalogo">
+
+    <div class="cabecera">
+        <h1>Tus Juegos</h1>
+        <app-search-bar (search)="onSearchChange($event)"></app-search-bar>
+    </div>
 
     @if(errorMsg){
+
         <p>{{errorMsg}}</p>
     }
     @if(isLoading){
+
         <p>Cargando...</p>
+
     } @else {
+
     <div class="juegos-biblioteca">
+
         @for(game of gameList; track game.game.title){
+
             <div [style.background-image]="'url(' + game.game.coverImageUrl + ')'" class="game-card">
                 
                 <h3>{{game.game.title}}</h3>
+
                 <div>
                     <button (click)="selectGameToUpdate(game)">Editar</button>
                     <button (click)="deleteGameFromList(game.game.id)" type="button">Eliminar</button>
                 </div>
+
             </div>
         }
     </div>
     }
-    <button (click)="createGame()">Añadir Juego Desde 0</button>
+    <button id="create" (click)="createGame()">
+        <img src="assets/icons/add_game.png" alt="">
+    </button>
     <!--Condicional para mostrar el modal y pasamos los datos entre hijo-padre y viceversa-->
     @if(isUpdateModalVisible){
         <app-update-game-modal
