@@ -11,7 +11,17 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-
+/**
+ * Entidad que representa al usuario. Presenta gettes/setters y constructores con todos los
+ * parámetros y vacío.
+ * <p>
+ * Implementa {@link UserDetails} para el uso de los métodos
+ * {@code getAuthorities()} y {@code getUsername()} relacionados con la implemetación de JWT
+ * en el proyecto.
+ *
+ * @author Maria del Carmen Farfán Gavilán
+ *
+ */
 @Setter
 @Getter
 @AllArgsConstructor
@@ -20,42 +30,70 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
+    /**
+     * Id de usuario autoincremental
+     */
     @Id
     //Esto equivale a tener en la BD AutoIncrement
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "nickname" ,unique = true)
+    /**
+     * Nombre de usuario
+     */
+    @Column(name = "nickname", unique = true)
     private String nickname;
-
-
+    /**
+     * Email del usuario y manera de identificar a cada usuario con JWT
+     */
     @Column(unique = true)
     private String email;
-
+    /**
+     * Contraseña del usuario
+     */
     private String password;
-
+    /**
+     * Rol del usuario (ADMIN/USER)
+     */
     private String role;
-
+    /**
+     * Imagen de usuario
+     */
     @Column(name = "image_url")
     private String imageUrl;
-
-    @Column(name = "created_at",updatable = false)
+    /**
+     * Fecha de creación, insertada automáticamente al registrar un usuario
+     */
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    //Esta anotacion ejecuta este metodo ANTES de guardar la entidad
-    //por primera vez en la BD
+    /**
+     * Método encargado de registrar la fecha antes de guardar
+     * un usuario en BD
+     *
+     */
     @PrePersist
     private void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
 
-    // Devuelve el rol/roles del usuario
+
+    /**
+     * Implementación del método {@code getAuthorities()}.
+     * Devuelve una colección con los roles asociados al usuario.
+     *
+     * @return lista de autoridades (roles) del usuario
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role));
     }
-    //Obtiene el identificador que sea necesario para autenticar al usuario
-    //En este caso, el email que debe ser único
+
+    /**
+     * Implementación del método {@code getUsername()}.
+     * Devuelve el email del usuario, para tener una manera de autenticar a los usuarios sin duplicidades.
+     *
+     * @return email del usuario
+     */
     public String getUsername() {
         return email;
     }

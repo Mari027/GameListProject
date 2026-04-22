@@ -73,7 +73,7 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <!-- Source: https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api -->
-        <!-- JJWT - Para generar y validar tokens JWT -->
+        <!-- JWT - Para generar y validar tokens JWT -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>

@@ -30,7 +30,7 @@ public class AuthService {
             throw new EmailExistenteException("Email ya registrado");
         }
         if (userRepository.existsByNickname(request.getNickname())) {
-            throw new UsuarioExistenteException("Username ya en uso");
+            throw new UsuarioExistenteException("Nickname ya en uso");
         }
 
         // Construimos el usuario hasheando la contraseña
