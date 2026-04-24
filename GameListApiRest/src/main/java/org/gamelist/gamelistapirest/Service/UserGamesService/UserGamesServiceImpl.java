@@ -12,6 +12,7 @@ import org.gamelist.gamelistapirest.Entities.UserGames;
 import org.gamelist.gamelistapirest.Enums.GameStatus;
 import org.gamelist.gamelistapirest.Exceptions.JuegoDuplicadoException;
 import org.gamelist.gamelistapirest.Exceptions.JuegoNoEncontradoException;
+import org.gamelist.gamelistapirest.Exceptions.JuegoUsuarioNoEncontradoException;
 import org.gamelist.gamelistapirest.Exceptions.UsuarioNoEncontradoException;
 import org.gamelist.gamelistapirest.Mapper.ExternalGameMapper;
 import org.gamelist.gamelistapirest.Mapper.GameMapper;
@@ -138,7 +139,7 @@ public class UserGamesServiceImpl implements UserGamesService {
         // Buscamos el juego en la lista personal del usuario
         UserGames userGames = userGamesRepository
                 .findByUserIdAndGameId(userId, gameId)
-                .orElseThrow(() -> new JuegoNoEncontradoException("El juego no está en la lista del usuario"));
+                .orElseThrow(() -> new JuegoUsuarioNoEncontradoException("El juego no está en la lista del usuario"));
 
         // Modificamos la entidad existente
         userGamesMapper.updateEntity(requestDTO, userGames);

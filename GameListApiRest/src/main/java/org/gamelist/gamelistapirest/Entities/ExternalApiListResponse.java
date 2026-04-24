@@ -8,22 +8,25 @@ import lombok.Setter;
 import java.util.List;
 
 
+/**
+ * Clase para el manejo de la lista de juego obtenidos de la API
+ * */
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-/**
- * Clase para obtener lista de juegos de la API externa
- * */
 public class ExternalApiListResponse {
 
-    //Para saber cantidad de juegos recogidos
+    /**
+     * Cantidad de juegos
+     * */
     private Integer count;
-    //Para la paginación de la página siguiente
+    /**
+     * Para la pagínacion
+     * */
     private String next;
-    //Para la páginación de la página anterior
     private String previous;
-    //Lista con los juegos obtenidos
+    /**Lista de juegos*/
     private List<ExternalApiResponse> results;
 
 }

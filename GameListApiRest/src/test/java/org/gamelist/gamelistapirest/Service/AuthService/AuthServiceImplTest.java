@@ -1,4 +1,4 @@
-package org.gamelist.gamelistapirest.Service;
+package org.gamelist.gamelistapirest.Service.AuthService;
 
 
 import org.gamelist.gamelistapirest.DTO.UserDTOs.Auth.AuthResponseDTO;
@@ -9,7 +9,6 @@ import org.gamelist.gamelistapirest.Exceptions.EmailExistenteException;
 import org.gamelist.gamelistapirest.Exceptions.UsuarioExistenteException;
 import org.gamelist.gamelistapirest.Repository.UserRepository;
 import org.gamelist.gamelistapirest.Security.JwtService;
-import org.gamelist.gamelistapirest.Service.AuthService.AuthService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

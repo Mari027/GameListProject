@@ -19,7 +19,7 @@ import java.util.List;
  * {@code getAuthorities()} y {@code getUsername()} relacionados con la implemetación de JWT
  * en el proyecto.
  *
- * @author Maria del Carmen Farfán Gavilán
+ * @author María del Carmen F.
  *
  */
 @Setter
