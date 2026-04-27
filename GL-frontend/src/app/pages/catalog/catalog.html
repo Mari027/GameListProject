@@ -12,8 +12,9 @@
     @if(errorMsg){
     <p>{{errorMsg}}</p>
     }
+    
     @if(isLoading){
-    <p>Cargando...</p>
+    <p class="carga">Cargando juegos...</p>
     } @else {
     <div class="juegos-catalogo">
     @for(game of gameList; track game.name; let i = $index){

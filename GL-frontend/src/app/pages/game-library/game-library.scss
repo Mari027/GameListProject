@@ -1,6 +1,24 @@
+@use '../../../variables.scss'; 
+
 :host {
     display: block;
     margin-left: 220px;
+    padding: 20px;
+}
+
+.carga {
+    //posición absoluta para poder manejar libremente la posición del texto
+    position: absolute;
+    top: 50vh; 
+    left: 50%;
+    
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    
 }
 
 .catalogo {
@@ -26,111 +44,146 @@
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
     }
-
 }
 
 .juegos-biblioteca {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); //Grid de 5 elementos
+    grid-template-columns: repeat(5, 1fr); // Mantiene las 5 columnas
     gap: 24px;
 }
 
 .game-card {
+    position: relative; //Para mantener los botones dentro de la tarjeta
     border-radius: 20px;
-    overflow: hidden;
+    overflow: hidden; //Lo que sobre salga lo oculta
     cursor: pointer;
     width: 100%;
-
-    /* Altura ajustada para los 5 juegos de la fila inferior */
-    height: 280px;
-
+    height: 280px; 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
-    align-items: flex-end;
+    align-items: flex-end; //Pone los elementos abajo del todo
 
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 
     .texto {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        //Mantengo los elementos en la parte baja de la tarjeta
         align-items: flex-end;
-
         padding: 20px;
         width: 100%;
         height: 60%;
-
-        //Degradado del bloque de texto
+        
+        //Gradiente del bloque de texto
         background: linear-gradient(to top,
                 rgba(0, 0, 0, 0.85) 0%,
                 rgba(0, 0, 0, 0.4) 50%,
                 rgba(0, 0, 0, 0) 100%);
 
-        font-size: 16px;
-        font-weight: 500;
-        margin: 0;
+        h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+            width: 100%;
+        }
 
+        .botones-acciones {
+            
+            button {
+                position: absolute; //para poder colocaf los botones como queramos
+                top: 16px; //Pegamos los botones arriba
+                z-index: 2; //Los ponemos por encima de los elementos de la tarjeta
+                
+                //Cristal
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(4px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 12px;
 
+                padding: 8px;
+                cursor: pointer;
+                transition: all 0.2s ease-in-out;
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
-        button {
+                img {
+                    width: 24px;
+                    height: 24px;
+                    display: block;
+                
+                    filter: brightness(0) invert(1); //ponemos la imagen de icono en blanco
+                }
 
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            padding: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            img {
-                width: 24px;
-                height: 24px;
-                display: block;
-                filter: brightness(0) invert(1);
+                &:hover {
+                    transform: scale(1.1);
+                    background: rgba(255, 255, 255, 0.25);
+                }
             }
 
-            &:hover {
-                transform: scale(1.1);
-                background: rgba(255, 255, 255, 0.25);
+            //Para posicionar el boton de borrar
+            .btn-borrar {
+                left: 16px; //Lo pegamos a la izquierda
+                
+                &:hover {
+                    background: rgba(255, 60, 60, 0.3);
+                    border-color: rgba(255, 60, 60, 0.5);
+                }
+            }
+
+            //Para posicionar el boton de editar
+            .btn-editar {
+                right: 16px; //Lo pegamos a la derecha
+
+                &:hover {
+                    background: rgba(83, 255, 60, 0.3);
+                    border-color: rgba(60, 255, 66, 0.5);
+                }
             }
         }
     }
 
     &:hover {
-        //Levanta y agranda la tarjeta
         transform: translateY(-5px) scale(1.02);
         box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
     }
 }
 
+
+//Boton para crear juego
 #create {
-    background: none;
-    border: none;
-    padding: 0;
-    margin-top: 5%;
+    //Efecto cristal
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    padding: 15px;
+    margin: 40px auto; 
+    border-radius: 50%;
     cursor: pointer;
-    transition: transform 0.15s ease-in-out;
+    transition: all 0.3s ease-in-out;
     display: flex;
     justify-content: center;
-    width: 100%;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 
     img {
-        width: 50px;
-        height: 50px;
+        width: 30px;
+        height: 30px;
         display: block;
-        filter: brightness(0) invert(1);
+        filter: brightness(0) invert(1); //Color blanco para el botón
     }
 
     &:hover {
-        transform: scale(1.1);
+        transform: scale(1.1) rotate(90deg); //Animación de rotación
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.5);
     }
 }

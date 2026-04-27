@@ -3,76 +3,133 @@
     left: 0;
     top: 0;
     height: 100vh;
-    width: 200px; 
+    width: 200px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 40px 24px; 
+    /* El logo/enlaces irán arriba, los botones abajo */
+    padding: 40px 24px;
     box-sizing: border-box;
-    z-index: 1000; //Por encima de todo
+    z-index: 1000;
 
-    //Efecto cristal
-    background-color: rgba(255, 255, 255, 0.03); 
+    // Efecto cristal
+    background-color: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
-    
+    -webkit-backdrop-filter: blur(20px);
+
     border: none;
     border-right: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
 
-    .nav-enlaces {
+    .nav-logo {
         display: flex;
-        flex-direction: column;
-        gap: 32px;
-        margin-top: 15%; 
-
+        justify-content: flex-start; 
+        position: relative; 
+        
+        //Aura de fondo para el logo
+        &::before {
+            content: ''; //Contenido para que aparezca a pesar de estar vacío
+            position: absolute;
+            top: 50%;
+            left: 16%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #9e8dff, #ff007f); //Gradiente
+            filter: blur(15px); //Desenfoque
+            opacity: 0.6;
+            z-index: 0;
+            transition: all 0.3s ease;
+        }
+        
         a {
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.05rem;
-            color: rgba(255, 255, 255, 0.6);
-            transition: all 0.25s ease-in-out;
+            position: relative;
+            z-index: 1; //logo por encima
             display: inline-block;
-        }
-
-        //Iluminación del hover
-        a:hover {
-            color: rgba(255, 255, 255, 1); 
-            transform: translateX(8px); //Movimiento lateral
-            text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
-        }
-    }
-
-    .nav-botones {
-        align-self: center;
-        margin-bottom: 20px;
-
-        button {
-            background: none;
-            border: none;
-            padding: 12px;
-            border-radius: 50%; //Fondo circular
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transition: all 0.3s ease-in-out;
 
             img {
-                width: 28px;
-                height: 28px;
-                display: block;
-                filter: brightness(0) invert(1); //Color de la imagen en blanco
-                opacity: 0.7;
-                transition: opacity 0.2s ease-in-out;
+                width: 48px;
+                height: auto;
+                filter: brightness(0) invert(1);
+                transition: all 0.3s ease-in-out;
             }
 
             &:hover {
-                background: rgba(255, 255, 255, 0.1); //Iluminación del fondo circular
-                transform: translateY(-3px); //Movimiento vertical
-                
-                img {
-                    opacity: 1; 
-                }
+                transform: scale(1.1);
+            }
+        }
+
+        //Animación del aura de fondo del logo
+        &:hover::before {
+            width: 55px;
+            height: 55px;
+            opacity: 1;
+            filter: blur(20px);
+        }
+    }
+}
+
+
+.nav-enlaces {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    /* Bajamos el margin-top del 15% al 5% (o elimínalo) porque el logo ya empuja hacia abajo */
+    margin-top: 5%;
+
+    /* Opcional: Agrupar logo y enlaces visualmente usando margin-bottom auto 
+           para empujar los botones sí o sí hacia abajo */
+    margin-bottom: auto;
+    padding-top: 20px;
+
+    a {
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.05rem;
+        color: rgba(255, 255, 255, 0.6);
+        transition: all 0.25s ease-in-out;
+        display: inline-block;
+    }
+
+    a:hover {
+        color: rgba(255, 255, 255, 1);
+        transform: translateX(8px);
+        text-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+    }
+}
+
+.nav-botones {
+    align-self: center;
+    margin-bottom: 20px;
+
+    button {
+        background: none;
+        border: none;
+        padding: 12px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            width: 28px;
+            height: 28px;
+            display: block;
+            filter: brightness(0) invert(1);
+            opacity: 0.7;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+
+            img {
+                opacity: 1;
             }
         }
     }

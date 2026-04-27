@@ -8,47 +8,48 @@
     </div>
 
     @if(errorMsg){
-
-        <p>{{errorMsg}}</p>
+    <p>{{errorMsg}}</p>
     }
+
+    
     @if(isLoading){
-
-        <p>Cargando...</p>
-
+    <p class="carga">Cargando juegos...</p>
     } @else {
-
     <div class="juegos-biblioteca">
+        @for(game of gameList; track game.game.title; let i = $index){
+        <div [style.background-image]="'url(' + game.game.coverImageUrl + ')'" class="game-card">
 
-        @for(game of gameList; track game.game.title){
-
-            <div [style.background-image]="'url(' + game.game.coverImageUrl + ')'" class="game-card">
-                
+            <div class="texto">
                 <h3>{{game.game.title}}</h3>
 
-                <div>
-                    <button (click)="selectGameToUpdate(game)">Editar</button>
-                    <button (click)="deleteGameFromList(game.game.id)" type="button">Eliminar</button>
-                </div>
+                <div class="botones-acciones">
+                    <button class="btn-borrar" (click)="deleteGameFromList(game.game.id)" type="button"
+                        title="Eliminar">
+                        <img src="assets/icons/borrar.png" alt="Borrar">
+                    </button>
 
+                    <button class="btn-editar" (click)="selectGameToUpdate(game)" title="Editar">
+                        <img src="assets/icons/boton-editar.png" alt="Editar">
+                    </button>
+                </div>
             </div>
+
+        </div>
         }
     </div>
     }
+
     <button id="create" (click)="createGame()">
-        <img src="assets/icons/add_game.png" alt="">
+        <img src="assets/icons/add_game.png" alt="Añadir juego">
     </button>
-    <!--Condicional para mostrar el modal y pasamos los datos entre hijo-padre y viceversa-->
+
     @if(isUpdateModalVisible){
-        <app-update-game-modal
-        [selectedGame]="selectedGame"
-        (onClose)="isUpdateModalVisible = false"
+    <app-update-game-modal [selectedGame]="selectedGame" (onClose)="isUpdateModalVisible = false"
         (onGameUpdated)="onGameUpdated()">
-        </app-update-game-modal>
+    </app-update-game-modal>
     }
     @if(isCreateModalVisible){
-        <app-game-creation-modal
-        (onClose)="isCreateModalVisible = false"
-        (onGameCreated)="onGameCreated()">
-        </app-game-creation-modal>
+    <app-game-creation-modal (onClose)="isCreateModalVisible = false" (onGameCreated)="onGameCreated()">
+    </app-game-creation-modal>
     }
 </div>

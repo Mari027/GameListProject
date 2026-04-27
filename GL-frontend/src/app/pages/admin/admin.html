@@ -1,16 +1,29 @@
-<div>
+<div class="admin-container">
     <h1>Bienvenido Admin</h1>
-    <div>
+    
+    <div class="users-list">
         @if (!isLoading) {
             @for (user of users; track $index) {
-                <div>
-                    <p>{{user.nickname}}</p>
-                    <p>{{user.email}}</p>
-                    <button (click)="deleteUser(user.id)">Eliminar</button>
+                <div class="user-card">
+                    
+                    <div class="user-info">
+                        <p class="nickname">{{user.nickname}}</p>
+                        <p class="email">{{user.email}}</p>
+                    </div>
+                    
+                    <button class="btn-eliminar" (click)="deleteUser(user.id)">
+                        Eliminar
+                    </button>
+                    
                 </div>
             }
         }@else {
-            <p>Cargando...</p>
+            <p class="carga">Cargando usuarios...</p>
         }
     </div>
 </div>
+<div class="log-out">
+        <button (click)="logout()">
+            <img src="assets/icons/sign-out.png" alt="">
+        </button>
+    </div>

@@ -1,137 +1,174 @@
+
 :host {
     display: block;
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    overflow: hidden;
 }
 
-
-#login {
-    background-color: rgba(158, 141, 255, 0.2); //transparencia para imitar cristal
-    backdrop-filter: blur(4px); //desenfoque
-    width: 90%;
-    max-width: 400px;
-    padding: 40px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 4px 100px rgba(0, 0, 0, 0.9);
-
-}
-
-.login-title {
-    text-align: center;
-    margin: 0 0 25px 0;
-    color: #e5e9fe;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 40px;
-}
-
-.login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-//Clase para contenedores de auth (LOGIN/REGISTER)
 .auth {
     width: 100vw;
     height: 100vh;
-    background-image: url(../../../../../public/assets/img/GameHive-login-BG.png);
+    background-image: url('../../../../../public/assets/img/GameHive-login-BG.png'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #121212;
+    background-color: #121212; // Fondo de respaldo
 
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-
+    
+    //Overlay de fondo para mejorar la visibilidad
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4); 
+        z-index: 0;
+    }
 }
 
+#login {
+    position: relative;
+    z-index: 1; // Para que este por encima del overlay
+    width: 90%;
+    max-width: 420px; //Límitamos el ancho
+    padding: 50px 40px;
+    
+    background-color: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(20px);
+    
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4); 
+}
 
-//ESTILO GENERAL DE LOS FORMULARIOS
+.login-title {
+    text-align: center;
+    margin: 0 0 35px 0;
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-}
+    gap: 10px;
+    
+    label {
+        font-size: 15px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.9);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        margin-left: 4px;
+    }
 
-.form-group label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #e5e9fe;
-    font-size: 18px;
-}
+    input {
+        padding: 14px 16px;
+        
+        background-color: rgba(0, 0, 0, 0.2); 
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        color: white;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        
+        //Texto placeholder
+        &::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
 
-.form-group input {
-    padding: 12px;
-    border: 1px solid #7d7d7d;
-    border-radius: 8px;
-    font-size: 15px;
-    transition: border-color 0.3s;
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: #1e05ae;
-    box-shadow: 0 0 4px 4px rgba(131, 106, 255, 0.3); //Haz exterior
-
-}
-
-label {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        //Al pulsarlo
+        &:focus {
+            outline: none;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-color: rgba(158, 141, 255, 0.6);
+            box-shadow: 0 0 0 4px rgba(158, 141, 255, 0.2);
+        }
+        &:hover{
+            box-shadow: 0 0 0 4px rgba(158, 141, 255, 0.2);
+        }
+    }
 }
 
 .error {
-    color: #ff7388;
+    color: #ff6b81;
     font-size: 13px;
     margin: 0;
     font-weight: 500;
-    text-align: center;
+    text-align: left;
+    margin-left: 4px;
+    margin-top: -4px;
 }
 
-
-/* Boton/enlaces*/
 .btn-submit {
-    margin-top: 10px;
-    padding: 14px;
-    background-color: #1919f9;
+    margin-top: 15px;
+    padding: 16px;
+    
+    // Gradiente
+    background: linear-gradient(135deg, #9e8dff 0%, #6a50ff 100%);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+    box-shadow: 0 4px 15px rgba(106, 80, 255, 0.4);
+    transition: all 0.3s ease;
 
-.btn-submit:hover:not(:disabled) {
-    background-color: #18009f;
-}
+    //Estilo de botón cuando pasamos y no esta desactivado
+    &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(106, 80, 255, 0.6);
+        background: linear-gradient(135deg, #b0a3ff 0%, #7d66ff 100%); 
+    }
 
-/* Estilo cuando el formulario es inválido y el botón está deshabilitado */
-.btn-submit:disabled {
-    background-color: #938ae1;
-    cursor: not-allowed; //Para que no aparezca la mano de clikar
+    //Cuando clicamos y no esta desactivado
+    &:active:not(:disabled) {
+        transform: translateY(1px);
+        box-shadow: 0 2px 10px rgba(106, 80, 255, 0.4);
+    }
+
+    &:disabled {
+        background: rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.4);
+        box-shadow: none;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        cursor: not-allowed;
+    }
 }
 
 .link {
     text-align: center;
-    font-family: sans-serif;
-    margin-top: 25px;
-    font-size: 14px;
-    color: #e5e9fe;
+    margin-top: 30px;
+    font-size: 14.5px;
+    color: rgba(255, 255, 255, 0.7);
 
     a {
-        color: #938ae1;
+        color: #b0a3ff;
         text-decoration: none;
-        font-weight: bold;
-    }
-}
+        font-weight: 600;
+        margin-left: 5px;
+        transition: color 0.2s ease;
 
-.link a:hover {
-    text-decoration: underline;
-    color: #6a50ff;
+        &:hover {
+            text-decoration: none;
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(176, 163, 255, 0.6);
+        }
+    }
 }

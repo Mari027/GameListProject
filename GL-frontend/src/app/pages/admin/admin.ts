@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ApiService } from '../../core/services/api-service';
 import { IUserResponse } from '../../core/interfaces/UserGames/IUserResponse';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -10,7 +11,7 @@ import { IUserResponse } from '../../core/interfaces/UserGames/IUserResponse';
 })
 export class Admin implements OnInit {
 
-  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef) { }
+  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef, private router: Router) { }
 
 
   users: IUserResponse[] = [];
@@ -36,5 +37,11 @@ export class Admin implements OnInit {
       next: () => alert("Usuario Eliminado Correctamente"),
       error: () => alert("No se ha podido eliminar el usuario")
     })
+  }
+
+  logout(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    this.router.navigate(['/login']);
   }
 }
