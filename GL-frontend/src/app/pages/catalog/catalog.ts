@@ -22,7 +22,7 @@ export class Catalog implements OnInit {
   //Input pasa la información al componente hijo
   @Input() selectedGame: IExternalGameSummary | null = null;
   currentPage = 1;
-  size = 8;
+  size = 6;
   searchValue = '';
 
   isLoading = false;

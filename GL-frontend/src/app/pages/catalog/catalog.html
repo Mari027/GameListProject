@@ -1,13 +1,12 @@
+<div class="full-view">
 <app-navbar></app-navbar>
 
+<div class="cabecera">
+    <h1>Juegos</h1>
+    <!--Recogemos el valor de busque emitido por el componente hijo-->
+    <app-search-bar (search)="onSearchChange($event)"></app-search-bar>
+</div>
 <div class="catalogo">
-
-    <div class="cabecera">
-        <h1>Juegos</h1>
-
-        <!--Recogemos el valor de busque emitido por el componente hijo-->
-        <app-search-bar (search)="onSearchChange($event)"></app-search-bar>
-    </div>
 
 
     @if(errorMsg){
@@ -17,30 +16,34 @@
     <p>Cargando...</p>
     } @else {
     <div class="juegos-catalogo">
-        @for(game of gameList; track game.name){
-        <div [style.background-image]="'url(' + game.backgroundImage + ')'" class="game-card">
-
-
-            <div class="texto">
-                <h3>{{game.name}}</h3>
-                <button (click)="selectGameToAdd(game)">
-                    <img src="assets/icons/add_game.png" alt="add game">
-                </button>
-            </div>
+    @for(game of gameList; track game.name; let i = $index){
+        <!--Aplica la clase featured-game solo para el juego con el primer índice-->
+    <div [style.background-image]="'url(' + game.backgroundImage + ')'" 
+         class="game-card" 
+         [class.featured-game]="i === 0">
+        
+        <div class="texto">
+            <h3>{{game.name}}</h3>
+            <button (click)="selectGameToAdd(game)">
+                <img src="assets/icons/add_game.png" alt="add game">
+            </button>
         </div>
-        }
-    </div>
-    <div class="paginado">
-        <button (click)="previousPage()">Anterior</button>
-        <p>{{currentPage}}</p>
-        <button (click)="nextPage()">Siguiente</button>
     </div>
     }
-    <!--Comprueba si el modal de añadir juego esta activo y le pasa los valores necesarios para el componente hijo-->
-    @if(isModalVisible){
-    <app-add-game-modal [selectedGame]="selectedGame" (onClose)="isModalVisible = false"
-        (onGameAdded)="isModalVisible = false">
-    </app-add-game-modal>
+</div>
+
     }
 
+</div>
+<div class="paginado">
+    <button (click)="previousPage()"><</button>
+    <p>{{currentPage}}</p>
+    <button (click)="nextPage()">></button>
+</div>
+<!--Comprueba si el modal de añadir juego esta activo y le pasa los valores necesarios para el componente hijo-->
+@if(isModalVisible){
+<app-add-game-modal [selectedGame]="selectedGame" (onClose)="isModalVisible = false"
+    (onGameAdded)="isModalVisible = false">
+</app-add-game-modal>
+}
 </div>
