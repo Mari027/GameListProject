@@ -34,10 +34,5 @@ public class ExternalGameController {
         List<ExternalGameSummaryDTO> games = externalGameService.getAllGames(page, size,search);
         return ResponseEntity.ok(games);
     }
-    @GetMapping("/carousel")
-    public ResponseEntity<List<ExternalGameSummaryDTO>> getCarouselGames() {
-        List<ExternalGameSummaryDTO> games = externalGameService.getCarouselGames();
-        return ResponseEntity.ok(games);
-    }
 
 }

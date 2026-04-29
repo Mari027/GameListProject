@@ -1,4 +1,4 @@
-package org.gamelist.gamelistapirest.Entities;
+package org.gamelist.gamelistapirest.Entities.ExternalApiResponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

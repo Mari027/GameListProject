@@ -21,11 +21,12 @@
         <!--Aplica la clase featured-game solo para el juego con el primer índice-->
     <div [style.background-image]="'url(' + game.backgroundImage + ')'" 
          class="game-card" 
-         [class.featured-game]="i === 0">
+         [class.featured-game]="i === 0" 
+         (click)="goToGameDetail(game.id)">
         
-        <div class="texto">
+        <div class="texto" >
             <h3>{{game.name}}</h3>
-            <button (click)="selectGameToAdd(game)">
+            <button (click)="selectGameToAdd(game)" (click)="$event.stopPropagation()">
                 <img src="assets/icons/add_game.png" alt="add game">
             </button>
         </div>

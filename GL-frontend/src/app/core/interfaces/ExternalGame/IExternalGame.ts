@@ -1,7 +1,11 @@
 export interface IExternalGame {
-    name: string; 
-    description_raw: string; 
+    id: number;
+    name: string;
+    description_raw: string;
     released: string;
-    developers: string;
     backgroundImage: string;
+    developers: string;
+    metacritic: number;
+    genres: string[];
+    platforms: string[];
 }

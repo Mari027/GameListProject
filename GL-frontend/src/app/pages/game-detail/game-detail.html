@@ -1,0 +1,134 @@
+<div class="game-detail">
+
+    @if(isLoading) {
+        <p class="carga">Cargando...</p>
+    } @else if(errorMsg) {
+        <p>{{errorMsg}}</p>
+    } @else if(isCustom && customGame) {
+        <!-- Juegos creados manualmente -->
+        <div class="game-loaded-container">
+            <div class="game">
+                <button class="btn-return" (click)="return()">←</button>
+                <div class="game-overlay">
+                    <h1>{{customGame.title}}</h1>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="info-general">
+                    <div class="informacion">
+                        @if(customGame.developer) {
+                            <p><strong>Desarrollador:</strong> {{customGame.developer}}</p>
+                        }
+                        @if(customGame.released) {
+                            <p><strong>Fecha de salida:</strong> {{customGame.released}}</p>
+                        }
+                    </div>
+                    @if(customGame.description) {
+                        <div class="description">
+                            <h3>Descripción</h3>
+                            <p>{{customGame.description}}</p>
+                        </div>
+                    }
+                </div>
+
+                @if(source === 'library' && userGame) {
+                    <div class="user-info">
+                        <h3>Tu información</h3>
+                        <p><strong>Estado:</strong> {{userGame.gameStatus}}</p>
+                        @if(userGame.rating) {
+                            <p><strong>Tu valoración:</strong> {{userGame.rating}}/5</p>
+                        }
+                        @if(userGame.hoursPlayed) {
+                            <p><strong>Horas jugadas:</strong> {{userGame.hoursPlayed}}h</p>
+                        }
+                        @if(userGame.review) {
+                            <div class="review">
+                                <h4>Tu reseña</h4>
+                                <p>{{userGame.review}}</p>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+    } @else if(game) {
+        <!-- Juegos obtenidos de la api-->
+        <div class="game-loaded-container">
+            <div class="game" [style.background-image]="'url(' + game.backgroundImage + ')'">
+                <button class="btn-return" (click)="return()">←</button>
+                @if(source === 'catalog' && game){
+                    <button class="btn-add" (click)="selectGameToAdd(game)">
+                        <img src="assets/icons/add_game.png" alt="add game">
+                    </button>
+                }
+                <div class="game-overlay">
+                    <h1>{{game.name}}</h1>
+                    <div class="genres">
+                        @for(genre of game.genres; track genre) {
+                            <span class="badge">{{genre}}</span>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="info-general">
+                    <div class="rating">
+                        @if(game.metacritic) {
+                            <div class="rating-box metacritic">
+                                <span class="rating-label">Metacritic</span>
+                                <span class="rating-value">{{game.metacritic}}</span>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="informacion">
+                        @if(game.released) {
+                            <p><strong>Fecha de salida:</strong> {{game.released}}</p>
+                        }
+                        @if(game.developers) {
+                            <p><strong>Desarrollador:</strong> {{game.developers}}</p>
+                        }
+                        @if(game.platforms.length) {
+                            <p><strong>Plataformas:</strong> {{game.platforms.join(', ')}}</p>
+                        }
+                    </div>
+
+                    @if(game.description_raw) {
+                        <div class="description">
+                            <h3>Descripción</h3>
+                            <p>{{game.description_raw}}</p>
+                        </div>
+                    }
+                </div>
+
+                @if(source === 'library' && userGame) {
+                    <div class="user-info">
+                        <h3>Tu información</h3>
+                        <p><strong>Estado:</strong> {{userGame.gameStatus}}</p>
+                        @if(userGame.rating) {
+                            <p><strong>Tu valoración:</strong> {{userGame.rating}}/5</p>
+                        }
+                        @if(userGame.hoursPlayed) {
+                            <p><strong>Horas jugadas:</strong> {{userGame.hoursPlayed}}h</p>
+                        }
+                        @if(userGame.review) {
+                            <div class="review">
+                                <h4>Tu reseña</h4>
+                                <p>{{userGame.review}}</p>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    @if(isModalVisible){
+        <app-add-game-modal [selectedGame]="selectedGame" (onClose)="isModalVisible = false"
+            (onGameAdded)="isModalVisible = false">
+        </app-add-game-modal>
+    }
+</div>

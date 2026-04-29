@@ -13,6 +13,7 @@ public interface GamesRepository extends JpaRepository<Game, Long> {
 
     Optional<Game> findByTitle(String title);
     Optional<Game> findByExternalId(Long externalId);
+    List<Game> findAllByTitle(String title);
 
     List<Game> findByDeveloper(String developer);
 

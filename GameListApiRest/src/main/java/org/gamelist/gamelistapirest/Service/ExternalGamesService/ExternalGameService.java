@@ -3,9 +3,8 @@ package org.gamelist.gamelistapirest.Service.ExternalGamesService;
 import lombok.RequiredArgsConstructor;
 import org.gamelist.gamelistapirest.DTO.ExternalGameDTOs.ExternalGameResponseDTO;
 import org.gamelist.gamelistapirest.DTO.ExternalGameDTOs.ExternalGameSummaryDTO;
-import org.gamelist.gamelistapirest.DTO.GamesDTOs.GameResponseDTO;
-import org.gamelist.gamelistapirest.Entities.ExternalApiListResponse;
-import org.gamelist.gamelistapirest.Entities.ExternalApiResponse;
+import org.gamelist.gamelistapirest.Entities.ExternalApiResponse.ExternalApiListResponse;
+import org.gamelist.gamelistapirest.Entities.ExternalApiResponse.ExternalApiResponse;
 import org.gamelist.gamelistapirest.Exceptions.CatalogoNoDisponible;
 import org.gamelist.gamelistapirest.Exceptions.JuegoNoEncontradoException;
 import org.gamelist.gamelistapirest.Mapper.ExternalGameMapper;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service

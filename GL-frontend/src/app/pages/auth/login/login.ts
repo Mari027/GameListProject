@@ -3,7 +3,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ApiService } from '../../../core/services/api-service';
 import { ILogin } from '../../../core/interfaces/Auth/ILogin';
 import { Router } from '@angular/router';
-import { IExternalGameSummary } from '../../../core/interfaces/ExternalGame/IExternalGameSummary';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +10,7 @@ import { IExternalGameSummary } from '../../../core/interfaces/ExternalGame/IExt
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
-export class Login implements OnInit {
+export class Login {
 
   constructor(private apiService: ApiService, private router: Router, private cdr: ChangeDetectorRef) { }
 
@@ -24,23 +23,6 @@ export class Login implements OnInit {
     email: this.email,
     password: this.password
   })
-
-  ngOnInit(): void {
-    this.obtenerIMG();
-  }
-
-
-  obtenerIMG() {
-    this.apiService.getCarouselGames().subscribe({
-      next: (imgs) => {
-        console.log("IMAGENES:", imgs); // ← comprueba aquí si hay datos
-        this.imagenFondo = imgs[1]?.backgroundImage ?? null;
-        this.cdr.detectChanges();
-      },
-      error: () => console.log("No se puede cargar las imagenes")
-    })
-  }
-
 
   onSubmit() {
     //Si formulario NO VÁLIDO, no hacemos nada

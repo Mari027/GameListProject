@@ -13,4 +13,5 @@ public class GameSummaryDTO {
     private Long id;
     private String title;
     private String coverImageUrl;
+    private Long externalId;
 }

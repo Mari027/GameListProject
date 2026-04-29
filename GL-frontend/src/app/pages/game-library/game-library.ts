@@ -5,6 +5,7 @@ import { IUserGame } from '../../core/interfaces/UserGames/IUserGame';
 import { UpdateGameModal } from "../../shared/update-game-modal/update-game-modal";
 import { GameCreationModal } from "../../shared/game-creation-modal/game-creation-modal";
 import { SearchBar } from "../../shared/search-bar/search-bar";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-library',
@@ -13,10 +14,10 @@ import { SearchBar } from "../../shared/search-bar/search-bar";
   styleUrl: './game-library.scss',
 })
 export class GameLibrary implements OnInit {
-  
-  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef) { }
 
-  @Input() selectedGame: IUserGame | null= null;
+  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef, private router: Router) { }
+
+  @Input() selectedGame: IUserGame | null = null;
   isUpdateModalVisible = false;
   isCreateModalVisible = false;
   searchValue = '';
@@ -64,31 +65,41 @@ export class GameLibrary implements OnInit {
   }
 
   //Método que nos da el juego seleccionado para pasarselo a update-modal
-  selectGameToUpdate(game: IUserGame){
+  selectGameToUpdate(game: IUserGame) {
     this.selectedGame = game;
     this.isUpdateModalVisible = true;
   }
 
+  //Método que se activa al actualizar un juego, desactiva el modal de actualización de la info de un juego y recarga los juegos
+  onGameUpdated() {
+    this.isUpdateModalVisible = false;
+    this.chargeGames();
+  }
+
   //Gestión de la aparición del modal de creación de un juego
-  createGame(){
+  createGame() {
     this.isCreateModalVisible = true;
   }
-  onGameCreated(){
+  onGameCreated() {
     this.isCreateModalVisible = false;
     this.chargeGames();
   }
 
-  //Método que se activa al actualizar un juego, desactiva el modal de actualización de la info de un juego y recarga los juegos
-  onGameUpdated(){
-    this.isUpdateModalVisible = false;
-    this.chargeGames();
+  //Detalles de un juego
+  goToGameDetail(gameId: number, externalId: number | null): void {
+    if (externalId) {
+      this.router.navigate(['/game', externalId], { state: { source: 'library' } });
+    } else {
+      this.router.navigate(['/game/custom', gameId], { state: { source: 'library' } });
+    }
   }
+
 
   //Método de borrado de juegos de la lista
   deleteGameFromList(id: number) {
 
     const confirmed = confirm("¿Estas seguro de eliminar el juego?");
-    if(!confirmed) return;
+    if (!confirmed) return;
 
     this.apiService.deleteGameFromList(id).subscribe({
       next: () => {
@@ -96,6 +107,38 @@ export class GameLibrary implements OnInit {
       },
       error: () => alert("No se ha podido eliminar el juego")
     })
+  }
+
+
+  exportCsv() {
+    this.apiService.exportCsv().subscribe({
+      next: (blob) => {
+        // Creamos enlace temporal para la lectura de esos datos binarios
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'biblioteca.csv';
+        a.click();
+        window.URL.revokeObjectURL(url);
+
+        //<a>url</a> y hacemos el evento donde se clica mostrandonos el CSV
+      },
+      error: () => alert('Error al exportar CSV')
+    });
+  }
+
+  importCsv(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return; //Si no hay nada en el csv se corta
+
+    const file = input.files[0]; //Solo aceptamos el primer archivo
+    this.apiService.importCsv(file).subscribe({
+      next: (result) => {
+        alert(`Importados: ${result.imported}, Omitidos: ${result.skipped}`);
+        this.chargeGames();
+      },
+      error: () => alert('Error al importar')
+    });
   }
 
 }

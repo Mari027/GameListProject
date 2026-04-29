@@ -11,6 +11,7 @@ import { IUserGameUpdate } from '../interfaces/UserGames/IUserGameUpdate';
 import { IUserResponse } from '../interfaces/UserGames/IUserResponse';
 import { IGameCreation } from '../interfaces/UserGames/IGameCreation';
 import { IGameResponseDTO } from '../interfaces/Games/IGameResponseDTO';
+import { IExternalGame } from '../interfaces/ExternalGame/IExternalGame';
 
 @Injectable({
   providedIn: 'root',
@@ -37,9 +38,8 @@ export class ApiService {
     return this.http.get<IExternalGameSummary[]>(`${this.apiUrl}external_games?page=${page}&size=${size}&search=${search}`);
   }
 
-  getCarouselGames(): Observable<IExternalGameSummary[]> {
-    //[] porque te devuelve lista
-    return this.http.get<IExternalGameSummary[]>(`${this.apiUrl}external_games/carousel`);
+  getGameById(id: number): Observable<IExternalGame> {
+    return this.http.get<IExternalGame>(`${this.apiUrl}external_games/${id}`);
   }
 
   //MÉTODOS CRUD JUEGOS
@@ -59,8 +59,12 @@ export class ApiService {
     return this.http.delete(`${this.apiUrl}userGames/games/${id}`);
   }
 
-  createNewGame(game: IGameCreation):Observable<IGameResponseDTO>{
+  createNewGame(game: IGameCreation): Observable<IGameResponseDTO> {
     return this.http.post<IGameResponseDTO>(`${this.apiUrl}games/user-create`, game);
+  }
+
+  getCustomGameById(id: number): Observable<IGameResponseDTO> {
+    return this.http.get<IGameResponseDTO>(`${this.apiUrl}games/${id}`);
   }
 
   //MÉTODOS DE USUARIO
@@ -71,5 +75,16 @@ export class ApiService {
 
   deleteUser(id: number) {
     return this.http.delete(`${this.apiUrl}users/${id}`);
+  }
+
+  //MÉTODOS CSV
+  exportCsv(): Observable<Blob> { //Blob es un objeto que representa datos binarios en bruto
+    return this.http.get(`${this.apiUrl}csv/export`, { responseType: 'blob' });
+  }
+
+  importCsv(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post(`${this.apiUrl}csv/import`, formData);
   }
 }

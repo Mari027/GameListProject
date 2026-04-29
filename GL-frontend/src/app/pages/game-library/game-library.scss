@@ -1,4 +1,4 @@
-@use '../../../variables.scss'; 
+@use '../../../variables.scss';
 
 :host {
     display: block;
@@ -9,16 +9,16 @@
 .carga {
     //posición absoluta para poder manejar libremente la posición del texto
     position: absolute;
-    top: 50vh; 
+    top: 50vh;
     left: 50%;
-    
+
     margin: 0;
     font-size: 1.5rem;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.8);
     letter-spacing: 2px;
     text-transform: uppercase;
-    
+
 }
 
 .catalogo {
@@ -58,7 +58,7 @@
     overflow: hidden; //Lo que sobre salga lo oculta
     cursor: pointer;
     width: 100%;
-    height: 280px; 
+    height: 280px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -77,7 +77,7 @@
         padding: 20px;
         width: 100%;
         height: 60%;
-        
+
         //Gradiente del bloque de texto
         background: linear-gradient(to top,
                 rgba(0, 0, 0, 0.85) 0%,
@@ -88,17 +88,17 @@
             margin: 0;
             font-size: 1.1rem;
             font-weight: 600;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
             width: 100%;
         }
 
         .botones-acciones {
-            
+
             button {
                 position: absolute; //para poder colocaf los botones como queramos
                 top: 16px; //Pegamos los botones arriba
                 z-index: 2; //Los ponemos por encima de los elementos de la tarjeta
-                
+
                 //Cristal
                 background: rgba(255, 255, 255, 0.1);
                 backdrop-filter: blur(4px);
@@ -116,7 +116,7 @@
                     width: 24px;
                     height: 24px;
                     display: block;
-                
+
                     filter: brightness(0) invert(1); //ponemos la imagen de icono en blanco
                 }
 
@@ -129,7 +129,7 @@
             //Para posicionar el boton de borrar
             .btn-borrar {
                 left: 16px; //Lo pegamos a la izquierda
-                
+
                 &:hover {
                     background: rgba(255, 60, 60, 0.3);
                     border-color: rgba(255, 60, 60, 0.5);
@@ -158,12 +158,12 @@
 //Boton para crear juego
 #create {
     //Efecto cristal
-    background: rgba(255, 255, 255, 0.05); 
+    background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
 
     padding: 15px;
-    margin: 40px auto; 
+    margin: 40px auto;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
@@ -172,7 +172,7 @@
     align-items: center;
     width: 60px;
     height: 60px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 
     img {
         width: 30px;
@@ -184,6 +184,60 @@
     &:hover {
         transform: scale(1.1) rotate(90deg); //Animación de rotación
         background: rgba(255, 255, 255, 0.2);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.csv {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-bottom: 24px;
+
+    .btn-csv {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+
+        cursor: pointer;
+
+        // Efecto Cristal 
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+        transition: all 0.3s ease;
+
+        img {
+            width: 22px;
+            height: 22px;
+            display: block;
+            filter: brightness(0) invert(1);
+
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+
+        &:hover {
+            transform: translateY(-2px);
+            background: rgba(158, 141, 255, 0.2);
+            box-shadow: 0 6px 20px rgba(158, 141, 255, 0.3);
+            border-color: rgba(158, 141, 255, 0.5);
+
+            img {
+                opacity: 1;
+            }
+        }
+
+        &:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
     }
 }

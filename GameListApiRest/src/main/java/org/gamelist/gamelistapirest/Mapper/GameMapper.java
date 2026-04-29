@@ -62,7 +62,8 @@ public class GameMapper {
         return new GameSummaryDTO(
                 game.getId(),
                 game.getTitle(),
-                game.getImageUrl()
+                game.getImageUrl(),
+                game.getExternalId()
         );
     }
 

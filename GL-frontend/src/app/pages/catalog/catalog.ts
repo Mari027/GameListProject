@@ -5,6 +5,7 @@ import { IExternalGameSummary } from '../../core/interfaces/ExternalGame/IExtern
 import { ChangeDetectorRef } from '@angular/core';
 import { AddGameModal } from '../../shared/add-game-modal/add-game-modal';
 import { SearchBar } from "../../shared/search-bar/search-bar";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-catalog',
@@ -14,7 +15,7 @@ import { SearchBar } from "../../shared/search-bar/search-bar";
 })
 export class Catalog implements OnInit {
 
-  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef) { }
+  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef, private router: Router) { }
 
 
   gameList: IExternalGameSummary[] = [];
@@ -67,6 +68,10 @@ export class Catalog implements OnInit {
     this.currentPage = 1;
     this.chargeGames();
 
+  }
+
+  goToGameDetail(id: number): void {
+    this.router.navigate(['/game', id], { state: { source: 'catalog' } });
   }
 
   chargeGames() {

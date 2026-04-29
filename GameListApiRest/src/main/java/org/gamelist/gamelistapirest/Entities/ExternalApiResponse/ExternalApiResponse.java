@@ -1,6 +1,9 @@
-package org.gamelist.gamelistapirest.Entities;
+package org.gamelist.gamelistapirest.Entities.ExternalApiResponse;
 
 import lombok.*;
+import org.gamelist.gamelistapirest.Entities.ExternalApiResponse.vo.Developer;
+import org.gamelist.gamelistapirest.Entities.ExternalApiResponse.vo.Genre;
+import org.gamelist.gamelistapirest.Entities.ExternalApiResponse.vo.PlatformWrapper;
 
 import java.util.List;
 
@@ -24,18 +27,13 @@ public class ExternalApiResponse {
     private String released;
     /**Imágen*/
     private String background_image;
+    /**Nota de metacritic*/
+    private Integer metacritic;
     /**Desarrolladoras del juegos*/
     private List<Developer> developers;
-    @Setter
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    /**
-     * Clase estática para obtener los datos concretos de los desarrolladores
-     * */
-    public static class Developer {
-        private Long id;
-        private String name;
-    }
+    /**Géneros del juegos*/
+    private List<Genre> genres;
+    /**Plataformas del juegos*/
+    private List<PlatformWrapper> platforms;
+
 }

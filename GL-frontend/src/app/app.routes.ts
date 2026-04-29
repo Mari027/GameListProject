@@ -6,12 +6,13 @@ import { authGuard } from './core/guards/auth-guard';
 import { Admin } from './pages/admin/admin';
 import { adminGuard } from './core/guards/admin-guard';
 import { GameLibrary } from './pages/game-library/game-library';
+import { GameDetail } from './pages/game-detail/game-detail';
 
 export const routes: Routes = [
     {
-        path:'',
-        redirectTo:'login',
-        pathMatch:'full'
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full'
     },
     {
         path: 'login',
@@ -24,16 +25,26 @@ export const routes: Routes = [
     {
         path: 'catalog',
         component: Catalog,
-        canActivate:[authGuard]
+        canActivate: [authGuard]
     },
     {
-        path:'admin',
+        path: 'admin',
         component: Admin,
-        canActivate:[adminGuard]
+        canActivate: [adminGuard]
     },
     {
-        path:'library',
+        path: 'library',
         component: GameLibrary,
-        canActivate:[authGuard]
+        canActivate: [authGuard]
+    },
+    {
+        path: 'game/:id',
+        component: GameDetail,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'game/custom/:id',
+        component: GameDetail,
+        canActivate: [authGuard]
     }
 ];
