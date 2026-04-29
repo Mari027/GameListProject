@@ -33,15 +33,17 @@
     </div>
     }
 </div>
-
-    }
-
-</div>
 <div class="paginado">
-    <button (click)="previousPage()"><</button>
+    <button (click)="previousPage()" [disabled]="currentPage === 1"><</button>
     <p>{{currentPage}}</p>
     <button (click)="nextPage()">></button>
 </div>
+
+    }
+    
+
+</div>
+
 <!--Comprueba si el modal de añadir juego esta activo y le pasa los valores necesarios para el componente hijo-->
 @if(isModalVisible){
 <app-add-game-modal [selectedGame]="selectedGame" (onClose)="isModalVisible = false"

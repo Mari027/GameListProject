@@ -10,16 +10,16 @@
 .carga {
     //posición absoluta para poder manejar libremente la posición del texto
     position: absolute;
-    top: 50vh; 
+    top: 50vh;
     left: 50%;
-    
+
     margin: 0;
     font-size: 1.5rem;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.8);
     letter-spacing: 2px;
     text-transform: uppercase;
-    
+
 }
 
 
@@ -165,7 +165,31 @@
     gap: 16px;
     margin-top: 40px;
 
-    button {
+    button:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+
+        width: 44px;
+        height: 44px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        color: variables.$text-color;
+        //Efecto cristal
+        background-color: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(12px);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+        font-weight: 600;
+        font-size: 16px;
+        
+    }
+
+    button:not(:disabled) {
+
         width: 44px;
         height: 44px;
         display: flex;
@@ -189,5 +213,8 @@
             background-color: rgba(255, 255, 255, 0.15);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
+
     }
+
+
 }
