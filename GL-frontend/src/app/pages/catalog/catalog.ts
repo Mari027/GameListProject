@@ -63,7 +63,7 @@ export class Catalog implements OnInit {
     this.searchValue = value.normalize("NFD")  // separa letras y tildes
       .replace(/[\u0300-\u036f]/g, "")  // elimina las tildes
       .trim()
-      .toLowerCase(); //lo pone todo en lowerCase
+      .toLowerCase();
     //Reseteamos la página para que no salgan los resultados desde la primera pág
     this.currentPage = 1;
     this.chargeGames();

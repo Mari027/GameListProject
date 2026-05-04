@@ -15,8 +15,8 @@ export class Register {
   constructor(private apiService: ApiService, private router: Router) { }
 
   nickname = new FormControl('', Validators.required);
-  email = new FormControl('', [Validators.required, Validators.email]);
-  password = new FormControl('', [Validators.required]);
+  email = new FormControl('', [Validators.required, Validators.email, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4}$")]);
+  password = new FormControl('', [Validators.required,Validators.minLength(8), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[.@#$!%*?&])[A-Za-z\\d.@#$!%*?&]+$")]);
   passwordConfirm = new FormControl('', [Validators.required]);
   errorMsg = '';
 
@@ -35,6 +35,9 @@ export class Register {
     }
     //Si formulario NO VÁLIDO, no hacemos nada
     if (this.registerForm.invalid) return;
+
+    this.errorMsg = '';
+
     //Construimos el objeto Register para el método de apiService
     const registerRequest: IRegister = {
       //! --> Non nullable
@@ -58,7 +61,9 @@ export class Register {
         }
       },
       //En el caso de que vaya mal
-      error: (response) => this.errorMsg = 'Email o contraseña incorrectos'
+      error: () => {
+        this.errorMsg = 'Email o contraseña incorrectos'
+      }
     });
   }
 }

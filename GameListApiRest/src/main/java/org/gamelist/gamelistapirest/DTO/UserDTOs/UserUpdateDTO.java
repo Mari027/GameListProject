@@ -8,6 +8,11 @@ import lombok.Data;
 
 //Nos genera setters,getters,equals...
 @Data
+/**
+ * DTO de actualización de usuario con los parámetros necesarios para la misma
+ *
+ * @author María del Carmen F.
+ * */
 public class UserUpdateDTO {
     @NotBlank(
             message = "Este campo es obligatorio"

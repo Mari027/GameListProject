@@ -7,12 +7,13 @@ import org.gamelist.gamelistapirest.DTO.UserDTOs.UserUpdateDTO;
 import org.gamelist.gamelistapirest.Entities.User;
 import org.springframework.stereotype.Component;
 
-/**
- * Clase para pasar datos a las entidades
- * y sacar datos de las mismas
- * Mejor separacion de responsabilidades
- * */
 @Component
+/**
+ * Se encarga de mapear todo lo relacionado con los usuarios
+ * tanto la creación, actualización y vista de estos
+ *
+ * @author María del Carmen F.
+ * */
 public class UserMapper {
 
     public User toEntity(UserCreationDTO dto){

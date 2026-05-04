@@ -9,6 +9,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
+/**
+ * DTO de respuesta con los datos de un juego en la lista de un usuario
+ *
+ * @author María del Carmen F.
+ * */
 public class UserGamesResponseDTO {
     private Long Id;
     private GameSummaryDTO game;

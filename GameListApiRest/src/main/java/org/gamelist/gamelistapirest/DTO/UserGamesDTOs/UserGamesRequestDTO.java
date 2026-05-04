@@ -8,10 +8,12 @@ import org.gamelist.gamelistapirest.Enums.GameStatus;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-/***
- * Datos que envia el usuario al introducir un juego en su lista
- */
 @Data
+/**
+ * DTO con los parámetros necesarios para añadir un juego en la lista de un usuario
+ *
+ * @author María del Carmen F.
+ * */
 public class UserGamesRequestDTO {
     private Long gameId; //Juegos internos, creados por usuarios
     private Long externalGameId; //Juegos de la api externas añadidos por algún usuario

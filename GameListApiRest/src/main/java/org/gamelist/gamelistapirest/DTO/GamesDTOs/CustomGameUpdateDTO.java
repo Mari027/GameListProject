@@ -6,6 +6,11 @@ import java.time.LocalDate;
 
 //Nos genera setters,getters,equals...
 @Data
+/**
+ * DTO de actualización para un juego personalizado
+ *
+ * @author María del Carmen F.
+ * */
 public class CustomGameUpdateDTO {
     private String title;
     private String description;

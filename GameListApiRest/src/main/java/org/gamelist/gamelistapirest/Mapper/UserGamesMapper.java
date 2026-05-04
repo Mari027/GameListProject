@@ -9,6 +9,12 @@ import org.gamelist.gamelistapirest.Entities.User;
 import org.gamelist.gamelistapirest.Entities.UserGames;
 import org.springframework.stereotype.Component;
 
+/**
+ * Se encarga de mapear todo lo relacionado con la biblioteca de usuario
+ * tanto la actualización de los juegos en la biblioteca como mostrar un juego de la biblioteca
+ *
+ * @author María del Carmen F.
+ * */
 @Component
 public class UserGamesMapper {
 

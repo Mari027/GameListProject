@@ -7,6 +7,11 @@ import java.time.LocalDate;
 //Nos genera setters,getters,equals...
 @Data
 @AllArgsConstructor
+/**
+ * DTO de respuesta para la entidad de Game
+ *
+ * @author María del Carmen F.
+ * */
 public class GameResponseDTO {
 
     private Long id;

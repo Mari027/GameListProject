@@ -10,6 +10,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Mapper que convierte juegos obtenidos de la Api Externa a su DTO de respuesta completo {@link ExternalGameResponseDTO}
+ * o a su DTO de respuesta reducido {@link ExternalGameSummaryDTO}
+ *
+ * @author María del Carmen F.
+ * */
 @Component
 public class ExternalGameMapper {
     public ExternalGameResponseDTO toResponseDTO(ExternalApiResponse response) {

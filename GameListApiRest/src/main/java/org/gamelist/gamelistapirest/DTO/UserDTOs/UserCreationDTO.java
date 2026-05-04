@@ -8,6 +8,11 @@ import lombok.Data;
 
 //Nos genera setters,getters,equals...
 @Data
+/**
+ * DTO de creación de usuario con las validaciones necesarias
+ *
+ * @author María del Carmen F.
+ * */
 public class UserCreationDTO {
     @NotBlank
     private String nickname;

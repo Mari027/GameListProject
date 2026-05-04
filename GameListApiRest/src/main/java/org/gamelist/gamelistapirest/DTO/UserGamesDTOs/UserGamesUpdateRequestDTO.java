@@ -7,6 +7,11 @@ import org.gamelist.gamelistapirest.Enums.GameStatus;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 @Data
+/**
+ * DTO de actualización de un juego en la lista de un usuario
+ *
+ * @author María del Carmen F.
+ * */
 public class UserGamesUpdateRequestDTO {
 
     @NotNull(message = "El estado del juego es obligatorio")

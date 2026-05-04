@@ -34,6 +34,29 @@
     }
 }
 
+.proyecto {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 2;
+
+    .logo {
+        width: 36px;
+        height: 36px;
+        filter: brightness(0) invert(1);
+    }
+
+    .nombre-proyecto {
+        font-size: 1.2rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+}
 
 #register {
     position: relative;

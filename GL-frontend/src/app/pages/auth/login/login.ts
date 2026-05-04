@@ -12,12 +12,12 @@ import { Router } from '@angular/router';
 })
 export class Login {
 
-  constructor(private apiService: ApiService, private router: Router, private cdr: ChangeDetectorRef) { }
+  constructor(private apiService: ApiService, private router: Router) { }
 
-  email = new FormControl('', [Validators.required, Validators.email]);
+  //Expresión regular para un patrón de email correcto, ya que .email solo detecta @algo sin el .com .es etc
+  email = new FormControl('', [Validators.required, Validators.email, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4}$")]);
   password = new FormControl('', [Validators.required]);
   errorMsg = '';
-  imagenFondo: string | null = null;
 
   loginForm = new FormGroup({
     email: this.email,
@@ -27,6 +27,9 @@ export class Login {
   onSubmit() {
     //Si formulario NO VÁLIDO, no hacemos nada
     if (this.loginForm.invalid) return;
+
+    this.errorMsg = '';
+
     //Construimos el objeto Login para el método de apiService
     const loginRequest: ILogin = {
       //! --> Non nullable
@@ -49,7 +52,10 @@ export class Login {
         }
       },
       //En el caso de que vaya mal
-      error: (response) => this.errorMsg = 'Email o contraseña incorrectos'
+      error: () => {
+        this.errorMsg = 'Usuario o contraseña incorrectos'
+        this.loginForm.get('password')?.reset();
+      }
     });
   }
 }

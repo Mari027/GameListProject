@@ -1,4 +1,8 @@
 <div class="auth">
+    <div class="proyecto">
+        <img src="assets/icons/web.png" alt="Icono Web" class="logo">
+        <span class="nombre-proyecto">Game Archive</span>
+    </div>
     <div id="register">
         <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
@@ -7,19 +11,32 @@
             <div class="form-group">
                 <label>Nombre de Usuario:</label>
                 <input type="text" formControlName="username">
+
+                @if(nickname.touched && nickname.errors?.['required']){
+                <p class="error">El nombre de usuario es obligatorio</p>
+                }
             </div>
             <div class="form-group">
                 <label>Email: *</label>
                 <input type="email" formControlName="email">
-                @if(email.invalid && email.touched){
+                @if(email.touched && email.errors?.['required']){
                 <p class="error">El email es obligatorio</p>
+                }
+                @if (email.errors?.['email'] || email.errors?.['pattern']) {
+                <p class="error">Por favor, introduce un formato de email válido.</p>
                 }
             </div>
             <div class="form-group">
                 <label>Contraseña: *</label>
                 <input formControlName="password" type="password">
-                @if(password.invalid && password.touched){
+                @if( password.touched && password.errors?.['required']){
                 <p class="error">La contraseña es obligatoria</p>
+                }
+                @if(password.errors?.['minlength']){
+                    <p class="error">La contraseña debe contener mínimo 8 carácteres</p>
+                }
+                @if(password.errors?.['pattern']){
+                <p class="error">"La contraseña no cumple con los requisitos de seguridad establecidos.</p>
                 }
             </div>
             <div class="form-group">

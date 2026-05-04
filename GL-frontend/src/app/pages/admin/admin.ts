@@ -32,14 +32,17 @@ export class Admin implements OnInit {
     })
   }
 
-  deleteUser(id: number){
+  deleteUser(id: number) {
     this.apiService.deleteUser(id).subscribe({
-      next: () => alert("Usuario Eliminado Correctamente"),
+      next: () => {
+        alert("Usuario Eliminado Correctamente")
+        this.chargeUser();
+      },
       error: () => alert("No se ha podido eliminar el usuario")
     })
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     this.router.navigate(['/login']);
