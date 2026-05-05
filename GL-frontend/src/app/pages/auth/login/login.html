@@ -14,10 +14,10 @@
                 <label>Email: *</label>
                 <input type="email" formControlName="email" placeholder="tu@correo.com">
 
-                @if(email.touched && email.errors?.['required']){
+                @if(email.touched && email.hasError('required')){
                 <p class="error">El email es obligatorio</p>
                 }
-                @if (email.errors?.['email'] || email.errors?.['pattern']) {
+                @if (email.hasError('email') || email.hasError('pattern')) {
                 <p class="error">Por favor, introduce un formato de email válido.</p>
                 }
             </div>
@@ -26,8 +26,11 @@
                 <label>Contraseña: *</label>
                 <input formControlName="password" type="password" placeholder="••••••••">
 
-                @if(password.invalid && password.touched){
+                @if(password.hasError('required') && password.touched){
                 <p class="error">La contraseña es obligatoria</p>
+                }
+                @if(password.hasError('pattern')){
+                <p class="error">"La contraseña no cumple con los requisitos de seguridad establecidos.</p>
                 }
             </div>
 

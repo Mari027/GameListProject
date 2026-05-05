@@ -16,7 +16,7 @@ export class Login {
 
   //Expresión regular para un patrón de email correcto, ya que .email solo detecta @algo sin el .com .es etc
   email = new FormControl('', [Validators.required, Validators.email, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4}$")]);
-  password = new FormControl('', [Validators.required]);
+  password = new FormControl('', [Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[.@#$!%*?&])[A-Za-z\\d.@#$!%*?&]+$")]);
   errorMsg = '';
 
   loginForm = new FormGroup({
@@ -44,6 +44,8 @@ export class Login {
         //Guardamos el token de usuario y su rol en LOCAL STORAGE
         localStorage.setItem('token', response.token);
         localStorage.setItem('role', response.role);
+        localStorage.setItem('email', response.email);
+        localStorage.setItem('nickname', response.username);
         console.log("Login correcto", response);
         if (response.role === 'ADMIN') {
           this.router.navigate(['/admin']);
@@ -52,8 +54,16 @@ export class Login {
         }
       },
       //En el caso de que vaya mal
-      error: () => {
-        this.errorMsg = 'Usuario o contraseña incorrectos'
+      error: (err) => {
+        //Según el estado de error que nos llegue lanzamos un mensaje u otro
+        const status = err.status;
+            if (status === 401 || status === 403) {
+                this.errorMsg = 'Email o contraseña incorrectos';
+            } else if (status === 404) {
+                this.errorMsg = 'No existe una cuenta con el email introducido';
+            } else {
+                this.errorMsg = 'Error al iniciar sesión. Inténtalo de nuevo';
+            }
         this.loginForm.get('password')?.reset();
       }
     });

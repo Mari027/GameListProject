@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ApiService } from '../../core/services/api-service';
-import { IUserResponse } from '../../core/interfaces/UserGames/IUserResponse';
+import { IUserResponse } from '../../core/interfaces/User/IUserResponse';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,6 +16,7 @@ export class Admin implements OnInit {
 
   users: IUserResponse[] = [];
   isLoading = true;
+  currentEmail = localStorage.getItem('email') ?? '';
 
   ngOnInit(): void {
     this.chargeUser();
@@ -33,6 +34,10 @@ export class Admin implements OnInit {
   }
 
   deleteUser(id: number) {
+
+    const confirmed = confirm('¿Estás seguro de eliminar este usuario?');
+    if (!confirmed) return;
+
     this.apiService.deleteUser(id).subscribe({
       next: () => {
         alert("Usuario Eliminado Correctamente")
@@ -42,9 +47,16 @@ export class Admin implements OnInit {
     })
   }
 
+  // Devuelve true si el botón debe estar deshabilitado
+  cannotDelete(user: IUserResponse): boolean {
+    return user.email === this.currentEmail || user.role === 'ADMIN';
+  }
+
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('email');
+    localStorage.removeItem('nickname');
     this.router.navigate(['/login']);
   }
 }

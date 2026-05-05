@@ -28,17 +28,31 @@ public class GameServiceImpl implements GameService{
 
     @Override
     public GameResponseDTO createCustomGame(CustomGameCreationDTO gameCreationDTO, Long userId) {
-        if(gameCreationDTO.getTitle() == null){
-            throw new DatosNoCorrectosException("Campo Obligatorio");
+        if(gameCreationDTO.getTitle() == null || gameCreationDTO.getTitle().isBlank()){
+            throw new DatosNoCorrectosException("Título Obligatorio");
         }
 
         User user = userRepository.findById(userId).orElseThrow(() -> new UsuarioNoEncontradoException("Usuario no encontrado"));
 
-        Game game = gameMapper.toEntity(gameCreationDTO, user);
+        /*Game game = gameMapper.toEntity(gameCreationDTO, user);
 
         Game saved = gamesRepository.save(game);
 
-        return gameMapper.toResponseDTO(saved);
+        return gameMapper.toResponseDTO(saved);*/
+
+        // Comprobamos si ya existe un juego con ese título exacto
+        List<Game> existingGames = gamesRepository.findAllByTitle(gameCreationDTO.getTitle().trim());
+
+        Game game;
+        if (!existingGames.isEmpty()) {
+            // Si ya existe, reutilizamos
+            game = existingGames.get(0);
+        } else {
+            game = gameMapper.toEntity(gameCreationDTO, user);
+            game = gamesRepository.save(game);
+        }
+
+        return gameMapper.toResponseDTO(game);
     }
 
     @Override

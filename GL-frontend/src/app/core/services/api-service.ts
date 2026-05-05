@@ -8,7 +8,7 @@ import { IRegister } from '../interfaces/Auth/IRegister';
 import { IGameRequest } from '../interfaces/ExternalGame/IGameRequest';
 import { IUserGame } from '../interfaces/UserGames/IUserGame';
 import { IUserGameUpdate } from '../interfaces/UserGames/IUserGameUpdate';
-import { IUserResponse } from '../interfaces/UserGames/IUserResponse';
+import { IUserResponse } from '../interfaces/User/IUserResponse';
 import { IGameCreation } from '../interfaces/UserGames/IGameCreation';
 import { IGameResponseDTO } from '../interfaces/Games/IGameResponseDTO';
 import { IExternalGame } from '../interfaces/ExternalGame/IExternalGame';

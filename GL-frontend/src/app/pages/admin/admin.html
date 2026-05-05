@@ -11,7 +11,9 @@
                         <p class="email">{{user.email}}</p>
                     </div>
                     
-                    <button class="btn-eliminar" (click)="deleteUser(user.id)">
+                    <button class="btn-eliminar" 
+                    (click)="deleteUser(user.id)" 
+                    [disabled]="cannotDelete(user)">
                         Eliminar
                     </button>
                     

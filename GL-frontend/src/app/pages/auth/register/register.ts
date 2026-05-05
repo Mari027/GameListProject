@@ -14,11 +14,28 @@ export class Register {
 
   constructor(private apiService: ApiService, private router: Router) { }
 
-  nickname = new FormControl('', Validators.required);
-  email = new FormControl('', [Validators.required, Validators.email, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4}$")]);
-  password = new FormControl('', [Validators.required,Validators.minLength(8), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[.@#$!%*?&])[A-Za-z\\d.@#$!%*?&]+$")]);
-  passwordConfirm = new FormControl('', [Validators.required]);
   errorMsg = '';
+
+  nickname = new FormControl('', [
+    Validators.required,
+    Validators.minLength(3),
+    Validators.maxLength(20)
+  ]);
+
+  email = new FormControl('', [
+    Validators.required,
+    Validators.email,
+    Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4}$")]);
+
+  password = new FormControl('', [
+    Validators.required,
+    Validators.minLength(8),
+    //Numeros, mayus, minus y caracter especial
+    Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[.@#$!%*?&])[A-Za-z\\d.@#$!%*?&]+$")]);
+
+  passwordConfirm = new FormControl('', [Validators.required]);
+
+
 
   registerForm = new FormGroup({
     username: this.nickname,
@@ -29,8 +46,8 @@ export class Register {
 
   onSubmit() {
     //Verifico contraseña
-    if(this.password.value !==  this.passwordConfirm.value){
-      this.errorMsg='Contraseñas no coincidentes'
+    if (this.password.value !== this.passwordConfirm.value) {
+      this.errorMsg = 'Contraseñas no coincidentes'
       return;
     }
     //Si formulario NO VÁLIDO, no hacemos nada
@@ -53,6 +70,8 @@ export class Register {
         //Guardamos el token de usuario y su rol en LOCAL STORAGE
         localStorage.setItem('token', response.token);
         localStorage.setItem('role', response.role);
+        localStorage.setItem('email', response.email);
+        localStorage.setItem('nickname', response.username);
         console.log("Login correcto", response);
         if (response.role === 'ADMIN') {
           this.router.navigate(['/admin']);
@@ -61,8 +80,16 @@ export class Register {
         }
       },
       //En el caso de que vaya mal
-      error: () => {
-        this.errorMsg = 'Email o contraseña incorrectos'
+      error: (err) => {
+        const message = err.error?.message ?? '';
+        const status = err.status;
+        if (message.toLowerCase().includes('email') && status === 409) {
+          this.errorMsg = 'Este email ya está registrado';
+        } else if ( message.toLowerCase().includes('nickname') && status === 409) {
+          this.errorMsg = 'Este nombre de usuario ya está en uso';
+        } else {
+          this.errorMsg = 'Error al registrarse. Inténtalo de nuevo';
+        }
       }
     });
   }
