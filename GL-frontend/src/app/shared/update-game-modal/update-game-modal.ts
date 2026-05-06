@@ -3,6 +3,7 @@ import { FormControl, Validators, FormGroup, ReactiveFormsModule } from '@angula
 import { ApiService } from '../../core/services/api-service';
 import { IUserGame } from '../../core/interfaces/UserGames/IUserGame';
 import { IUserGameUpdate } from '../../core/interfaces/UserGames/IUserGameUpdate';
+import { gameStatusValidator } from '../../core/validators/game-status.validator';
 
 @Component({
   selector: 'app-update-game-modal',
@@ -34,7 +35,7 @@ export class UpdateGameModal  implements OnChanges{
     startedAt: this.startedAt,
     completedAt: this.completedAt,
     review: this.review
-  })
+  },{validators: gameStatusValidator})
 
   //Método para indicarle al padre game-library que se debe ocultar el modal
   close() {

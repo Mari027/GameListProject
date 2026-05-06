@@ -6,10 +6,11 @@ import { ChangeDetectorRef } from '@angular/core';
 import { AddGameModal } from '../../shared/add-game-modal/add-game-modal';
 import { SearchBar } from "../../shared/search-bar/search-bar";
 import { Router } from '@angular/router';
+import { GameCreationModal } from "../../shared/game-creation-modal/game-creation-modal";
 
 @Component({
   selector: 'app-catalog',
-  imports: [Navbar, AddGameModal, SearchBar],
+  imports: [Navbar, AddGameModal, SearchBar, GameCreationModal],
   templateUrl: './catalog.html',
   styleUrl: './catalog.scss',
 })
@@ -22,9 +23,13 @@ export class Catalog implements OnInit {
   //nulo mientras no se clique añadir juego
   //Input pasa la información al componente hijo
   @Input() selectedGame: IExternalGameSummary | null = null;
+  searchValue = '';
+  noSearchResults: boolean = false;
+  isCreateModalVisible: boolean = false;
+  gameToCreate: IExternalGameSummary | null = null;
   currentPage = 1;
   size = 6;
-  searchValue = '';
+  
 
   isLoading = false;
   isModalVisible = false;
@@ -56,6 +61,15 @@ export class Catalog implements OnInit {
     this.isModalVisible = true;
   }
 
+   //Gestión de la aparición del modal de creación de un juego
+  createGame() {
+    this.isCreateModalVisible = true;
+  }
+  onGameCreated() {
+    this.isCreateModalVisible = false;
+    this.chargeGames();
+  }
+
   //Inserta el valor de búsqueda en la variable de searchValue
   //Y repite la recarga de los juegos
   onSearchChange(value: string) {
@@ -74,12 +88,14 @@ export class Catalog implements OnInit {
     this.router.navigate(['/game', id], { state: { source: 'catalog' } });
   }
 
+
   chargeGames() {
     //Para saber que esta cargando
     this.isLoading = true;
     this.apiService.getAllgames(this.currentPage, this.size, this.searchValue).subscribe({
       next: (games) => {
         this.gameList = games;
+        this.noSearchResults = this.searchValue.length > 0 && games.length === 0;
         this.isLoading = false;
         //Obligo a aplicar los cambios que ocurran en el componente
         this.cdr.detectChanges();

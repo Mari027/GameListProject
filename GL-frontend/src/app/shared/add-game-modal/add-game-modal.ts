@@ -3,6 +3,7 @@ import { ApiService } from '../../core/services/api-service';
 import { IExternalGameSummary } from '../../core/interfaces/ExternalGame/IExternalGameSummary';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IGameRequest } from '../../core/interfaces/ExternalGame/IGameRequest';
+import { gameStatusValidator } from '../../core/validators/game-status.validator';
 
 @Component({
   selector: 'app-add-game-modal',
@@ -34,7 +35,7 @@ export class AddGameModal {
     startedAt: this.startedAt,
     completedAt: this.completedAt,
     review: this.review
-  })
+  }, { validators: gameStatusValidator })
 
 
   close() {
@@ -42,7 +43,7 @@ export class AddGameModal {
   }
 
   addGame() {
-    
+
     //Si formulario NO VÁLIDO, no hacemos nada
     if (this.registerForm.invalid) return;
     //Construimos el objeto Register para el método de apiService
@@ -64,7 +65,16 @@ export class AddGameModal {
         this.onGameAdded.emit();
       },
       //En el caso de que vaya mal
-      error: () => this.errorMsg = 'Fallo al guardar el juego'
+      error: (err) => {
+        const status = err.status;
+        if (status === 409) {
+          this.errorMsg = 'Juego ya existente en la biblioteca';
+        } else if (status === 404) {
+          this.errorMsg = 'No existe una cuenta con el email introducido';
+        } else {
+          this.errorMsg = 'Fallo al añadir el juego. Inténtalo de nuevo';
+        }
+      }
     });
   }
 }

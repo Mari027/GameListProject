@@ -1,9 +1,9 @@
 <div class="modal-overlay" (click)="close()">
-  
+
   <div class="modal" (click)="$event.stopPropagation()">
-    
+
     <h1>{{selectedGame?.name}}</h1>
-    
+
     <form [formGroup]="registerForm" (ngSubmit)="addGame()" class="game-form">
 
       <div class="form-group">
@@ -22,23 +22,48 @@
         <div class="form-group">
           <label>Valoración</label>
           <input type="number" formControlName="rating" min="0" max="5" step="1" placeholder="0 - 5" />
+          @if(registerForm.hasError('ratingRequired') && registerForm.get('rating')?.touched) {
+          <p class="error">La valoración es obligatoria para este estado</p>
+          }
+          @if(registerForm.hasError('ratingNotExpected') && registerForm.get('rating')?.touched) {
+          <p class="error">La valoración no es posible en este estado</p>
+          }
         </div>
 
         <div class="form-group">
           <label>Horas jugadas</label>
           <input type="number" formControlName="hoursPlayed" min="0" step="0.1" placeholder="Ej: 15.5" />
+          @if(registerForm.hasError('hoursRequired') && registerForm.get('hoursPlayed')?.touched) {
+          <p class="error">Las horas jugadas son obligatorias para este estado</p>
+          }
+          @if(registerForm.hasError('hoursNotExpected') && registerForm.get('hoursPlayed')?.touched) {
+          <p class="error">Las horas jugadas no son posibles en este estado</p>
+          }
         </div>
+
       </div>
 
       <div class="form-row">
         <div class="form-group">
           <label>Fecha de inicio</label>
           <input type="date" formControlName="startedAt" />
+          @if(registerForm.hasError('startedAtRequired') && registerForm.get('startedAt')?.touched) {
+          <p class="error">La fecha de inicio es obligatoria para este estado</p>
+          }
+          @if(registerForm.hasError('startedNotExpected') && registerForm.get('startedAt')?.touched) {
+          <p class="error">La fecha de inicio no es posible en este estado</p>
+          }
         </div>
 
         <div class="form-group">
           <label>Fecha de fin</label>
           <input type="date" formControlName="completedAt" />
+          @if(registerForm.hasError('completedAtRequired') && registerForm.get('completedAt')?.touched) {
+          <p class="error">La fecha de finalización es obligatoria si el juego está completado</p>
+          }
+          @if(registerForm.hasError('completedNotExpected') && registerForm.get('completedAt')?.touched) {
+          <p class="error">La fecha de finalización no es posible en este estado</p>
+          }
         </div>
       </div>
 
@@ -52,6 +77,9 @@
         <button type="submit" class="btn-submit" [disabled]="registerForm.invalid">Guardar juego</button>
       </div>
 
+      @if(errorMsg){
+        <p class="error"> Juego ya existente en la biblioteca</p>
+      }
     </form>
   </div>
 </div>

@@ -47,8 +47,12 @@ export class ApiService {
   addGameToList(gameToAdd: IGameRequest) {
     return this.http.post<IGameRequest>(`${this.apiUrl}userGames`, gameToAdd);
   }
-  getAllUserGames(search: string = ''): Observable<IUserGame[]> {
-    return this.http.get<IUserGame[]>(`${this.apiUrl}userGames?search=${search}`);
+  getAllUserGames(search: string = '', status: string = ''): Observable<IUserGame[]> {
+    let url = `${this.apiUrl}userGames?search=${search}`;
+    if (status){
+      url += `&gameStatus=${status}`;
+    } 
+    return this.http.get<IUserGame[]>(url);
   }
 
   updateGameFromList(id: number, updatedGame: IUserGameUpdate) {

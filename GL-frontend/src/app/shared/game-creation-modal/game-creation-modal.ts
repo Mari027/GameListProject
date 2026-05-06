@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from "@angular/forms";
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ApiService } from '../../core/services/api-service';
 import { IGameCreation } from '../../core/interfaces/UserGames/IGameCreation';
 import { switchMap } from 'rxjs';
 import { IGameRequest } from '../../core/interfaces/ExternalGame/IGameRequest';
+import { gameStatusValidator } from '../../core/validators/game-status.validator';
 
 @Component({
   selector: 'app-game-creation-modal',
@@ -42,7 +43,7 @@ export class GameCreationModal {
     startedAt: this.startedAt,
     completedAt: this.completedAt,
     review: this.review
-  })
+  },{validators: gameStatusValidator})
 
   close() {
     this.onClose.emit();

@@ -1,6 +1,11 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
+
+  const router = inject(Router);
   //Leemos el token guardado en LOCAL STORAGE
   const token = localStorage.getItem('token');
 
@@ -15,5 +20,17 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       Authorization:`Bearer ${token}`
     }
   })
-  return next(requestWithToken);
+  return next(requestWithToken).pipe(
+        catchError((error: HttpErrorResponse) => {
+            // Enviamos al usuario con token expirado al login y limpiamos la memoria
+            if (error.status === 401) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('role');
+                localStorage.removeItem('email');
+                localStorage.removeItem('nickname');
+                router.navigate(['/login']);
+            }
+            return throwError(() => error);
+        })
+    );
 };

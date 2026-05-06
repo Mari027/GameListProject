@@ -2,7 +2,7 @@
 
 <div class="catalogo">
 
-<div class="csv">
+    <div class="csv">
         <button class="btn-csv" (click)="exportCsv()" title="Exportar CSV">
             <img src="assets/icons/exportar.png" alt="Exportar">
         </button>
@@ -15,11 +15,18 @@
 
     <div class="cabecera">
         <h1>Tus Juegos</h1>
-        <app-search-bar (search)="onSearchChange($event)"></app-search-bar>
+        <div class="busqueda">
+            <select (change)="onStatusFilter($event)" class="status-filter">
+                <option value="">Todos los estados</option>
+                <option value="PLAYING">Jugando</option>
+                <option value="COMPLETED">Completado</option>
+                <option value="PAUSED">Pausado</option>
+                <option value="DROPPED">Abandonado</option>
+                <option value="PLAN_TO_PLAY">Pendiente</option>
+            </select>
+            <app-search-bar (search)="onSearchChange($event)"></app-search-bar>
+        </div>
     </div>
-
-    
-
 
     @if(errorMsg){
     <p>{{errorMsg}}</p>
@@ -38,12 +45,13 @@
                 <h3>{{game.game.title}}</h3>
 
                 <div class="botones-acciones">
-                    <button class="btn-borrar" (click)="deleteGameFromList(game.game.id)" (click)="$event.stopPropagation()" type="button"
-                        title="Eliminar">
+                    <button class="btn-borrar" (click)="deleteGameFromList(game.game.id)"
+                        (click)="$event.stopPropagation()" type="button" title="Eliminar">
                         <img src="assets/icons/borrar.png" alt="Borrar">
                     </button>
 
-                    <button class="btn-editar" (click)="selectGameToUpdate(game)" (click)="$event.stopPropagation()" title="Editar">
+                    <button class="btn-editar" (click)="selectGameToUpdate(game)" (click)="$event.stopPropagation()"
+                        title="Editar">
                         <img src="assets/icons/boton-editar.png" alt="Editar">
                     </button>
                 </div>
@@ -54,18 +62,10 @@
     </div>
     }
 
-    <button id="create" (click)="createGame()">
-        <img src="assets/icons/add_game.png" alt="Añadir juego">
-    </button>
-
 
     @if(isUpdateModalVisible){
     <app-update-game-modal [selectedGame]="selectedGame" (onClose)="isUpdateModalVisible = false"
         (onGameUpdated)="onGameUpdated()">
     </app-update-game-modal>
-    }
-    @if(isCreateModalVisible){
-    <app-game-creation-modal (onClose)="isCreateModalVisible = false" (onGameCreated)="onGameCreated()">
-    </app-game-creation-modal>
     }
 </div>

@@ -1,9 +1,9 @@
 <div class="modal-overlay" (click)="close()">
-  
+
   <div class="modal" (click)="$event.stopPropagation()">
-    
+
     <h1>{{selectedGame?.game?.title}}</h1>
-    
+
     <form [formGroup]="updateForm" (ngSubmit)="updateGame()" class="game-form">
 
       <div class="form-group">
@@ -20,53 +20,55 @@
       <div class="form-row">
         <div class="form-group">
           <label>Valoración</label>
-          <input
-            type="number"
-            formControlName="rating"
-            min="0"
-            max="5"
-            step="1"
-            placeholder="0 - 5"
-          />
+          <input type="number" formControlName="rating" min="0" max="5" step="1" placeholder="0 - 5" />
+          @if(updateForm.hasError('ratingRequired') && updateForm.get('rating')?.touched) {
+          <p class="error">La valoración es obligatoria para este estado</p>
+          }
+          @if(updateForm.hasError('ratingNotExpected') && updateForm.get('rating')?.touched) {
+          <p class="error">La valoración no es posible en este estado</p>
+          }
         </div>
 
         <div class="form-group">
           <label>Horas jugadas</label>
-          <input
-            type="number"
-            formControlName="hoursPlayed"
-            min="0"
-            step="0.1"
-            placeholder="Ej: 15.5"
-          />
+          <input type="number" formControlName="hoursPlayed" min="0" step="0.1" placeholder="Ej: 15.5" />
+          @if(updateForm.hasError('hoursRequired') && updateForm.get('hoursPlayed')?.touched) {
+          <p class="error">Las horas jugadas son obligatorias para este estado</p>
+          }
+          @if(updateForm.hasError('hoursNotExpected') && updateForm.get('hoursPlayed')?.touched) {
+          <p class="error">Las horas jugadas no son posibles en este estado</p>
+          }
         </div>
+
       </div>
 
       <div class="form-row">
         <div class="form-group">
           <label>Fecha de inicio</label>
-          <input
-            type="date"
-            formControlName="startedAt"
-          />
+          <input type="date" formControlName="startedAt" />
+          @if(updateForm.hasError('startedAtRequired') && updateForm.get('startedAt')?.touched) {
+          <p class="error">La fecha de inicio es obligatoria para este estado</p>
+          }
+          @if(updateForm.hasError('startedNotExpected') && updateForm.get('startedAt')?.touched) {
+          <p class="error">La fecha de inicio no es posible en este estado</p>
+          }
         </div>
 
         <div class="form-group">
           <label>Fecha de finalización</label>
-          <input
-            type="date"
-            formControlName="completedAt"
-          />
+          <input type="date" formControlName="completedAt" />
+          @if(updateForm.hasError('completedAtRequired') && updateForm.get('completedAt')?.touched) {
+          <p class="error">La fecha de finalización es obligatoria si el juego está completado</p>
+          }
+          @if(updateForm.hasError('completedNotExpected') && updateForm.get('completedAt')?.touched) {
+          <p class="error">La fecha de finalización no es posible en este estado</p>
+          }
         </div>
       </div>
 
       <div class="form-group">
         <label>Reseña</label>
-        <textarea
-          rows="4"
-          formControlName="review"
-          placeholder="Escribe tu opinión del juego"
-        ></textarea>
+        <textarea rows="4" formControlName="review" placeholder="Escribe tu opinión del juego"></textarea>
       </div>
 
       <div class="modal-actions">

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-library',
-  imports: [Navbar, UpdateGameModal, GameCreationModal, SearchBar],
+  imports: [Navbar, UpdateGameModal, SearchBar],
   templateUrl: './game-library.html',
   styleUrl: './game-library.scss',
 })
@@ -19,8 +19,8 @@ export class GameLibrary implements OnInit {
 
   @Input() selectedGame: IUserGame | null = null;
   isUpdateModalVisible = false;
-  isCreateModalVisible = false;
   searchValue = '';
+  selectedStatus: string = '';
 
   gameList: IUserGame[] = [];
 
@@ -45,11 +45,17 @@ export class GameLibrary implements OnInit {
 
   }
 
+  //Guardamos el filtro y recargamos juegos con el filtro aplicado
+  onStatusFilter(event: Event) {
+    this.selectedStatus = (event.target as HTMLSelectElement).value;
+    this.chargeGames();
+  }
+
   chargeGames() {
     //Para saber que esta cargando
     this.isLoading = true;
     //Método que obtiene la lista de juegos
-    this.apiService.getAllUserGames(this.searchValue).subscribe({
+    this.apiService.getAllUserGames(this.searchValue,this.selectedStatus).subscribe({
       next: (games) => {
         this.gameList = games;
         this.isLoading = false;
@@ -76,14 +82,6 @@ export class GameLibrary implements OnInit {
     this.chargeGames();
   }
 
-  //Gestión de la aparición del modal de creación de un juego
-  createGame() {
-    this.isCreateModalVisible = true;
-  }
-  onGameCreated() {
-    this.isCreateModalVisible = false;
-    this.chargeGames();
-  }
 
   //Detalles de un juego
   goToGameDetail(gameId: number, externalId: number | null): void {

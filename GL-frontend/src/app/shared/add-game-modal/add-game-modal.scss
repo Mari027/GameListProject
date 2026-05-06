@@ -159,6 +159,16 @@
     }
 }
 
+.error {
+    color: #ff6b81;
+    font-size: 13px;
+    margin: 0;
+    font-weight: 500;
+    text-align: left;
+    margin-left: 4px;
+    margin-top: -4px;
+}
+
 //Animación de entrada
 @keyframes modalFadeIn {
     from {
