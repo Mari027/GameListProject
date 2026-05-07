@@ -60,9 +60,9 @@ public class Game {
     @Column(name = "is_user_created", nullable = false)
     private boolean userCreated;
 
-    /**Usuario que ha creado un videojuego*/
-    @ManyToOne
-    @JoinColumn(name = "created_by_user_id",nullable = true)
-    private User createdBy;
+//    /**Usuario que ha creado un videojuego*/
+//    @ManyToOne
+//    @JoinColumn(name = "created_by_user_id",nullable = true)
+//    private User createdBy;
 
 }

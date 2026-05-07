@@ -9,6 +9,7 @@ import org.gamelist.gamelistapirest.Exceptions.EmailExistenteException;
 import org.gamelist.gamelistapirest.Exceptions.UsuarioExistenteException;
 import org.gamelist.gamelistapirest.Exceptions.UsuarioNoEncontradoException;
 import org.gamelist.gamelistapirest.Mapper.UserMapper;
+import org.gamelist.gamelistapirest.Repository.UserGamesRepository;
 import org.gamelist.gamelistapirest.Repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +29,9 @@ class UserServiceImplTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private UserGamesRepository userGamesRepository;
 
     @Mock
     private UserMapper userMapper;
@@ -84,7 +88,7 @@ class UserServiceImplTest {
 
         //Creamos el usuario
         User user = User.builder().email("test@gmail.com").nickname("test").build();
-        UserResponseDTO responseDTO = new UserResponseDTO(1L, "test", "test@gmail.com");
+        UserResponseDTO responseDTO = new UserResponseDTO(1L, "test", "test@gmail.com","USER");
 
         //Comprobamos condiciones
         when(userRepository.existsByEmail("test@gmail.com")).thenReturn(false);
@@ -114,7 +118,7 @@ class UserServiceImplTest {
     void getUserById_ok() {
         //Creamos el usuario
         User user = User.builder().email("test@gmail.com").nickname("test").build();
-        UserResponseDTO responseDTO = new UserResponseDTO(1L, "test", "test@gmail.com");
+        UserResponseDTO responseDTO = new UserResponseDTO(1L, "test", "test@gmail.com","USER");
 
         //Lo buscamos y mapeamos
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
@@ -136,8 +140,8 @@ class UserServiceImplTest {
 
         //Buscamos y mapeamos
         when(userRepository.findAll()).thenReturn(List.of(user1, user2));
-        when(userMapper.toDTO(user1)).thenReturn(new UserResponseDTO(1L, "a", "a@gmail.com"));
-        when(userMapper.toDTO(user2)).thenReturn(new UserResponseDTO(2L, "b", "b@gmail.com"));
+        when(userMapper.toDTO(user1)).thenReturn(new UserResponseDTO(1L, "a", "a@gmail.com","USER"));
+        when(userMapper.toDTO(user2)).thenReturn(new UserResponseDTO(2L, "b", "b@gmail.com","USER"));
 
         //Llamamos al servicio
         List<UserResponseDTO> result = userService.getAllUsers();
@@ -157,7 +161,7 @@ class UserServiceImplTest {
     void getUserByNickname_ok() {
         //Creamos usuario
         User user = User.builder().email("test@gmail.com").nickname("test").build();
-        UserResponseDTO responseDTO = new UserResponseDTO(1L, "test", "test@gmail.com");
+        UserResponseDTO responseDTO = new UserResponseDTO(1L, "test", "test@gmail.com","USER");
 
         //Buscamos y mapeamos
         when(userRepository.findByNickname("test")).thenReturn(Optional.of(user));
@@ -185,7 +189,7 @@ class UserServiceImplTest {
         //Creamos el usuario y el dto de actualización
         User user = User.builder().email("test@gmail.com").nickname("test").build();
         UserUpdateDTO updateDTO = new UserUpdateDTO();
-        UserResponseDTO responseDTO = new UserResponseDTO(1L, "test", "test@gmail.com");
+        UserResponseDTO responseDTO = new UserResponseDTO(1L, "test", "test@gmail.com","USER");
 
         //Buscamos y guardamos la actualización
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
@@ -213,12 +217,20 @@ class UserServiceImplTest {
 
     @Test
     void deleteUser_ok() {
-        User user = User.builder().email("test@gmail.com").nickname("test").build();
+        User user = User.builder()
+                .id(1L)
+                .email("test@gmail.com")
+                .nickname("test")
+                .build();
 
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
         userService.deleteUser(1L);
 
-        verify(userRepository).delete(user);
+        // Verificamos que se borro primero la biblioteca
+        verify(userGamesRepository).deleteByUserId(1L);
+
+        // Verificamos que se borró el usuario
+        verify(userRepository).deleteById(1L);
     }
 }

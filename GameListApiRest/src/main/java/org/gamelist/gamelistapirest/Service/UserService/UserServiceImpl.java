@@ -10,8 +10,10 @@ import org.gamelist.gamelistapirest.Exceptions.EmailExistenteException;
 import org.gamelist.gamelistapirest.Exceptions.UsuarioExistenteException;
 import org.gamelist.gamelistapirest.Exceptions.UsuarioNoEncontradoException;
 import org.gamelist.gamelistapirest.Mapper.UserMapper;
+import org.gamelist.gamelistapirest.Repository.UserGamesRepository;
 import org.gamelist.gamelistapirest.Repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final UserGamesRepository userGamesRepository;
 
     @Override
     public UserResponseDTO createUser(UserCreationDTO request) {
@@ -76,10 +79,17 @@ public class UserServiceImpl implements UserService {
         return userMapper.toDTO(updatedUser);
     }
 
+    @Transactional
     @Override
     public void deleteUser(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() ->
+        // Comprobamos que el usuario existe
+        userRepository.findById(id).orElseThrow(() ->
                 new UsuarioNoEncontradoException("Usuario no encontrado"));
-        userRepository.delete(user);
+
+        // Primero borramos sus entradas en user_games para respetar la FK
+        userGamesRepository.deleteByUserId(id);
+
+        // Luego borramos el usuario
+        userRepository.deleteById(id);
     }
 }

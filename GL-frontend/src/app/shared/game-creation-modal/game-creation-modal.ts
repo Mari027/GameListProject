@@ -30,6 +30,8 @@ export class GameCreationModal {
   completedAt = new FormControl('', []);
   endedAt = new FormControl('', []);
   review = new FormControl('', [Validators.maxLength(100)])
+
+  today = new Date().toISOString().split('T')[0] //Fecha de hoy
   errorMsg = '';
 
   creationForm = new FormGroup({
@@ -43,7 +45,7 @@ export class GameCreationModal {
     startedAt: this.startedAt,
     completedAt: this.completedAt,
     review: this.review
-  },{validators: gameStatusValidator})
+  }, { validators: gameStatusValidator })
 
   close() {
     this.onClose.emit();

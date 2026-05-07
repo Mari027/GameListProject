@@ -26,6 +26,8 @@ export class AddGameModal {
   completedAt = new FormControl('', []);
   endedAt = new FormControl('', []);
   review = new FormControl('', [Validators.maxLength(100)])
+
+  today = new Date().toISOString().split('T')[0] //Fecha de hoy
   errorMsg = '';
 
   registerForm = new FormGroup({

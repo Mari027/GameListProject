@@ -45,7 +45,7 @@
       <div class="form-row">
         <div class="form-group">
           <label>Fecha de inicio</label>
-          <input type="date" formControlName="startedAt" />
+          <input type="date" formControlName="startedAt" [max]="today" />
           @if(updateForm.hasError('startedAtRequired') && updateForm.get('startedAt')?.touched) {
           <p class="error">La fecha de inicio es obligatoria para este estado</p>
           }
@@ -56,7 +56,7 @@
 
         <div class="form-group">
           <label>Fecha de finalización</label>
-          <input type="date" formControlName="completedAt" />
+          <input type="date" formControlName="completedAt" [max]="today" />
           @if(updateForm.hasError('completedAtRequired') && updateForm.get('completedAt')?.touched) {
           <p class="error">La fecha de finalización es obligatoria si el juego está completado</p>
           }

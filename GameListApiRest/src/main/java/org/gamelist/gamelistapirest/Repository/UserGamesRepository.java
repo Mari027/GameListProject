@@ -28,6 +28,7 @@ public interface UserGamesRepository extends JpaRepository<UserGames, Long> {
     List<UserGames> findByUserIdAndRating(Long userId, Integer rating);
 
     void deleteByUserIdAndGameId(Long userId, Long gameId);
+    void deleteByUserId(Long id);
 
     boolean existsByUserIdAndGameId(Long userId, Long gameId);
 

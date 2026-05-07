@@ -46,8 +46,8 @@
       <div class="form-row">
         <div class="form-group">
           <label>Fecha de inicio</label>
-          <input type="date" formControlName="startedAt" />
-          @if(registerForm.hasError('startedAtRequired') && registerForm.get('startedAt')?.touched) {
+          <input type="date" formControlName="startedAt" [max]="today" />
+          @if(registerForm.hasError('startedAtRequired') && registerForm.get('startedAt')?.touched && registerForm.get('startedAt')?.hasError('futureDate')) {
           <p class="error">La fecha de inicio es obligatoria para este estado</p>
           }
           @if(registerForm.hasError('startedNotExpected') && registerForm.get('startedAt')?.touched) {
@@ -57,7 +57,7 @@
 
         <div class="form-group">
           <label>Fecha de fin</label>
-          <input type="date" formControlName="completedAt" />
+          <input type="date" formControlName="completedAt" [max]="today" />
           @if(registerForm.hasError('completedAtRequired') && registerForm.get('completedAt')?.touched) {
           <p class="error">La fecha de finalización es obligatoria si el juego está completado</p>
           }

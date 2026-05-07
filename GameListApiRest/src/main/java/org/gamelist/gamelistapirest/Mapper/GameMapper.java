@@ -27,9 +27,7 @@ public class GameMapper {
         game.setReleaseDate(dto.getReleaseDate());
         game.setDeveloper(dto.getDeveloper());
         game.setImageUrl(dto.getImageUrl());
-
         game.setUserCreated(true);
-        game.setCreatedBy(user);
         return game;
     }
 
@@ -41,9 +39,7 @@ public class GameMapper {
         game.setReleaseDate(dto.getReleased());
         game.setDeveloper(dto.getDevelopers());
         game.setImageUrl(dto.getBackgroundImage());
-
         game.setUserCreated(false);
-        game.setCreatedBy(null);
         return game;
     }
 

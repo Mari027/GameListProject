@@ -93,7 +93,6 @@ public class CsvService {
                 game = new Game();
                 game.setTitle(title);
                 game.setUserCreated(true);
-                game.setCreatedBy(user);
                 game = gamesRepository.save(game);
             }
 

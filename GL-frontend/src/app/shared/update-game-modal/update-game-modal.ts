@@ -11,7 +11,7 @@ import { gameStatusValidator } from '../../core/validators/game-status.validator
   templateUrl: './update-game-modal.html',
   styleUrl: './update-game-modal.scss',
 })
-export class UpdateGameModal  implements OnChanges{
+export class UpdateGameModal implements OnChanges {
   @Output() onClose = new EventEmitter<void>();
   @Output() onGameUpdated = new EventEmitter<void>();
   @Input() selectedGame: IUserGame | null = null;
@@ -26,6 +26,7 @@ export class UpdateGameModal  implements OnChanges{
   completedAt = new FormControl('');
   review = new FormControl('', [Validators.maxLength(100)]);
 
+  today = new Date().toISOString().split('T')[0] //Fecha de hoy
   errorMsg = '';
 
   updateForm = new FormGroup({
@@ -35,7 +36,7 @@ export class UpdateGameModal  implements OnChanges{
     startedAt: this.startedAt,
     completedAt: this.completedAt,
     review: this.review
-  },{validators: gameStatusValidator})
+  }, { validators: gameStatusValidator })
 
   //Método para indicarle al padre game-library que se debe ocultar el modal
   close() {
@@ -62,7 +63,7 @@ export class UpdateGameModal  implements OnChanges{
   updateGame() {
 
     //Si formulario NO VÁLIDO, no hacemos nada
-    if(!this.selectedGame) return;
+    if (!this.selectedGame) return;
     if (this.updateForm.invalid) return;
     //Construimos el objeto GameToUpdate para el método de apiService
     const gameToUpdate: IUserGameUpdate = {
