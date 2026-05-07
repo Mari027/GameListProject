@@ -2,10 +2,11 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ApiService } from '../../core/services/api-service';
 import { IUserResponse } from '../../core/interfaces/User/IUserResponse';
 import { Router } from '@angular/router';
+import { ConfirmModal } from "../../shared/confirm-modal/confirm-modal";
 
 @Component({
   selector: 'app-admin',
-  imports: [],
+  imports: [ConfirmModal],
   templateUrl: './admin.html',
   styleUrl: './admin.scss',
 })
@@ -16,6 +17,8 @@ export class Admin implements OnInit {
 
   users: IUserResponse[] = [];
   isLoading = true;
+  showConfirmDelete: boolean = false;
+  userToDelete: number | null = null;
   currentEmail = localStorage.getItem('email') ?? '';
 
   ngOnInit(): void {
@@ -33,13 +36,24 @@ export class Admin implements OnInit {
     })
   }
 
-  deleteUser(id: number) {
+  //Pedimos borrar pasando el id del usuario a borrar
+  requestDelete(id:number){
+    this.showConfirmDelete = true;
+    this.userToDelete = id;
+  }
 
-    const confirmed = confirm('¿Estás seguro de eliminar este usuario?');
-    if (!confirmed) return;
+  cancelDelete(){
+    this.showConfirmDelete = false;
+  }
 
-    this.apiService.deleteUser(id).subscribe({
+  deleteUser() {
+    //Borro solo si hay id
+    if (this.userToDelete === null) return;
+
+    this.apiService.deleteUser(this.userToDelete).subscribe({
       next: () => {
+        this.showConfirmDelete = false;
+        this.userToDelete = null;
         alert("Usuario Eliminado Correctamente")
         this.chargeUser();
       },

@@ -6,10 +6,11 @@ import { UpdateGameModal } from "../../shared/update-game-modal/update-game-moda
 import { GameCreationModal } from "../../shared/game-creation-modal/game-creation-modal";
 import { SearchBar } from "../../shared/search-bar/search-bar";
 import { Router } from '@angular/router';
+import { ConfirmModal } from "../../shared/confirm-modal/confirm-modal";
 
 @Component({
   selector: 'app-game-library',
-  imports: [Navbar, UpdateGameModal, SearchBar],
+  imports: [Navbar, UpdateGameModal, SearchBar, ConfirmModal],
   templateUrl: './game-library.html',
   styleUrl: './game-library.scss',
 })
@@ -25,6 +26,10 @@ export class GameLibrary implements OnInit {
   gameList: IUserGame[] = [];
 
   isLoading = false;
+
+  //Modal de confirmación para el borrado de juegos
+  showConfirmDelete: boolean = false;
+  gameToDelete: number | null = null;
 
   errorMsg = '';
 
@@ -55,7 +60,7 @@ export class GameLibrary implements OnInit {
     //Para saber que esta cargando
     this.isLoading = true;
     //Método que obtiene la lista de juegos
-    this.apiService.getAllUserGames(this.searchValue,this.selectedStatus).subscribe({
+    this.apiService.getAllUserGames(this.searchValue, this.selectedStatus).subscribe({
       next: (games) => {
         this.gameList = games;
         this.isLoading = false;
@@ -92,16 +97,28 @@ export class GameLibrary implements OnInit {
     }
   }
 
+  //Pedimos borrar y el juego a borrar
+  requestDelete(id: number) {
+    this.showConfirmDelete = true;
+    this.gameToDelete = id;
+  }
+  //Cancelamos borrar
+  cancelDelete() {
+    this.showConfirmDelete = false;
+  }
 
   //Método de borrado de juegos de la lista
-  deleteGameFromList(id: number) {
+  //Solo si se acepta el borrado
+  deleteGameFromList() {
 
-    const confirmed = confirm("¿Estas seguro de eliminar el juego?");
-    if (!confirmed) return;
+    if (this.gameToDelete === null) return;
 
-    this.apiService.deleteGameFromList(id).subscribe({
+    this.apiService.deleteGameFromList(this.gameToDelete).subscribe({
       next: () => {
+        this.showConfirmDelete = false;
+        this.gameToDelete = null;
         this.chargeGames();
+        alert("Juego borrado correctamente")
       },
       error: () => alert("No se ha podido eliminar el juego")
     })

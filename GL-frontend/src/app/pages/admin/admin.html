@@ -1,31 +1,34 @@
 <div class="admin-container">
     <h1>Bienvenido Admin</h1>
-    
+
     <div class="users-list">
         @if (!isLoading) {
-            @for (user of users; track $index) {
-                <div class="user-card">
-                    
-                    <div class="user-info">
-                        <p class="nickname">{{user.nickname}}</p>
-                        <p class="email">{{user.email}}</p>
-                    </div>
-                    
-                    <button class="btn-eliminar" 
-                    (click)="deleteUser(user.id)" 
-                    [disabled]="cannotDelete(user)">
-                        Eliminar
-                    </button>
-                    
-                </div>
-            }
+        @for (user of users; track $index) {
+        <div class="user-card">
+
+            <div class="user-info">
+                <p class="nickname">{{user.nickname}}</p>
+                <p class="email">{{user.email}}</p>
+            </div>
+
+            <button class="btn-eliminar" (click)="requestDelete(user.id)" [disabled]="cannotDelete(user)">
+                Eliminar
+            </button>
+
+        </div>
+        }
         }@else {
-            <p class="carga">Cargando usuarios...</p>
+        <p class="carga">Cargando usuarios...</p>
         }
     </div>
+    @if(showConfirmDelete) {
+    <app-confirm-modal message="¿Estás seguro de eliminar este usuario?"
+        confirmText="Eliminar" (onConfirm)="deleteUser()" (onCancel)="cancelDelete()">
+    </app-confirm-modal>
+    }
 </div>
 <div class="log-out">
-        <button (click)="logout()">
-            <img src="assets/icons/sign-out.png" alt="">
-        </button>
-    </div>
+    <button (click)="logout()">
+        <img src="assets/icons/sign-out.png" alt="">
+    </button>
+</div>

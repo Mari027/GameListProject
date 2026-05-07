@@ -45,8 +45,8 @@
                 <h3>{{game.game.title}}</h3>
 
                 <div class="botones-acciones">
-                    <button class="btn-borrar" (click)="deleteGameFromList(game.game.id)"
-                        (click)="$event.stopPropagation()" type="button" title="Eliminar">
+                    <button class="btn-borrar"
+                        (click)="$event.stopPropagation()" (click)="requestDelete(game.game.id)" type="button" title="Eliminar">
                         <img src="assets/icons/borrar.png" alt="Borrar">
                     </button>
 
@@ -67,5 +67,11 @@
     <app-update-game-modal [selectedGame]="selectedGame" (onClose)="isUpdateModalVisible = false"
         (onGameUpdated)="onGameUpdated()">
     </app-update-game-modal>
+    }
+
+    @if(showConfirmDelete) {
+    <app-confirm-modal message="¿Estás seguro de que quieres eliminar este juego de tu biblioteca?"
+        confirmText="Eliminar" (onConfirm)="deleteGameFromList()" (onCancel)="cancelDelete()">
+    </app-confirm-modal>
     }
 </div>
