@@ -22,6 +22,7 @@ export class GameDetail implements OnInit {
     //nulo mientras no se clique añadir juego
     //Input pasa la información al componente hijo
     @Input() selectedGame: IExternalGameSummary | null = null;
+    
     game: IExternalGame | null = null;
     customGame: IGameResponseDTO | null = null;
     userGame: IUserGame | null = null;

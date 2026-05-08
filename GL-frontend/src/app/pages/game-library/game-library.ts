@@ -7,6 +7,7 @@ import { GameCreationModal } from "../../shared/game-creation-modal/game-creatio
 import { SearchBar } from "../../shared/search-bar/search-bar";
 import { Router } from '@angular/router';
 import { ConfirmModal } from "../../shared/confirm-modal/confirm-modal";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-game-library',
@@ -16,7 +17,8 @@ import { ConfirmModal } from "../../shared/confirm-modal/confirm-modal";
 })
 export class GameLibrary implements OnInit {
 
-  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef, private router: Router) { }
+  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef, private router: Router, 
+    private toastr: ToastrService) { }
 
   @Input() selectedGame: IUserGame | null = null;
   isUpdateModalVisible = false;
@@ -69,7 +71,8 @@ export class GameLibrary implements OnInit {
         this.isLoading = false;
       },
       error: () => {
-        this.errorMsg = 'Error al cargar la lista de juegos';
+        this.errorMsg = 'Error al cargar la biblioteca';
+        this.toastr.error('Error al cargar la biblioteca')
         this.isLoading = false;
       }
     });
@@ -117,10 +120,10 @@ export class GameLibrary implements OnInit {
       next: () => {
         this.showConfirmDelete = false;
         this.gameToDelete = null;
+        this.toastr.success("Juego borrado correctamente",'Éxito')
         this.chargeGames();
-        alert("Juego borrado correctamente")
       },
-      error: () => alert("No se ha podido eliminar el juego")
+      error: () => this.toastr.error("No se ha podido eliminar el juego",'Error')
     })
   }
 
@@ -134,11 +137,10 @@ export class GameLibrary implements OnInit {
         a.href = url;
         a.download = 'biblioteca.csv';
         a.click();
-        window.URL.revokeObjectURL(url);
-
-        //<a>url</a> y hacemos el evento donde se clica mostrandonos el CSV
+        window.URL.revokeObjectURL(url);//<a>url</a> y hacemos el evento donde se clica mostrandonos el CSV
+        this.toastr.success('Biblioteca exportada correctamente','Éxito')
       },
-      error: () => alert('Error al exportar CSV')
+      error: () => this.toastr.error('Error al exportar CSV','Error')
     });
   }
 
@@ -149,10 +151,11 @@ export class GameLibrary implements OnInit {
     const file = input.files[0]; //Solo aceptamos el primer archivo
     this.apiService.importCsv(file).subscribe({
       next: (result) => {
-        alert(`Importados: ${result.imported}, Omitidos: ${result.skipped}`);
+        this.toastr.info(`Importados: ${result.imported}, Omitidos: ${result.skipped}`, 'Importación completada');
+        input.value = '';
         this.chargeGames();
       },
-      error: () => alert('Error al importar')
+      error: () => this.toastr.error('Error al importar CSV','Error')
     });
   }
 

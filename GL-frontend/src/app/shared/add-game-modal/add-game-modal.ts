@@ -4,6 +4,7 @@ import { IExternalGameSummary } from '../../core/interfaces/ExternalGame/IExtern
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IGameRequest } from '../../core/interfaces/ExternalGame/IGameRequest';
 import { gameStatusValidator } from '../../core/validators/game-status.validator';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-game-modal',
@@ -16,7 +17,7 @@ export class AddGameModal {
   @Output() onGameAdded = new EventEmitter<void>();
   @Input() selectedGame: IExternalGameSummary | null = null;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService,private toastr: ToastrService) { }
 
 
   gameStatus = new FormControl('', Validators.required);
@@ -65,16 +66,17 @@ export class AddGameModal {
       //En el caso de que vaya bien
       next: () => {
         this.onGameAdded.emit();
+        this.toastr.success('Juego añadido correctamente','Exito')
       },
       //En el caso de que vaya mal
       error: (err) => {
         const status = err.status;
         if (status === 409) {
-          this.errorMsg = 'Juego ya existente en la biblioteca';
+          this.toastr.error('Juego ya existente en la biblioteca','Error');
         } else if (status === 404) {
-          this.errorMsg = 'No existe una cuenta con el email introducido';
+          this.toastr.error('No existe una cuenta con el email introducido','Error');
         } else {
-          this.errorMsg = 'Fallo al añadir el juego. Inténtalo de nuevo';
+          this.toastr.error('Fallo al añadir el juego. Inténtalo de nuevo','Error');
         }
       }
     });

@@ -4,6 +4,7 @@ import { ApiService } from '../../core/services/api-service';
 import { IUserGame } from '../../core/interfaces/UserGames/IUserGame';
 import { IUserGameUpdate } from '../../core/interfaces/UserGames/IUserGameUpdate';
 import { gameStatusValidator } from '../../core/validators/game-status.validator';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-game-modal',
@@ -16,7 +17,7 @@ export class UpdateGameModal implements OnChanges {
   @Output() onGameUpdated = new EventEmitter<void>();
   @Input() selectedGame: IUserGame | null = null;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService,private toastr: ToastrService) { }
 
 
   gameStatus = new FormControl('', Validators.required);
@@ -80,11 +81,11 @@ export class UpdateGameModal implements OnChanges {
     this.apiService.updateGameFromList(this.selectedGame.game!.id, gameToUpdate).subscribe({
       //En el caso de que vaya bien
       next: () => {
-        alert("Juego Actualizado Correctamente")
+        this.toastr.success("Juego Actualizado Correctamente",'Éxito')
         this.onGameUpdated.emit();
       },
       //En el caso de que vaya mal
-      error: () => this.errorMsg = 'Fallo al actualizar el juego'
+      error: () => this.toastr.error('Fallo al actualizar el juego','Error')
     });
   }
 }

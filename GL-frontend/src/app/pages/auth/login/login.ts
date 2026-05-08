@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ApiService } from '../../../core/services/api-service';
 import { ILogin } from '../../../core/interfaces/Auth/ILogin';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class Login {
 
-  constructor(private apiService: ApiService, private router: Router) { }
+  constructor(private apiService: ApiService, private router: Router,private toastr: ToastrService) { }
 
   //Expresión regular para un patrón de email correcto, ya que .email solo detecta @algo sin el .com .es etc
   email = new FormControl('', [Validators.required, Validators.email, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4}$")]);
@@ -58,11 +59,11 @@ export class Login {
         //Según el estado de error que nos llegue lanzamos un mensaje u otro
         const status = err.status;
             if (status === 401 || status === 403) {
-                this.errorMsg = 'Email o contraseña incorrectos';
+                this.toastr.error('Email o contraseña incorrectos');
             } else if (status === 404) {
-                this.errorMsg = 'No existe una cuenta con el email introducido';
+                this.toastr.error('No existe una cuenta con el email introducido');
             } else {
-                this.errorMsg = 'Error al iniciar sesión. Inténtalo de nuevo';
+                this.toastr.error('Error al iniciar sesión. Inténtalo de nuevo');
             }
         this.loginForm.get('password')?.reset();
       }

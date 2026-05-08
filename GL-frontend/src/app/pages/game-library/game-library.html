@@ -37,7 +37,7 @@
     <p class="carga">Cargando juegos...</p>
     } @else {
     <div class="juegos-biblioteca">
-        @for(game of gameList; track game.game.title; let i = $index){
+        @for(game of gameList; track game.game.id;){
         <div [style.background-image]="'url(' + game.game.coverImageUrl + ')'" class="game-card"
             (click)="goToGameDetail(game.game.id, game.game.externalId)">
 

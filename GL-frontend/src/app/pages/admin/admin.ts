@@ -3,6 +3,7 @@ import { ApiService } from '../../core/services/api-service';
 import { IUserResponse } from '../../core/interfaces/User/IUserResponse';
 import { Router } from '@angular/router';
 import { ConfirmModal } from "../../shared/confirm-modal/confirm-modal";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin',
@@ -12,7 +13,7 @@ import { ConfirmModal } from "../../shared/confirm-modal/confirm-modal";
 })
 export class Admin implements OnInit {
 
-  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef, private router: Router) { }
+  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef, private router: Router,private toastr: ToastrService) { }
 
 
   users: IUserResponse[] = [];
@@ -32,7 +33,7 @@ export class Admin implements OnInit {
         this.isLoading = false;
         this.cdr.detectChanges();
       },
-      error: () => console.log("No es posible obtener la lista de usuarios")
+      error: () => this.toastr.error("No es posible obtener la lista de usuarios")
     })
   }
 
@@ -54,10 +55,10 @@ export class Admin implements OnInit {
       next: () => {
         this.showConfirmDelete = false;
         this.userToDelete = null;
-        alert("Usuario Eliminado Correctamente")
+        this.toastr.success("Usuario Eliminado Correctamente",'Éxito')
         this.chargeUser();
       },
-      error: () => alert("No se ha podido eliminar el usuario")
+      error: () => this.toastr.error("No se ha podido eliminar el usuario",'Error')
     })
   }
 

@@ -7,6 +7,7 @@ import { AddGameModal } from '../../shared/add-game-modal/add-game-modal';
 import { SearchBar } from "../../shared/search-bar/search-bar";
 import { Router } from '@angular/router';
 import { GameCreationModal } from "../../shared/game-creation-modal/game-creation-modal";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-catalog',
@@ -16,7 +17,7 @@ import { GameCreationModal } from "../../shared/game-creation-modal/game-creatio
 })
 export class Catalog implements OnInit {
 
-  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef, private router: Router) { }
+  constructor(private apiService: ApiService, private cdr: ChangeDetectorRef, private router: Router, private toastr: ToastrService) { }
 
 
   gameList: IExternalGameSummary[] = [];
@@ -102,6 +103,7 @@ export class Catalog implements OnInit {
       },
       error: () => {
         this.errorMsg = 'Error al cargar la lista de juegos';
+        this.toastr.error('Error al cargar el catálogo','Error');
         this.isLoading = false;
       }
     });

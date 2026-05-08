@@ -5,6 +5,7 @@ import { IGameCreation } from '../../core/interfaces/UserGames/IGameCreation';
 import { switchMap } from 'rxjs';
 import { IGameRequest } from '../../core/interfaces/ExternalGame/IGameRequest';
 import { gameStatusValidator } from '../../core/validators/game-status.validator';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-game-creation-modal',
@@ -17,7 +18,7 @@ export class GameCreationModal {
   @Output() onClose = new EventEmitter<void>();
   @Output() onGameCreated = new EventEmitter<void>();
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService,private toastr: ToastrService) { }
 
   title = new FormControl('', Validators.required);
   description = new FormControl('');
@@ -92,9 +93,10 @@ export class GameCreationModal {
       })
     ).subscribe({
       next: () => {
+        this.toastr.success('Juego creado y añadido correctamente','Éxito')
         this.onGameCreated.emit();
       },
-      error: () => alert("Fallo al crear el juego")
+      error: () => this.toastr.error("Fallo al crear el juego",'Error')
     })
   }
 

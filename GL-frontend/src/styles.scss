@@ -1,4 +1,5 @@
 @use 'variables';
+@use 'ngx-toastr/toastr';
 
 html,
 body {
@@ -28,4 +29,60 @@ body {
         color: variables.$text-color;
         text-decoration: none;
     }
+}
+
+//Contenedor general de los toast
+#toast-container > div {
+
+    margin-right: 20px !important;
+    border-radius: 16px !important;
+    
+    //Efecto Cristal
+    backdrop-filter: blur(16px) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+    
+    color: white !important;
+    font-family: inherit !important;
+    padding: 16px 20px 16px 50px !important;
+    
+    transition: all 0.3s ease !important;
+    
+    &:hover {
+        transform: translateY(-3px) !important;
+    }
+}
+
+//Contenedor success
+#toast-container > .toast-success {
+    background-color: rgba(102, 204, 51, 0.4) !important;
+    border: 1px solid rgba(102, 204, 51, 0.6) !important;
+    box-shadow: 0 8px 25px rgba(102, 204, 51, 0.3) !important;
+}
+
+//Contenedor Error
+#toast-container > .toast-error {
+    background-color: rgba(255, 60, 60, 0.4) !important;
+    border: 1px solid rgba(255, 60, 60, 0.6) !important;
+    box-shadow: 0 8px 25px rgba(255, 60, 60, 0.3) !important;
+}
+
+//Contenedor Info
+#toast-container > .toast-info {
+    background-color: rgba(158, 141, 255, 0.4) !important;
+    border: 1px solid rgba(158, 141, 255, 0.6) !important;
+    box-shadow: 0 8px 25px rgba(158, 141, 255, 0.3) !important;
+}
+
+//Estilo de los textos del toast
+#toast-container .toast-title {
+    font-weight: 700 !important;
+    font-size: 1.05rem !important;
+    margin-bottom: 6px !important;
+    letter-spacing: 0.5px !important;
+}
+
+#toast-container .toast-message {
+    font-size: 0.95rem !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    line-height: 1.4 !important;
 }

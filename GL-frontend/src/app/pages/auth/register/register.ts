@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { ApiService } from '../../../core/services/api-service';
 import { Router } from '@angular/router';
 import { IRegister } from '../../../core/interfaces/Auth/IRegister';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ import { IRegister } from '../../../core/interfaces/Auth/IRegister';
 })
 export class Register {
 
-  constructor(private apiService: ApiService, private router: Router) { }
+  constructor(private apiService: ApiService, private router: Router, private toastr: ToastrService) { }
 
   errorMsg = '';
 
@@ -84,11 +85,11 @@ export class Register {
         const message = err.error?.message ?? '';
         const status = err.status;
         if (message.toLowerCase().includes('email') && status === 409) {
-          this.errorMsg = 'Este email ya está registrado';
+          this.toastr.error('Este email ya está registrado') ;
         } else if ( message.toLowerCase().includes('nickname') && status === 409) {
-          this.errorMsg = 'Este nombre de usuario ya está en uso';
+          this.toastr.error('Este nombre de usuario ya está registrado');
         } else {
-          this.errorMsg = 'Error al registrarse. Inténtalo de nuevo';
+          this.toastr.error('Error al registrarse. Inténtalo de nuevo');
         }
       }
     });
