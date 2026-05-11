@@ -32,4 +32,5 @@ ENTRYPOINT ["java", "-jar", "app.jar", \
 "--jwt.expiration=${JWT_EXPIRATION}", \
 "--jwt.secret=${JWT_SECRET}", \
 "--external.api.url=${EXTERNAL_API_URL}", \
+"--external.api.key=${EXTERNAL_API_KEY}", \
 "--server.port=8080"]
