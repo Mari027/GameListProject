@@ -31,4 +31,5 @@ ENTRYPOINT ["java", "-jar", "app.jar", \
 "--spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}", \
 "--jwt.expiration=${JWT_EXPIRATION}", \
 "--jwt.secret=${JWT_SECRET}", \
+"--external.api.url=${EXTERNAL_API_URL}", \
 "--server.port=8080"]
