@@ -25,4 +25,10 @@ COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
 
 # ejecutar app
-ENTRYPOINT ["java", "-jar", "app.jar", "--spring.datasource.url=${SPRING_DATASOURCE_URL}", "--spring.datasource.username=${SPRING_DATASOURCE_USERNAME}", "--spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}", "--server.port=8080", "--server.address=0.0.0.0"]
+ENTRYPOINT ["java", "-jar", "app.jar", \
+"--spring.datasource.url=${SPRING_DATASOURCE_URL}", \
+"--spring.datasource.username=${SPRING_DATASOURCE_USERNAME}", \
+"--spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}", \
+"--jwt.expiration=${JWT_EXPIRATION}", \
+"--jwt.secret=${JWT_SECRET}", \
+"--server.port=8080"]
