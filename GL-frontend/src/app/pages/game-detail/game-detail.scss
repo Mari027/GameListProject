@@ -323,3 +323,131 @@
     }
 }
 
+//Responsive
+
+//Tablets
+@media (max-width: 1024px) {
+    .content {
+        padding: 0 30px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .game-overlay {
+        padding: 30px;
+
+        h1 {
+            font-size: 2.8rem;
+        }
+    }
+
+    .game, .custom-game {
+        .btn-return { left: 20px; }
+        .btn-add { right: 20px; }
+    }
+}
+
+//Móvil
+@media (max-width: 768px) {
+
+    .carga {
+        transform: translate(-50%, -50%); 
+        width: 100%;
+        text-align: center;
+    }
+
+
+    .game, .custom-game {
+        min-height: 280px; 
+        height: 40vh;
+
+        .btn-return {
+            top: 15px;
+            left: 15px;
+            padding: 8px 14px;
+            font-size: 0.85rem;
+        }
+
+        .btn-add {
+            top: 15px;
+            right: 15px;
+            padding: 8px;
+
+            img {
+                width: 22px;
+                height: 22px;
+            }
+        }
+    }
+
+    .game-overlay {
+        padding: 20px 15px;
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        .genres .badge {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+        }
+    }
+
+    .content {
+        padding: 0 15px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .info-general,
+    .user-info {
+        padding: 20px 15px;
+        gap: 16px;
+        border-radius: 16px;
+    }
+
+    .info-general {
+        .rating .rating-box.metacritic {
+            padding: 8px 12px;
+            
+            .rating-label { font-size: 0.8rem; }
+            .rating-value { font-size: 1.2rem; }
+        }
+
+        .informacion {
+            //Reducimos las columnas
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            padding: 15px;
+            gap: 12px;
+            border-radius: 12px;
+
+            p { font-size: 0.85rem; }
+            p strong { font-size: 0.75rem; }
+        }
+
+        .description {
+            h3 { font-size: 1.2rem; }
+            p { font-size: 0.95rem; line-height: 1.6; }
+        }
+    }
+
+    .user-info {
+        margin-top: 15px;
+
+        h3 {
+            font-size: 1.2rem;
+            padding-bottom: 10px;
+        }
+
+        p {
+            font-size: 0.9rem;
+        }
+
+        .review {
+            padding: 12px;
+            
+            h4 { font-size: 0.8rem; }
+            p { font-size: 0.9rem; }
+        }
+    }
+}

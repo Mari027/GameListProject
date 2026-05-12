@@ -86,3 +86,40 @@ body {
     color: rgba(255, 255, 255, 0.85) !important;
     line-height: 1.4 !important;
 }
+
+//Responsive
+@media (max-width: 768px) {
+    html,
+    body {
+        // Pasamos a dvh para evitar el salto de fondo cuando se oculta la barra del navegador
+        min-height: 100dvh; 
+    }
+
+    //Ajuste del contenedor
+    #toast-container {
+        position: fixed !important;
+        width: 100% !important;
+        padding: 15px !important;
+        box-sizing: border-box !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+
+    #toast-container > div {
+        //Para que ocupe todo el ancho
+        margin-right: 0 !important; 
+        margin-bottom: 10px !important;
+        width: 100% !important;
+        
+        padding: 14px 15px 14px 45px !important; 
+        border-radius: 12px !important;
+    }
+
+    #toast-container .toast-title {
+        font-size: 1rem !important;
+    }
+
+    #toast-container .toast-message {
+        font-size: 0.9rem !important;
+    }
+}

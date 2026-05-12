@@ -94,9 +94,5 @@ export class Register {
       }
     });
   }
-
-  alertaPrueba(){
-    alert("Clikado")
-  }
 }
 

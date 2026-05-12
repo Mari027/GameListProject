@@ -57,7 +57,7 @@
             <p class="error">{{ errorMsg }}</p>
             }
 
-            <button type="submit" class="btn-submit" (click)="alertaPrueba()"  [disabled]="registerForm.invalid">Sign Up</button>
+            <button type="submit" class="btn-submit" [disabled]="registerForm.invalid">Sign Up</button>
             <p class="link">¿Ya tienes cuenta? <a [href]="['/login']">Inicia Sesión</a></p>
         </form>
     </div>

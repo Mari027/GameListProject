@@ -295,3 +295,119 @@
 
 
 }
+
+//Responsive
+
+//Tablets
+@media (max-width: 1024px) {
+
+    .juegos-catalogo {
+        //3 columnas en vez de 5
+        grid-template-columns: repeat(3, 1fr); 
+    }
+
+    .cabecera {
+        app-search-bar {
+            width: 60%; 
+        }
+    }
+}
+
+//Móvil
+@media (max-width: 768px) {
+    :host {
+        margin-left: 0; 
+        padding: 15px 15px 90px 15px;
+    }
+
+    /* CABECERA: Apilamos el título y el buscador */
+    .cabecera {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 20px;
+
+        h1 {
+            font-size: 1.8rem;
+        }
+
+        app-search-bar {
+            width: 100%; /* El buscador ocupa todo el ancho en móvil */
+        }
+    }
+
+    /* CATÁLOGO: 1 sola columna en vertical */
+    .juegos-catalogo {
+        grid-template-columns: repeat(1, 1fr); 
+        gap: 16px;
+    }
+
+    /* TARJETAS NORMALES */
+    .game-card {
+        height: 220px; /* Reducimos altura para que no ocupen toda la pantalla */
+
+        .texto {
+            padding: 15px;
+            font-size: 15px;
+            
+            button {
+                padding: 6px;
+                img {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+    }
+
+    /* JUEGO DESTACADO */
+    .featured-game {
+        height: 280px; /* Reducimos altura pero sigue siendo más grande que las demás */
+
+        .texto {
+            padding: 20px;
+
+            h3 {
+                font-size: 1.8rem;
+            }
+        }
+    }
+
+    /* ESTADOS DE CARGA Y ERROR */
+    .carga {
+        /* Fix: Añadido translateX para que quede perfectamente centrado en cualquier pantalla */
+        transform: translateX(-50%); 
+        width: 100%;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+    .no-encontrado {
+        padding: 40px 15px;
+        margin: 20px auto;
+
+        h2 { 
+            font-size: 1.6rem; 
+        }
+        
+        p { 
+            font-size: 1rem; 
+        }
+
+        .no-encontrado-img {
+            width: 90px;
+        }
+    }
+
+    /* PAGINACIÓN */
+    .paginado {
+        margin-top: 30px;
+        gap: 10px;
+
+        button:not(:disabled), button:disabled {
+            width: 38px; /* Botones un pelín más pequeños para que no se salgan */
+            height: 38px;
+            font-size: 14px;
+        }
+    }
+}

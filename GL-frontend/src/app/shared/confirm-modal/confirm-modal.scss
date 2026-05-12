@@ -113,3 +113,35 @@
         transform: scale(1) translateY(0); 
     }
 }
+
+//Responsive
+@media (max-width: 768px) {
+    .confirm-container {
+        //dvh para tener en cuenta las barras de nav del móvil
+        height: 100dvh; 
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    .confirm-box {
+        width: 100%;
+        padding: 25px 20px; 
+
+        p {
+            font-size: 1rem; 
+            margin: 0 0 20px 0;
+        }
+    }
+
+    .confirm-actions {
+        //botones al contrario
+        flex-direction: column-reverse;
+        gap: 12px;
+
+        button {
+            width: 100%; 
+            padding: 14px;
+            font-size: 1rem;
+        }
+    }
+}
