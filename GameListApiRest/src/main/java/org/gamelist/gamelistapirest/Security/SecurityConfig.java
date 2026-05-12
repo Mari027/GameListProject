@@ -78,6 +78,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
+        config.addAllowedOrigin("https://game-list-project-green.vercel.app");
         config.addAllowedOrigin("http://localhost:4200"); //Orígenes permitidos
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
