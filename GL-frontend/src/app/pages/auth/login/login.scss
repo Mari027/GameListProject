@@ -13,7 +13,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #121212; // Fondo de respaldo
+    background-color: #0a0a0a; // Fondo de respaldo
 
     display: flex;
     justify-content: center;
@@ -194,5 +194,44 @@
             color: #ffffff;
             text-shadow: 0 0 8px rgba(176, 163, 255, 0.6);
         }
+    }
+}
+
+//Responsive para móvil
+@media (max-width: 768px) {
+    .proyecto {
+        //Centro el logo
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        
+        .logo {
+            width: 30px;
+            height: 30px;
+        }
+
+        .nombre-proyecto {
+            font-size: 1rem;
+        }
+    }
+
+    #login {
+        width: 92%;
+        padding: 40px 24px; 
+    }
+
+    .login-title {
+        font-size: 2rem;
+        margin: 0 0 25px 0;
+    }
+
+    .form-group input {
+        padding: 12px 14px;
+        font-size: 15px;
+    }
+
+    .btn-submit {
+        padding: 14px;
+        font-size: 16px;
     }
 }
