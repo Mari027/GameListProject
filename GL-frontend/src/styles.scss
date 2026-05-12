@@ -8,10 +8,12 @@ body {
     box-sizing: border-box;
     height: 100%;
     min-height: 100vh; //Ocupe todo la página
-     background-color: variables.$background-color;
+    background-color: variables.$background-color;
 
     //Fondo
-    background-image: url('../public/assets/img/fondo.png');
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), 
+        url('../public/assets/img/GameHive-login-BG.png'); //Aplicamos un gradiente a la imagen para que no se empaste con el resto de componente
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -33,6 +35,8 @@ body {
 
 //Contenedor general de los toast
 #toast-container > div {
+
+    //USO de !important --> Para poder ejecutar cambios en el css de la librería
 
     margin-right: 20px !important;
     border-radius: 16px !important;

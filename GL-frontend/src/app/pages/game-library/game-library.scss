@@ -43,8 +43,8 @@
         .busqueda {
             display: flex;
             align-items: center;
-            gap: 12px; 
-            width: 50%; 
+            gap: 12px;
+            width: 50%;
             justify-content: flex-end;
 
             .status-filter {
@@ -67,7 +67,7 @@
                 }
 
                 option {
-                    background: #1e1e1e; 
+                    background: #1e1e1e;
                     color: white;
                 }
             }
@@ -133,11 +133,12 @@
                 top: 16px; //Pegamos los botones arriba
                 z-index: 2; //Los ponemos por encima de los elementos de la tarjeta
 
-                //Cristal
-                background: rgba(255, 255, 255, 0.2);
-                backdrop-filter: blur(4px);
-                border: 1px solid rgba(255, 255, 255, 0.2);
+                //Cristal,
+                background: rgba(0, 0, 0, 0.4);
+                backdrop-filter: blur(8px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
                 border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 
                 padding: 8px;
                 cursor: pointer;
@@ -156,7 +157,7 @@
 
                 &:hover {
                     transform: scale(1.1);
-                    background: rgba(255, 255, 255, 0.25);
+                    background: rgba(255, 255, 255, 0.2);
                 }
             }
 
@@ -248,7 +249,7 @@
 //Tablets
 @media (max-width: 1024px) {
     :host {
-        margin-left: 0; 
+        margin-left: 0;
         padding-top: 100px; //Para evitar que tape la búsqueda
     }
 
@@ -264,7 +265,7 @@
 //Móvil
 @media (max-width: 768px) {
     :host {
-        margin-left: 0; 
+        margin-left: 0;
         padding: 15px 15px 90px 15px; //Para evitar solape con el navbar
     }
 
@@ -291,19 +292,19 @@
 
         .busqueda {
             width: 100%;
-            flex-direction: column; 
-            align-items: stretch; 
+            flex-direction: column;
+            align-items: stretch;
             justify-content: flex-start;
 
             .status-filter {
                 width: 99%;
-                box-sizing: border-box;  //Para evitar que se rompa
+                box-sizing: border-box; //Para evitar que se rompa
             }
 
             app-search-bar {
                 max-width: 100%;
                 width: 100%;
-                box-sizing: border-box; 
+                box-sizing: border-box;
             }
         }
     }
@@ -336,8 +337,13 @@
                     }
                 }
 
-                .btn-borrar { left: 10px; }
-                .btn-editar { right: 10px; }
+                .btn-borrar {
+                    left: 10px;
+                }
+
+                .btn-editar {
+                    right: 10px;
+                }
             }
         }
     }
