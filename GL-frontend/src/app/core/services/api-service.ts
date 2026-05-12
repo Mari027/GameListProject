@@ -12,13 +12,14 @@ import { IUserResponse } from '../interfaces/User/IUserResponse';
 import { IGameCreation } from '../interfaces/UserGames/IGameCreation';
 import { IGameResponseDTO } from '../interfaces/Games/IGameResponseDTO';
 import { IExternalGame } from '../interfaces/ExternalGame/IExternalGame';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
 
-  private apiUrl = 'http://localhost:8080/api/'
+  private apiUrl = environment.apiUrl
 
   constructor(private http: HttpClient) { }
 
