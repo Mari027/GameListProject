@@ -10,9 +10,10 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.util.Date;
 /**
- * Esta clase se encargá de la gestión de los tokens JWT
- * De crearlos, firmarlos, leerlos y validarlos
- * */
+ * Servicio encargado de la gestión interna de los tokens JWT.
+ * Proporciona métodos para la creación, firma, parseo y validación de tokens.
+ * * @author Maria del Carmen F.
+ */
 @Component
 public class JwtService {
 

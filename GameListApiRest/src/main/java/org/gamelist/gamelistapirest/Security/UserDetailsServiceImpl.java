@@ -10,13 +10,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-/**
- * Se encarga de buscar si el usuario existe en la BD
- * */
+
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    /**
+     * Se encarga de buscar si el usuario existe en la BD y recogerlo
+     * */
     // Spring Security llama a este metodo, esto lo hace pasando el username, en mi caso es el email
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

@@ -73,7 +73,6 @@ export class Register {
         localStorage.setItem('role', response.role);
         localStorage.setItem('email', response.email);
         localStorage.setItem('nickname', response.username);
-        console.log("Login correcto", response);
         if (response.role === 'ADMIN') {
           this.router.navigate(['/admin']);
         } else {

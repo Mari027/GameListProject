@@ -4,6 +4,10 @@ import org.gamelist.gamelistapirest.Entities.User;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+/**
+ * Clase encargada de recuperar el usuario autenticado en la petición actual
+ * @author Maria del Carmen F.
+ */
 @Component
 public class AuthUtils {
 

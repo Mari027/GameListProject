@@ -17,8 +17,10 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 /**
- * Intercepta peticiones, las lee, las valida y nos dice que usuario es
- * */
+ * Filtro de autenticación que intercepta cada petición HTTP
+ * para leer y validar el token JWT.
+ * @author Maria del Carmen F.
+ */
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;

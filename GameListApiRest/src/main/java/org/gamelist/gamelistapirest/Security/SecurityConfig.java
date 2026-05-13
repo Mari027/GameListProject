@@ -20,6 +20,12 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+/**
+ * Clase de configuración para la seguridad web de la aplicación.
+ * Define el acceso a endpoints y deshabilita el manejo de sesiones
+ * para aplicar JWT.
+ * @author Maria del Carmen F.
+ */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -63,7 +69,7 @@ public class SecurityConfig {
         return provider;
     }
 
-    // BCrypt es el algoritmo elegido para el hash de las contraseñas
+    // BCrypt es el algoritmo encargado para el hash de las contraseñas
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
